@@ -28,8 +28,8 @@
             </div>
 
             <div class="mt-4">
-                <jet-label for="contact_number" value="Contact_Number" />
-                <jet-input id="contact_number" class="block mt-1 w-full" type="tel" pattern="^(09|\+639)\d{9}$" placeholder="09xxxxxxxxx" required />
+                <jet-label for="contact_number" value="Contact Number" />
+                <jet-input id="contact_number" class="block mt-1 w-full" v-model="form.contact_number" type="tel" pattern="^(09|\+639)\d{9}$" placeholder="09xxxxxxxxx" required />
             </div>
 
             <div class="mt-4">
