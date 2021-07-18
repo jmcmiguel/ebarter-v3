@@ -54,6 +54,27 @@
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" />
                 <jet-input-error :message="form.errors.email" class="mt-2" />
             </div>
+
+            <!-- Contact Number -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="contact_number" value="Contact Number" />
+                <jet-input id="contact_number" type="text" class="mt-1 block w-full" v-model="form.contact_number" />
+                <jet-input-error :message="form.errors.contact_number" class="mt-2" />
+            </div>
+
+            <!-- Current City -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="city" value="Current City" />
+                <jet-input id="city" type="text" class="mt-1 block w-full" v-model="form.city" />
+                <jet-input-error :message="form.errors.city" class="mt-2" />
+            </div>
+
+            <!-- Birthdate -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="birthdate" value="Birthdate" />
+                <jet-input id="birthdate" type="date" class="mt-1 block w-full" v-model="form.birthdate" />
+                <jet-input-error :message="form.errors.birthdate" class="mt-2" />
+            </div>
         </template>
 
         <template #actions>
@@ -97,6 +118,9 @@
                     name: this.user.name,
                     email: this.user.email,
                     photo: null,
+                    contact_number: this.user.contact_number,
+                    city: this.user.city,
+                    birthdate: this.user.birthdate
                 }),
 
                 photoPreview: null,
