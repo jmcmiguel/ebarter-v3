@@ -76,7 +76,7 @@
                 <jet-input-error :message="form.errors.birthdate" class="mt-2" />
             </div>
         </template>
-
+        
         <template #actions>
             <jet-action-message :on="form.recentlySuccessful" class="mr-3">
                 Saved.

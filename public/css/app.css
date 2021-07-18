@@ -1106,6 +1106,14 @@ select {
 	margin-left: auto;
 	margin-right: auto;
 }
+.-mx-3 {
+	margin-left: -0.75rem;
+	margin-right: -0.75rem;
+}
+.mx-4 {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
 .ml-3 {
 	margin-left: 0.75rem;
 }
@@ -1379,6 +1387,21 @@ select {
 	margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
+.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-x-reverse: 0;
+	margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+	margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-x-5 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-x-reverse: 0;
+	margin-right: calc(1.25rem * var(--tw-space-x-reverse));
+	margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-x-reverse: 0;
+	margin-right: calc(0.75rem * var(--tw-space-x-reverse));
+	margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+}
 .overflow-hidden {
 	overflow: hidden;
 }
@@ -1391,6 +1414,9 @@ select {
 .truncate {
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.whitespace-nowrap {
 	white-space: nowrap;
 }
 .rounded-md {
@@ -1920,6 +1946,13 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(17, 24, 39, var(--tw-text-opacity));
 }
+.hover\:text-blue-600:hover {
+	--tw-text-opacity: 1;
+	color: rgba(37, 99, 235, var(--tw-text-opacity));
+}
+.hover\:underline:hover {
+	text-decoration: underline;
+}
 .focus\:z-10:focus {
 	z-index: 10;
 }
@@ -2288,6 +2321,11 @@ select {
 
 	.md\:col-span-1 {
 		grid-column: span 1 / span 1;
+	}
+
+	.md\:my-0 {
+		margin-top: 0px;
+		margin-bottom: 0px;
 	}
 
 	.md\:mt-0 {

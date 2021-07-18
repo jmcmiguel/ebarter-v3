@@ -19303,12 +19303,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Welcome */ "./resources/js/Jetstream/Welcome.vue");
+/* harmony import */ var _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/NavLink */ "./resources/js/Jetstream/NavLink.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
-    Welcome: _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__.default
+    Welcome: _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__.default,
+    JetNavLink: _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_2__.default
   }
 });
 
@@ -21768,9 +21771,9 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 }, " Laravel has wonderful documentation covering every aspect of the framework. Whether you're new to the framework or have previous experience, we recommend reading all of the documentation from beginning to end. "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
   href: "https://laravel.com/docs"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "mt-3 flex items-center text-sm font-semibold text-indigo-700"
+  "class": "mt-3 flex items-center text-sm font-semibold text-green-600"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, "Explore the documentation"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "ml-1 text-indigo-500"
+  "class": "ml-1 text-green-400"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("svg", {
   viewBox: "0 0 20 20",
   fill: "currentColor",
@@ -21806,9 +21809,9 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 }, " Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process. "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
   href: "https://laracasts.com"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "mt-3 flex items-center text-sm font-semibold text-indigo-700"
+  "class": "mt-3 flex items-center text-sm font-semibold text-green-600"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, "Start watching Laracasts"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "ml-1 text-indigo-500"
+  "class": "ml-1 text-green-400"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("svg", {
   viewBox: "0 0 20 20",
   fill: "currentColor",
@@ -23307,33 +23310,130 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  "class": "overflow-y-auto whitespace-nowrap scroll-hidden space-x-5"
+};
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {
-  "class": "font-semibold text-xl text-gray-800 leading-tight"
-}, " Dashboard ", -1
-/* HOISTED */
-);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" All ");
 
-var _hoisted_2 = {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Livestocks ");
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Crops ");
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Dairy ");
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Fish-Farming ");
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Machineries ");
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Others ");
+
+var _hoisted_9 = {
   "class": "py-12"
 };
-var _hoisted_3 = {
+var _hoisted_10 = {
   "class": "max-w-7xl mx-auto sm:px-6 lg:px-8"
 };
-var _hoisted_4 = {
+var _hoisted_11 = {
   "class": "bg-white overflow-hidden shadow-xl sm:rounded-lg"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_jet_nav_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-nav-link");
+
   var _component_welcome = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("welcome");
 
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_app_layout, null, {
     header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_1];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('dashboard'),
+        active: _ctx.route().current('dashboard')
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_2];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('messages'),
+        active: _ctx.route().current('messages')
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_3];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('cart'),
+        active: _ctx.route().current('cart')
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_4];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('cart'),
+        active: _ctx.route().current('cart')
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_5];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('cart'),
+        active: _ctx.route().current('cart')
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_6];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('cart'),
+        active: _ctx.route().current('cart')
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_7];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('cart'),
+        active: _ctx.route().current('cart')
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_8];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"])])];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_welcome)])])])];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_welcome)])])])];
     }),
     _: 1
     /* STABLE */
