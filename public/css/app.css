@@ -1976,6 +1976,10 @@ select {
 	--tw-border-opacity: 1;
 	border-color: rgba(16, 185, 129, var(--tw-border-opacity));
 }
+.focus\:border-green-300:focus {
+	--tw-border-opacity: 1;
+	border-color: rgba(110, 231, 183, var(--tw-border-opacity));
+}
 .focus\:bg-indigo-600:focus {
 	--tw-bg-opacity: 1;
 	background-color: rgba(79, 70, 229, var(--tw-bg-opacity));
@@ -2053,6 +2057,10 @@ select {
 .focus\:ring-green-300:focus {
 	--tw-ring-opacity: 1;
 	--tw-ring-color: rgba(110, 231, 183, var(--tw-ring-opacity));
+}
+.focus\:ring-green-200:focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgba(167, 243, 208, var(--tw-ring-opacity));
 }
 .focus\:ring-opacity-50:focus {
 	--tw-ring-opacity: 0.5;
