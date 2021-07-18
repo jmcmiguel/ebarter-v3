@@ -225,6 +225,22 @@
             JetDropdownLink,
             JetNavLink,
             JetResponsiveNavLink,
+        },
+
+        data() {
+            return {
+                showingNavigationDropdown: false,
+            }
+        },
+        
+        methods:{
+            switchToTeam(team) {
+                this.$inertia.put(route('current-team.update'), {
+                    'team_id': team.id
+                }, {
+                    preserveState: false
+                })
+            },
         }
     }
 </script>

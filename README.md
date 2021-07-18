@@ -1,4 +1,4 @@
-<p align="center"><a href="#" target="_blank"><img src="https://raw.githubusercontent.com/poodzia/ebarter-v3/master/public/img/logo3.png?token=APFT2LPVEM3QXMWHFIPDDTTA6KYCC" width="400"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="public/img/logo3.png" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
