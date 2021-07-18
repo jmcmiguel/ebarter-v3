@@ -22,8 +22,16 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
+    return Inertia::render('Messages');
+})->name('messages');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/cart', function () {
+    return Inertia::render('Cart');
+})->name('cart');

@@ -1,25 +1,52 @@
 <template>
-    <nav class="bg-white border-b border-gray-100">
+    <nav class="p-4 bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
-                        <inertia-link :href="route('dashboard')">
+                        <inertia-link :href="route('welcome')">
                             <jet-application-mark class="block h-9 w-auto" />
                         </inertia-link>
                     </div>
 
-                    <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                            Home
-                        </jet-nav-link>
+                    <!-- Search input on desktop screen -->
+                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
+
+                            <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Search">
+                        </div>
                     </div>
+                    
                 </div>
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
+
+                    <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
+                        <!-- Home -->
+                        <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                            Home
+                        </jet-nav-link>
+
+                        <!-- Messages -->
+                        <jet-nav-link :href="route('messages')" :active="route().current('messages')">
+                            Messages
+                        </jet-nav-link>
+
+                        <!-- Cart -->
+                        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
+                            Cart
+                        </jet-nav-link>
+                    </div>
+
                     <div class="ml-3 relative">
                         <!-- Teams Dropdown -->
                         <jet-dropdown align="right" width="60" v-if="$page.props.jetstream.hasTeamFeatures">
@@ -104,13 +131,27 @@
                                     Profile
                                 </jet-dropdown-link>
 
+                                <jet-dropdown-link :href="route('profile.show')">
+                                    Account Settings
+                                </jet-dropdown-link>
+
                                 <jet-dropdown-link :href="route('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
                                     API Tokens
                                 </jet-dropdown-link>
 
+                                <!-- Trading Management -->
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    Manage Trading
+                                </div>
+
+                                <jet-dropdown-link :href="route('profile.show')">
+                                    Transaction History 
+                                </jet-dropdown-link>
+
+                                <!-- Divider -->
                                 <div class="border-t border-gray-100"></div>
 
-                                <!-- Authentication -->
+                                <!-- Log out -->
                                 <form @submit.prevent="logout">
                                     <jet-dropdown-link as="button">
                                         Log Out
@@ -139,6 +180,14 @@
                 <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                     Home
                 </jet-responsive-nav-link>
+
+                <jet-responsive-nav-link :href="route('messages')" :active="route().current('messages')">
+                    Messages
+                </jet-responsive-nav-link>
+
+                <jet-responsive-nav-link :href="route('cart')" :active="route().current('cart')">
+                    Cart
+                </jet-responsive-nav-link>
             </div>
 
             <!-- Responsive Settings Options -->
@@ -161,6 +210,14 @@
 
                     <jet-responsive-nav-link :href="route('api-tokens.index')" :active="route().current('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
                         API Tokens
+                    </jet-responsive-nav-link>
+
+                    <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
+                        Account Settings
+                    </jet-responsive-nav-link>
+
+                    <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
+                        Transaction History
                     </jet-responsive-nav-link>
 
                     <!-- Authentication -->

@@ -24,13 +24,11 @@
 <script>
     import JetBanner from '@/Jetstream/Banner'
     import NavBar from '../Components/NavBar'
-    import PageHeader from '../Components/PageHeader'
 
     export default {
         components: {
             JetBanner,
             NavBar,
-            PageHeader
         },
 
         methods: {
