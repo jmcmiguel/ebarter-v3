@@ -18,6 +18,21 @@
             </div>
 
             <div class="mt-4">
+                <jet-label for="birthdate" value="Birthdate" />
+                <jet-input id="birthdate" type="date" class="block mt-1 w-full" v-model="form.birthdate" required />
+            </div>
+
+            <div class="mt-4">
+                <jet-label for="city" value="City" />
+                <jet-input id="city" type="text" class="block mt-1 w-full" v-model="form.city" required />
+            </div>
+
+            <div class="mt-4">
+                <jet-label for="contact_number" value="Contact_Number" />
+                <jet-input id="contact_number" class="block mt-1 w-full" type="tel" pattern="^(09|\+639)\d{9}$" placeholder="09xxxxxxxxx" required />
+            </div>
+
+            <div class="mt-4">
                 <jet-label for="password" value="Password" />
                 <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
             </div>
@@ -77,6 +92,9 @@
                 form: this.$inertia.form({
                     name: '',
                     email: '',
+                    birthdate: '',
+                    city: '',
+                    contact_number: '',
                     password: '',
                     password_confirmation: '',
                     terms: false,

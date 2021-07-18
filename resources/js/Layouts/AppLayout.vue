@@ -30,11 +30,5 @@
             JetBanner,
             NavBar,
         },
-
-        methods: {
-            logout() {
-                this.$inertia.post(route('logout'));
-            },
-        }
     }
 </script>
