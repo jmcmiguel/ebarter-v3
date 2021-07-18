@@ -39,6 +39,10 @@
                 </div>
             </div>
         </div>
+
+        <!-- Floating Action Button -->
+        <fab/>
+
     </app-layout>
 </template>
 
@@ -46,12 +50,14 @@
     import AppLayout from '@/Layouts/AppLayout'
     import Welcome from '@/Jetstream/Welcome'
     import JetNavLink from '@/Jetstream/NavLink'
+    import Fab from '../Components/Fab'
 
     export default {
         components: {
             AppLayout,
             Welcome,
-            JetNavLink
+            JetNavLink,
+            Fab,
         },
     }
 </script>
