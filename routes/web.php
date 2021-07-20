@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('post', PostController::class);
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
     return Inertia::render('Messages');

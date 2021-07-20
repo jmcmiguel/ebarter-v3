@@ -65,7 +65,7 @@
                                 ref="post_title"
                                 v-model="form.post_title"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions" />
+                                @keyup.enter="createPost" />
                     <jet-input-error :message="form.errors.post_title" class="mt-2" />
                 </div>
 
@@ -76,7 +76,7 @@
                                 ref="post_desc"
                                 v-model="form.post_desc"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions" />
+                                @keyup.enter="createPost" />
                     <jet-input-error :message="form.errors.post_desc" class="mt-2" />
                 </div>
 
@@ -87,7 +87,7 @@
                                 ref="prod_name"
                                 v-model="form.prod_name"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions" />
+                                @keyup.enter="createPost" />
                     <jet-input-error :message="form.errors.prod_name" class="mt-2" />
                 </div>
 
@@ -98,7 +98,7 @@
                                 ref="prod_qty"
                                 v-model="form.prod_qty"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions" />
+                                @keyup.enter="createPost" />
                     <jet-input-error :message="form.errors.post_desc" class="mt-2" />
                 </div>
 
@@ -109,7 +109,7 @@
                                 ref="qty_type"
                                 v-model="form.qty_type"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions">
+                                @keyup.enter="createPost">
 
                         <option disabled value="" selected>Select qty type here</option>
                         <option v-for="(option, index) in qtyOptions" v-bind:value="option.value" :key="index">
@@ -126,7 +126,7 @@
                                 ref="date_produced"
                                 v-model="form.date_produced"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions" />
+                                @keyup.enter="createPost" />
                     <jet-input-error :message="form.errors.date_produced" class="mt-2" />
                 </div>
                 
@@ -137,7 +137,7 @@
                                 ref="date_expired"
                                 v-model="form.date_expired"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions" />
+                                @keyup.enter="createPost" />
                     <jet-input-error :message="form.errors.date_expired" class="mt-2" />
                 </div>
                 
@@ -148,7 +148,7 @@
                                 ref=""
                                 v-model="form.category"
                                 required
-                                @keyup.enter="logoutOtherBrowserSessions">
+                                @keyup.enter="createPost">
 
                         <option disabled value="" selected>Select category here</option>
                         <option v-for="(option, index) in categoryOptions" v-bind:value="option.value" :key="index">
@@ -156,6 +156,17 @@
                         </option>
                     </select>
                     <jet-input-error :message="form.errors.category" class="mt-2" />
+                </div>
+
+                <div class="mt-4 flex flex-col justify-center">
+                    <jet-label for="pref_prod" value="Preferred Product" />
+                    <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type preferred product to receive"
+                                id="pref_prod"
+                                ref="pref_prod"
+                                v-model="form.pref_prod"
+                                required
+                                @keyup.enter="createPost" />
+                    <jet-input-error :message="form.errors.pref_prod" class="mt-2" />
                 </div>
 
                 <div class="mt-4 flex flex-col justify-center">
@@ -168,7 +179,7 @@
                         Cancel
                     </jet-secondary-button>
 
-                    <jet-button class="ml-2" @click="logoutOtherBrowserSessions" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <jet-button class="ml-2" @click="createPost" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Post
                     </jet-button>
                 </template>
@@ -209,14 +220,23 @@
             JetLabel,
             UploadImages
         },
+
+        props: ['data', 'errors'],
         
         data() {
             return {
                 showingPostModal: false,
                 
                 form: this.$inertia.form({
-                    category: 'Select category here',
-                    qty_type: 'Select qty type here',
+                    post_title: null,
+                    post_desc: null,
+                    prod_name: null,
+                    prod_qty: null,
+                    category: null,
+                    qty_type: null,
+                    date_produced: null,
+                    date_expired: null,
+                    pref_prod: null
                 }),
 
                 categoryOptions: [
@@ -250,10 +270,10 @@
 
             },
 
-            logoutOtherBrowserSessions() {
-                this.form.delete(route('other-browser-sessions.destroy'), {
+            createPost() {
+                this.form.post(route('post.store'), {
                     preserveScroll: true,
-                    onSuccess: () => this.closeModal(),
+                    onSuccess: () => this.closeAddPostModal(),
                     onError: () => this.$refs.post_title.focus(),
                     onFinish: () => this.form.reset(),
                 })
