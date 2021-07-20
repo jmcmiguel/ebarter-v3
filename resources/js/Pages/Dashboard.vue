@@ -157,6 +157,10 @@
                     </select>
                     <jet-input-error :message="form.errors.category" class="mt-2" />
                 </div>
+
+                <div class="mt-4 flex flex-col justify-center">
+                    <upload-images @change="handleImages" :max="10" />
+                </div>
             </template>
 
             <template #footer>
@@ -187,6 +191,7 @@
     import TextArea from '../Components/TextArea'
     import Select from '../Components/Select'
     import JetLabel from '@/Jetstream/Label'
+    import UploadImages from 'vue-upload-drop-images'
 
     export default {
         components: {
@@ -201,7 +206,8 @@
             JetSecondaryButton,
             TextArea,
             Select,
-            JetLabel
+            JetLabel,
+            UploadImages
         },
         
         data() {
@@ -252,6 +258,10 @@
                     onFinish: () => this.form.reset(),
                 })
             },
+
+            handleImages(imageFiles) {
+                console.log(imageFiles)
+            }
         }
     }
 </script>
