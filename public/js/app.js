@@ -19450,7 +19450,8 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_12___default()((filepond_pl
         qty_type: null,
         date_produced: null,
         date_expired: null,
-        pref_prod: null
+        pref_prod: null,
+        postimg_filepath: []
       }),
       categoryOptions: [{
         text: 'Crops',
@@ -19494,6 +19495,9 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_12___default()((filepond_pl
     };
   },
   methods: {
+    logFilePath: function logFilePath(data) {
+      this.form.postimg_filepath.push(data);
+    },
     showAddPostModal: function showAddPostModal() {
       var _this = this;
 
@@ -23693,10 +23697,13 @@ var _hoisted_25 = {
 var _hoisted_26 = {
   "class": "mt-4 flex flex-col justify-center"
 };
+var _hoisted_27 = {
+  "class": "mt-4 flex flex-col justify-center"
+};
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ");
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ");
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Post ");
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Post ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_jet_nav_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-nav-link");
@@ -24049,6 +24056,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 headers: {
                   'X-CSRF-TOKEN': $data.csrfToken
                 },
+                onload: function onload(response) {
+                  $options.logFilePath(response);
+                },
                 withCredentials: false
               },
               revert: {
@@ -24064,19 +24074,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             onInit: $options.handleFilePondInit
           }, null, 8
           /* PROPS */
-          , ["server", "files", "onInit"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input_error, {
-            message: $data.form.errors.pref_prod,
-            "class": "mt-2"
+          , ["server", "files", "onInit"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
+            type: "hidden",
+            id: "postimg_filepath",
+            ref: "postimg_filepath",
+            modelValue: $data.form.postimg_filepath,
+            "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+              return $data.form.postimg_filepath = $event;
+            })
           }, null, 8
           /* PROPS */
-          , ["message"])])];
+          , ["modelValue"])])];
         }),
         footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_secondary_button, {
             onClick: $options.closeAddPostModal
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_27];
+              return [_hoisted_28];
             }),
             _: 1
             /* STABLE */
@@ -24091,7 +24106,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             disabled: $data.form.processing
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_28];
+              return [_hoisted_29];
             }),
             _: 1
             /* STABLE */

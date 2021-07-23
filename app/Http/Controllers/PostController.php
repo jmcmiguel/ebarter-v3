@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\PostImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,7 +40,7 @@ class PostController extends Controller
             'pref_prod' => ['required'],
         ])->validate();
 
-        Post::create([
+        $newPost = Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->post_title,
             'description' => $request->post_desc,
@@ -53,6 +54,20 @@ class PostController extends Controller
             'views' => 0,
             'preferred_prod' => $request->pref_prod,
         ]);
+
+        // check if images are empty
+        if($request->filled('postimg_filepath')){
+
+            $imgPaths = $request->postimg_filepath;
+            
+            foreach($imgPaths as $imgPath){
+                PostImage::create([
+                    'post_image_path' => $imgPath,
+                    'post_id' => $newPost->id,
+                ]);
+            }
+
+        }
 
         $request->session()->flash('flash.bannerId', uniqid());
         $request->session()->flash('flash.banner', 'New Post Created!');

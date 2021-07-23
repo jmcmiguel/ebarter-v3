@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PostImage;
+use Inertia\Inertia;
 
 class PostImageController extends Controller
 {
@@ -27,11 +28,11 @@ class PostImageController extends Controller
             $file = $request->file('postimg');
             $filename = $file->getClientOriginalName();
             $folder = uniqid() . '-' . now()->timestamp;
-            $file->storeAs('postimgs/' . $folder , $filename);
-
-            return $folder;
+            $file->storeAs('postimgs/tmp/' . $folder , $filename);
+            
+            return 'postimgs/tmp/' . $folder . '/' . $filename;
         }
-
+        
         return '';
     }
 
@@ -43,8 +44,8 @@ class PostImageController extends Controller
     public function revert(Request $request)
     {
         $filePath = $request->getContent();
-        \Storage::deleteDirectory('app/postimgs' . $filePath);
-        return 'deleted' . storage_path('app/postimgs/' . $filePath);
+        \Storage::deleteDirectory('app/postimgs/tmp/' . $filePath);
+        return 'deleted' . storage_path('app/postimgs/tmp/' . $filePath);
 
     }
   

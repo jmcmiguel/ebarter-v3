@@ -176,6 +176,9 @@
                                     headers: {
                                         'X-CSRF-TOKEN': csrfToken
                                     },
+                                    onload: (response) => {
+                                        logFilePath(response)
+                                    },
                                     withCredentials: false
                                 },
                                 revert: {
@@ -190,7 +193,13 @@
                         v-bind:files="myFiles"
                         v-on:init="handleFilePondInit"
                         />
-                        <jet-input-error :message="form.errors.pref_prod" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-input type="hidden"
+                                    id="postimg_filepath"
+                                    ref="postimg_filepath"
+                                    v-model="form.postimg_filepath" />
                     </div>
             </template>
 
@@ -235,6 +244,7 @@
     );
 
     export default {
+
         components: {
             AppLayout,
             Welcome,
@@ -269,6 +279,7 @@
                     date_produced: null,
                     date_expired: null,
                     pref_prod: null,
+                    postimg_filepath: [],
                 }),
 
                 categoryOptions: [
@@ -294,12 +305,16 @@
         },
 
         methods:{
-            showAddPostModal: function () {
+            logFilePath(data){
+                this.form.postimg_filepath.push(data)
+            },
+            
+            showAddPostModal() {
                 this.showingPostModal = true
                 setTimeout(() => this.$refs.post_title.focus(), 250)
             },
 
-            closeAddPostModal: function () {
+            closeAddPostModal() {
                 this.showingPostModal = false
                 this.form.reset()
             },
