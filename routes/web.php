@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PostImageController;
 use App\Http\Controllers\PostController;
 
 /*
@@ -29,8 +30,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('post', PostController::class);
+    Route::post('postImg/process', [PostImageController::class, 'store']);
+    Route::post('postImg/revert', [PostImageController::class, 'revert']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {

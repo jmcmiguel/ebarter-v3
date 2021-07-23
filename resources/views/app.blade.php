@@ -16,6 +16,9 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
+
+        <!-- CSRF TOKEN -->
+        <script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
     </head>
     <body class="font-sans antialiased">
         @inertia

@@ -26,6 +26,9 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
-        "vue-upload-drop-images": "^1.0.7"
+        "filepond": "^4.28.2",
+        "filepond-plugin-file-validate-type": "^1.2.6",
+        "filepond-plugin-image-preview": "^4.6.7",
+        "vue-filepond": "^7.0.0"
     }
 }

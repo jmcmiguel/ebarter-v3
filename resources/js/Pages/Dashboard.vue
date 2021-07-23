@@ -57,121 +57,141 @@
 
             <template #content>
                 Please enter all the details required to post product
-            
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="post_title" value="Post Title" />
-                    <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type post title here"
-                                id="post_title"
-                                ref="post_title"
-                                v-model="form.post_title"
-                                required
-                                @keyup.enter="createPost" />
-                    <jet-input-error :message="form.errors.post_title" class="mt-2" />
-                </div>
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="post_title" value="Post Title" />
+                        <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type post title here"
+                                    id="post_title"
+                                    ref="post_title"
+                                    v-model="form.post_title"
+                                    required />
+                        <jet-input-error :message="form.errors.post_title" class="mt-2" />
+                    </div>
 
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="post_desc" value="Post Description" />
-                    <text-area rows="5" class="mt-1 block w-3/4" placeholder="Type post description here"
-                                id="post_desc"
-                                ref="post_desc"
-                                v-model="form.post_desc"
-                                required
-                                @keyup.enter="createPost" />
-                    <jet-input-error :message="form.errors.post_desc" class="mt-2" />
-                </div>
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="post_desc" value="Post Description" />
+                        <text-area rows="5" class="mt-1 block w-3/4" placeholder="Type post description here"
+                                    id="post_desc"
+                                    ref="post_desc"
+                                    v-model="form.post_desc"
+                                    required />
+                        <jet-input-error :message="form.errors.post_desc" class="mt-2" />
+                    </div>
 
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="prod_name" value="Product Name" />
-                    <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type product name here"
-                                id="prod_name"
-                                ref="prod_name"
-                                v-model="form.prod_name"
-                                required
-                                @keyup.enter="createPost" />
-                    <jet-input-error :message="form.errors.prod_name" class="mt-2" />
-                </div>
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="prod_name" value="Product Name" />
+                        <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type product name here"
+                                    id="prod_name"
+                                    ref="prod_name"
+                                    v-model="form.prod_name"
+                                    required />
+                        <jet-input-error :message="form.errors.prod_name" class="mt-2" />
+                    </div>
 
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="prod_qty" value="Product Quantity" />
-                    <jet-input type="number" class="mt-1 block w-3/4" placeholder="Type product quantity here"
-                                id="prod_qty"
-                                ref="prod_qty"
-                                v-model="form.prod_qty"
-                                required
-                                @keyup.enter="createPost" />
-                    <jet-input-error :message="form.errors.post_desc" class="mt-2" />
-                </div>
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="prod_qty" value="Product Quantity" />
+                        <jet-input type="number" class="mt-1 block w-3/4" placeholder="Type product quantity here"
+                                    id="prod_qty"
+                                    ref="prod_qty"
+                                    v-model="form.prod_qty"
+                                    required />
+                        <jet-input-error :message="form.errors.prod_qty" class="mt-2" />
+                    </div>
 
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="qty_type" value="Quantity Type" />
-                    <select class="mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
-                                id="qty_type"
-                                ref="qty_type"
-                                v-model="form.qty_type"
-                                required
-                                @keyup.enter="createPost">
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="qty_type" value="Quantity Type" />
+                        <select class="mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+                                    id="qty_type"
+                                    ref="qty_type"
+                                    v-model="form.qty_type"
+                                    required >
 
-                        <option disabled value="" selected>Select qty type here</option>
-                        <option v-for="(option, index) in qtyOptions" v-bind:value="option.value" :key="index">
-                            {{option.text}}
-                        </option>
-                    </select>
-                    <jet-input-error :message="form.errors.qty_type" class="mt-2" />
-                </div>
+                            <option disabled value="" selected>Select qty type here</option>
+                            <option v-for="(option, index) in qtyOptions" v-bind:value="option.value" :key="index">
+                                {{option.text}}
+                            </option>
+                        </select>
+                        <jet-input-error :message="form.errors.qty_type" class="mt-2" />
+                    </div>
 
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="date_produced" value="Date Produced" />
-                    <jet-input type="date" class="mt-1 block w-3/4" placeholder="Choose the date when the product was produced"
-                                id="date_produced"
-                                ref="date_produced"
-                                v-model="form.date_produced"
-                                required
-                                @keyup.enter="createPost" />
-                    <jet-input-error :message="form.errors.date_produced" class="mt-2" />
-                </div>
-                
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="date_expired" value="Estimated Expiree Date" />
-                    <jet-input type="date" class="mt-1 block w-3/4" placeholder="Choose the date when the product was produced"
-                                id="date_expired"
-                                ref="date_expired"
-                                v-model="form.date_expired"
-                                required
-                                @keyup.enter="createPost" />
-                    <jet-input-error :message="form.errors.date_expired" class="mt-2" />
-                </div>
-                
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="category" value="Category" />
-                    <select class="mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
-                                id="category"
-                                ref=""
-                                v-model="form.category"
-                                required
-                                @keyup.enter="createPost">
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="date_produced" value="Date Produced" />
+                        <jet-input type="date" class="mt-1 block w-3/4" placeholder="Choose the date when the product was produced"
+                                    id="date_produced"
+                                    ref="date_produced"
+                                    v-model="form.date_produced"
+                                    required />
+                        <jet-input-error :message="form.errors.date_produced" class="mt-2" />
+                    </div>
+                    
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="date_expired" value="Estimated Expiree Date" />
+                        <jet-input type="date" class="mt-1 block w-3/4" placeholder="Choose the date when the product was produced"
+                                    id="date_expired"
+                                    ref="date_expired"
+                                    v-model="form.date_expired"
+                                    required />
+                        <jet-input-error :message="form.errors.date_expired" class="mt-2" />
+                    </div>
+                    
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="category" value="Category" />
+                        <select class="mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+                                    id="category"
+                                    ref=""
+                                    v-model="form.category"
+                                    required>
 
-                        <option disabled value="" selected>Select category here</option>
-                        <option v-for="(option, index) in categoryOptions" v-bind:value="option.value" :key="index">
-                            {{ option.text }}
-                        </option>
-                    </select>
-                    <jet-input-error :message="form.errors.category" class="mt-2" />
-                </div>
+                            <option disabled value="" selected>Select category here</option>
+                            <option v-for="(option, index) in categoryOptions" v-bind:value="option.value" :key="index">
+                                {{ option.text }}
+                            </option>
+                        </select>
+                        <jet-input-error :message="form.errors.category" class="mt-2" />
+                    </div>
 
-                <div class="mt-4 flex flex-col justify-center">
-                    <jet-label for="pref_prod" value="Preferred Product" />
-                    <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type preferred product to receive"
-                                id="pref_prod"
-                                ref="pref_prod"
-                                v-model="form.pref_prod"
-                                required
-                                @keyup.enter="createPost" />
-                    <jet-input-error :message="form.errors.pref_prod" class="mt-2" />
-                </div>
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="pref_prod" value="Preferred Product" />
+                        <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type preferred product to receive"
+                                    id="pref_prod"
+                                    ref="pref_prod"
+                                    v-model="form.pref_prod"
+                                    required />
+                        <jet-input-error :message="form.errors.pref_prod" class="mt-2" />
+                    </div>
 
-                <div class="mt-4 flex flex-col justify-center">
-                    <upload-images @change="handleImages" :max="10" />
-                </div>
+                    <div class="mt-4 flex flex-col justify-center">
+                        <jet-label value="Product Images" />
+                        <file-pond
+                            name="postimg"
+                            ref="pond"
+                            label-idle="Drop files here or <span class='filepond--label-action'>Browse</span>"
+                            v-bind:allow-multiple="true"
+                            accepted-file-types="image/jpeg, image/png,"
+                            v-bind:server="{
+                                url: '/postImg',
+                                timeout: 7000,
+                                process: {
+                                    url: '/process',
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': csrfToken
+                                    },
+                                    withCredentials: false
+                                },
+                                revert: {
+                                    url: '/revert',
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': csrfToken,
+                                        '_method': 'DELETE'
+                                    }
+                                }
+                            }"
+                        v-bind:files="myFiles"
+                        v-on:init="handleFilePondInit"
+                        />
+                        <jet-input-error :message="form.errors.pref_prod" class="mt-2" />
+                    </div>
             </template>
 
             <template #footer>
@@ -202,7 +222,17 @@
     import TextArea from '../Components/TextArea'
     import Select from '../Components/Select'
     import JetLabel from '@/Jetstream/Label'
-    import UploadImages from 'vue-upload-drop-images'
+    import vueFilePond from "vue-filepond";
+    import "filepond/dist/filepond.min.css";
+    import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+    import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+    import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+
+    // Create FilePond Component    
+    const FilePond = vueFilePond(
+        FilePondPluginFileValidateType,
+        FilePondPluginImagePreview
+    );
 
     export default {
         components: {
@@ -218,7 +248,7 @@
             TextArea,
             Select,
             JetLabel,
-            UploadImages
+            FilePond
         },
 
         props: ['data', 'errors'],
@@ -226,7 +256,9 @@
         data() {
             return {
                 showingPostModal: false,
-                
+
+                csrfToken: window.Laravel.csrfToken,
+
                 form: this.$inertia.form({
                     post_title: null,
                     post_desc: null,
@@ -236,7 +268,7 @@
                     qty_type: null,
                     date_produced: null,
                     date_expired: null,
-                    pref_prod: null
+                    pref_prod: null,
                 }),
 
                 categoryOptions: [
@@ -255,22 +287,24 @@
                 { text: 'Sack', value: 'categ-4' },
                 { text: 'Truck', value: 'categ-5' },
                 { text: 'Piece', value: 'categ-6' },
-                ]
+                ],
+
+                myFiles: []
             }
         },
 
         methods:{
-            showAddPostModal() {
+            showAddPostModal: function () {
                 this.showingPostModal = true
                 setTimeout(() => this.$refs.post_title.focus(), 250)
             },
 
-            closeAddPostModal() {
+            closeAddPostModal: function () {
                 this.showingPostModal = false
-
+                this.form.reset()
             },
 
-            createPost() {
+            createPost: function () {
                 this.form.post(route('post.store'), {
                     preserveScroll: true,
                     onSuccess: () => this.closeAddPostModal(),
@@ -279,9 +313,11 @@
                 })
             },
 
-            handleImages(imageFiles) {
-                console.log(imageFiles)
-            }
-        }
+            handleFilePondInit: function () {
+                console.log("FilePond has initialized");
+                // FilePond instance methods are available on `this.$refs.pond`
+            },
+
+        },
     }
 </script>
