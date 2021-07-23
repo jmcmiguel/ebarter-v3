@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -39,7 +40,7 @@ class PostController extends Controller
         ])->validate();
 
         Post::create([
-            'user_id' => 01,
+            'user_id' => Auth::user()->id,
             'title' => $request->post_title,
             'description' => $request->post_desc,
             'prod_name' => $request->post_desc,
