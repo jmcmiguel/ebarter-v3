@@ -53,6 +53,18 @@
             message() {
                 return this.$page.props.jetstream.flash?.banner || ''
             },
+
+            id() {
+                return this.$page.props.jetstream.flash?.bannerId || null
+            }
+        },
+
+        watch: {
+            id(current, old) {
+                if (current !== old) {
+                this.show = true;
+                }
+            }
         }
     }
 </script>

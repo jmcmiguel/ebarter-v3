@@ -18164,6 +18164,18 @@ __webpack_require__.r(__webpack_exports__);
       var _this$$page$props$jet2;
 
       return ((_this$$page$props$jet2 = this.$page.props.jetstream.flash) === null || _this$$page$props$jet2 === void 0 ? void 0 : _this$$page$props$jet2.banner) || '';
+    },
+    id: function id() {
+      var _this$$page$props$jet3;
+
+      return ((_this$$page$props$jet3 = this.$page.props.jetstream.flash) === null || _this$$page$props$jet3 === void 0 ? void 0 : _this$$page$props$jet3.bannerId) || null;
+    }
+  },
+  watch: {
+    id: function id(current, old) {
+      if (current !== old) {
+        this.show = true;
+      }
     }
   }
 });

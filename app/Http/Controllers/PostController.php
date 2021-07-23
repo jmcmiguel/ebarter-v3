@@ -54,6 +54,7 @@ class PostController extends Controller
             'preferred_prod' => $request->pref_prod,
         ]);
 
+        $request->session()->flash('flash.bannerId', uniqid());
         $request->session()->flash('flash.banner', 'New Post Created!');
         $request->session()->flash('flash.bannerStyle', 'success');
 
