@@ -59,7 +59,7 @@
                 Please enter all the details required to post product
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="post_title" value="Post Title" />
-                        <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type post title here"
+                        <jet-input type="text" class="mt-1 block w-full" placeholder="Type post title here"
                                     id="post_title"
                                     ref="post_title"
                                     v-model="form.post_title"
@@ -69,7 +69,7 @@
 
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="post_desc" value="Post Description" />
-                        <text-area rows="5" class="mt-1 block w-3/4" placeholder="Type post description here"
+                        <text-area rows="5" class="mt-1 block w-full" placeholder="Type post description here"
                                     id="post_desc"
                                     ref="post_desc"
                                     v-model="form.post_desc"
@@ -79,7 +79,7 @@
 
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="prod_name" value="Product Name" />
-                        <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type product name here"
+                        <jet-input type="text" class="mt-1 block w-full" placeholder="Type product name here"
                                     id="prod_name"
                                     ref="prod_name"
                                     v-model="form.prod_name"
@@ -89,7 +89,7 @@
 
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="prod_qty" value="Product Quantity" />
-                        <jet-input type="number" class="mt-1 block w-3/4" placeholder="Type product quantity here"
+                        <jet-input type="number" class="mt-1 block w-full" placeholder="Type product quantity here"
                                     id="prod_qty"
                                     ref="prod_qty"
                                     v-model="form.prod_qty"
@@ -99,7 +99,7 @@
 
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="qty_type" value="Quantity Type" />
-                        <select class="mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+                        <select class="mt-1 block w-full border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
                                     id="qty_type"
                                     ref="qty_type"
                                     v-model="form.qty_type"
@@ -115,7 +115,7 @@
 
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="date_produced" value="Date Produced" />
-                        <jet-input type="date" class="mt-1 block w-3/4" placeholder="Choose the date when the product was produced"
+                        <jet-input type="date" class="mt-1 block w-full" placeholder="Choose the date when the product was produced"
                                     id="date_produced"
                                     ref="date_produced"
                                     v-model="form.date_produced"
@@ -125,7 +125,7 @@
                     
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="date_expired" value="Estimated Expiree Date" />
-                        <jet-input type="date" class="mt-1 block w-3/4" placeholder="Choose the date when the product was produced"
+                        <jet-input type="date" class="mt-1 block w-full" placeholder="Choose the date when the product was produced"
                                     id="date_expired"
                                     ref="date_expired"
                                     v-model="form.date_expired"
@@ -135,7 +135,7 @@
                     
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="category" value="Category" />
-                        <select class="mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+                        <select class="mt-1 block w-full border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
                                     id="category"
                                     ref=""
                                     v-model="form.category"
@@ -151,7 +151,7 @@
 
                     <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="pref_prod" value="Preferred Product" />
-                        <jet-input type="text" class="mt-1 block w-3/4" placeholder="Type preferred product to receive"
+                        <jet-input type="text" class="mt-1 block w-full" placeholder="Type preferred product to receive"
                                     id="pref_prod"
                                     ref="pref_prod"
                                     v-model="form.pref_prod"

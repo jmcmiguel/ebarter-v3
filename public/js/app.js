@@ -23843,7 +23843,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: "Post Title"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
             type: "text",
-            "class": "mt-1 block w-3/4",
+            "class": "mt-1 block w-full",
             placeholder: "Type post title here",
             id: "post_title",
             ref: "post_title",
@@ -23864,7 +23864,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: "Post Description"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_text_area, {
             rows: "5",
-            "class": "mt-1 block w-3/4",
+            "class": "mt-1 block w-full",
             placeholder: "Type post description here",
             id: "post_desc",
             ref: "post_desc",
@@ -23885,7 +23885,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: "Product Name"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
             type: "text",
-            "class": "mt-1 block w-3/4",
+            "class": "mt-1 block w-full",
             placeholder: "Type product name here",
             id: "prod_name",
             ref: "prod_name",
@@ -23906,7 +23906,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: "Product Quantity"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
             type: "number",
-            "class": "mt-1 block w-3/4",
+            "class": "mt-1 block w-full",
             placeholder: "Type product quantity here",
             id: "prod_qty",
             ref: "prod_qty",
@@ -23926,7 +23926,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "for": "qty_type",
             value: "Quantity Type"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
-            "class": "mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm",
+            "class": "mt-1 block w-full border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm",
             id: "qty_type",
             ref: "qty_type",
             "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
@@ -23954,7 +23954,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: "Date Produced"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
             type: "date",
-            "class": "mt-1 block w-3/4",
+            "class": "mt-1 block w-full",
             placeholder: "Choose the date when the product was produced",
             id: "date_produced",
             ref: "date_produced",
@@ -23975,7 +23975,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: "Estimated Expiree Date"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
             type: "date",
-            "class": "mt-1 block w-3/4",
+            "class": "mt-1 block w-full",
             placeholder: "Choose the date when the product was produced",
             id: "date_expired",
             ref: "date_expired",
@@ -23995,7 +23995,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "for": "category",
             value: "Category"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
-            "class": "mt-1 block w-3/4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm",
+            "class": "mt-1 block w-full border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm",
             id: "category",
             ref: "",
             "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
@@ -24023,7 +24023,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: "Preferred Product"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
             type: "text",
-            "class": "mt-1 block w-3/4",
+            "class": "mt-1 block w-full",
             placeholder: "Type preferred product to receive",
             id: "pref_prod",
             ref: "pref_prod",
