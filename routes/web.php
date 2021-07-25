@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     
-    $posts = Post::orderBy('id', 'desc')->paginate(10);
+    $posts = Post::orderBy('id', 'desc')->paginate(12);
 
     return Inertia::render('Dashboard', [
         'posts' => $posts
