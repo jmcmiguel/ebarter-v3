@@ -41,22 +41,23 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'post_title' => ['required'],
-            'post_desc' => ['required'],
-            'prod_name' => ['required'],
+            'post_title' => ['required', 'string'],
+            'post_desc' => ['required', 'string'],
+            'prod_name' => ['required', 'string'],
             'prod_qty' => ['required','numeric','gt:0'],
-            'category' => ['required'],
-            'qty_type' => ['required'],
+            'category' => ['required', 'string'],
+            'qty_type' => ['required', 'string'],
             'date_produced' => ['required','date','after_or_equal:yesterday'], // only accept dates after today
             'date_expired' => ['required','date','after_or_equal:date_produced'],
-            'pref_prod' => ['required'],
+            'pref_prod' => ['required', 'string'],
+            'est_price' => ['required', 'numeric'],
         ])->validate();
 
         $newPost = Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->post_title,
             'description' => $request->post_desc,
-            'prod_name' => $request->post_desc,
+            'prod_name' => $request->prod_name,
             'prod_qty' => $request->prod_qty,
             'qty_type' => $request->qty_type,
             'date_produced' => $request->date_produced,
@@ -65,6 +66,7 @@ class PostController extends Controller
             'category' => $request->category,
             'views' => 0,
             'preferred_prod' => $request->pref_prod,
+            'est_price' => $request->est_price,
         ]);
 
         // check if images are empty

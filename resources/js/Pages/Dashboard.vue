@@ -39,11 +39,14 @@
                 </div>
             </div>
         </div>
+        
+        <div class="container mx-auto p-6">
+            <post-card v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
+                        :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
+                        :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
+                        :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
+        </div>
 
-        <post-card v-for="post in posts" :key="post.id" :title="post.title" :description="post.description" 
-                    price="6969" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
-                    :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
-                    :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
 
 
         <!-- Floating Action Button -->
@@ -120,6 +123,16 @@
                     </div>
 
                     <div class="mt-4 flex flex-col justify-center">
+                        <jet-label for="est_price" value="Estimated Price" />
+                        <jet-input type="number" class="mt-1 block w-full" placeholder="Type estimated product price"
+                                    id="est_price"
+                                    ref="est_price"
+                                    v-model="form.est_price"
+                                    required />
+                        <jet-input-error :message="form.errors.est_price" class="mt-2" />
+                    </div>
+                    
+                    <div class="mt-4 flex flex-col justify-center">
                         <jet-label for="date_produced" value="Date Produced" />
                         <jet-input type="date" class="mt-1 block w-full" placeholder="Choose the date when the product was produced"
                                     id="date_produced"
@@ -143,7 +156,7 @@
                         <jet-label for="category" value="Category" />
                         <select class="mt-1 block w-full border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
                                     id="category"
-                                    ref=""
+                                    ref="category"
                                     v-model="form.category"
                                     required>
 
@@ -292,6 +305,7 @@
                     date_produced: null,
                     date_expired: null,
                     pref_prod: null,
+                    est_price: null,
                     postimg_filepath: [],
                 }),
 

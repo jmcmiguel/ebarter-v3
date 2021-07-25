@@ -28,9 +28,9 @@ class PostImageController extends Controller
             $file = $request->file('postimg');
             $filename = $file->getClientOriginalName();
             $folder = uniqid() . '-' . now()->timestamp;
-            $file->storeAs('postimgs/tmp/' . $folder , $filename);
+            $file->storeAs('public/postimgs/' . $folder , $filename);
             
-            return 'postimgs/tmp/' . $folder . '/' . $filename;
+            return 'postimgs/' . $folder . '/' . $filename;
         }
         
         return '';

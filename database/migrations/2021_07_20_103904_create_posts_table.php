@@ -20,11 +20,12 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('prod_name');
-            $table->integer('prod_qty')->nullable();
+            $table->string('status');
+            $table->double('est_price');
+            $table->double('prod_qty')->nullable();
             $table->string('qty_type')->nullable();
             $table->date('date_produced')->nullable();
             $table->date('date_expiree')->nullable();
-            $table->string('status');
             $table->string('category')->nullable();
             $table->bigInteger('views')->nullable();
             $table->string('preferred_prod')->nullable();

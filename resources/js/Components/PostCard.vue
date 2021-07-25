@@ -1,12 +1,10 @@
 <template>
-    <div class="flex flex-wrap -mx-4 font-sans p-6">
-        
             <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
         
                 <div class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                     
-                    <div class="relative pb-48 overflow-hidden">
-                        <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="">
+                    <div v-for="image in images" :key="image.id" class="relative pb-48 overflow-hidden">
+                        <img class="absolute inset-0 h-full w-full object-cover" :src="'/storage/' + image.post_image_path" alt="post image">
                     </div>
                     
                     <div class="p-4">
@@ -68,11 +66,11 @@
         
                 </div>
         </div>
-    </div>
 </template>
 
 <script>
     import UserServices from '@/Services/User'
+    import PostImageServices from '@/Services/PostImage'
     var dayjs = require('dayjs')
     var relativeTime = require('dayjs/plugin/relativeTime')
 
@@ -81,11 +79,12 @@
     props: ['title', 'description', 'price', 'views', 'preferredItem',
             'status', 'userID', 'prodName', 'qty', 'qtyType',
             'dateProduced', 'dateExpiree', 'category', 'datePosted',
-            'location'],
+            'location', 'id', 'price'],
 
     data() {
         return{
             user: {},
+            images: [],
         }
     },
 
@@ -100,7 +99,7 @@
         },
 
         isExpiree(date){
-            if(dayjs(new Date(date)).isAfter(dayjs(new Date).subtract(1, 'week'))){
+            if(dayjs(dayjs(new Date).subtract(1, 'week')).isAfter(new Date(date))){
                 return true
             }else{
                 return false
@@ -182,7 +181,7 @@
         }
     },
 
-    mounted(){
+    created(){
         UserServices.getUser(this.userID)
         .then(
             userData => {
@@ -192,6 +191,13 @@
         .catch(err => {
             console.log(err.message)
         })
+
+        PostImageServices.get(this.id)
+        .then(
+            postImages => {
+                this.images = postImages
+            }
+        )
     }
 }
 </script>

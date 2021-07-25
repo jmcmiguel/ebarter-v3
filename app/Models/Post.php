@@ -19,5 +19,6 @@ class Post extends Model
         'prod_qty', 'qty_type', 'date_produced',
         'date_expiree', 'status', 'category',
         'views', 'preferred_prod', 'user_id',
+        'est_price'
     ];
 }

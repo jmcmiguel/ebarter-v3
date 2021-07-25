@@ -7,6 +7,7 @@ use App\Http\Controllers\PostImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use App\Models\PostImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,12 @@ Route::group(['middleware' => 'auth'], function() {
         $filtered =$user->only(['name','city']);
         return response()->json($filtered);
     });
+
+    Route::get('postImg/{postID}', function($postID) {
+        $postImages = PostImage::where('post_id', $postID)->get();
+        return response()->json($postImages);
+    });
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
