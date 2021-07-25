@@ -48,7 +48,7 @@ class PostController extends Controller
             'prod_qty' => ['required','numeric','gt:0'],
             'category' => ['required', 'string'],
             'qty_type' => ['required', 'string'],
-            'date_produced' => ['required','date','after_or_equal:yesterday'], // only accept dates after today
+            'date_produced' => ['required','date','before_or_equal:yesterday'], // only accept dates before or today
             'date_expired' => ['required','date','after_or_equal:date_produced'],
             'pref_prod' => ['required', 'string'],
             'est_price' => ['required', 'numeric'],
