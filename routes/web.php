@@ -50,8 +50,12 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('user/{id}', function($id) {
         $user = User::find($id);
-        $filtered =$user->only(['name','city']);
+        $filtered =$user->only(['name','city', 'profile_photo_path']);
         return response()->json($filtered);
+    });
+
+    Route::get('currentUser', function(){
+        return response()->json(Auth::user());
     });
 
     Route::get('postImg/{postID}', function($postID) {

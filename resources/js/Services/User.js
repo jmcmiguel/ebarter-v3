@@ -6,4 +6,10 @@ const getUser = async (userID) => {
     return response.data;
 };
 
-export default { getUser };
+const getAuthUser = async () => {
+    const request = axios.get(`/currentUser`);
+    const response = await request;
+    return response.data;
+};
+
+export default { getUser, getAuthUser };

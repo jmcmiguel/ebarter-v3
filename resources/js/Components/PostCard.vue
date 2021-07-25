@@ -25,8 +25,8 @@
                 </div>
                 
                 <a href="" class="mt-3 flex items-center text-xs text-gray-700">
-                    <span> <img class="h-6 w-6 mr-2 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" /> </span>
-                    <span>{{ user.name }} </span> &nbsp; · &nbsp;
+                    <span> <img class="h-6 w-6 mr-2 rounded-full object-cover" :src="getProfilePhoto()" :alt="$page.props.user.name" /> </span>
+                    <span>{{ user.name === authUser.name ? 'You' : user.name }} </span> &nbsp; · &nbsp;
                     <span> {{ getTimeAgo(datePosted) }} </span>
                 </a>
 
@@ -91,6 +91,7 @@
 
         data() {
             return{
+                authUser: {},
                 user: {},
                 images: [],
                 breakpoints: {
@@ -114,6 +115,15 @@
         },
 
         methods: {
+
+            getProfilePhoto(){
+                if(this.user.profile_photo_path){
+                    return '/storage/' + this.user.profile_photo_path
+                }else{
+                    return `https://ui-avatars.com/api/?name=${this.user.name}&color=059669&background=ECFDF5`
+                }
+            },
+
             getTimeAgo(date) {
                 dayjs.extend(relativeTime)
                 return dayjs(new Date(date)).fromNow()
@@ -214,6 +224,15 @@
                 }
             )
             .catch(err => {
+                console.log(err.message)
+            })
+
+            UserServices.getAuthUser()
+            .then(
+                authUser => {
+                    this.authUser = authUser
+                }
+            ).catch(err => {
                 console.log(err.message)
             })
 

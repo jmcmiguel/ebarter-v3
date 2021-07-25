@@ -18116,6 +18116,7 @@ var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_
   props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'location', 'id', 'price'],
   data: function data() {
     return {
+      authUser: {},
       user: {},
       images: [],
       breakpoints: {
@@ -18138,6 +18139,13 @@ var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_
     };
   },
   methods: {
+    getProfilePhoto: function getProfilePhoto() {
+      if (this.user.profile_photo_path) {
+        return '/storage/' + this.user.profile_photo_path;
+      } else {
+        return "https://ui-avatars.com/api/?name=".concat(this.user.name, "&color=059669&background=ECFDF5");
+      }
+    },
     getTimeAgo: function getTimeAgo(date) {
       dayjs.extend(relativeTime);
       return dayjs(new Date(date)).fromNow();
@@ -18227,6 +18235,11 @@ var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_
 
     _Services_User__WEBPACK_IMPORTED_MODULE_0__.default.getUser(this.userID).then(function (userData) {
       _this.user = userData;
+    })["catch"](function (err) {
+      console.log(err.message);
+    });
+    _Services_User__WEBPACK_IMPORTED_MODULE_0__.default.getAuthUser().then(function (authUser) {
+      _this.authUser = authUser;
     })["catch"](function (err) {
       console.log(err.message);
     });
@@ -21262,11 +21275,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
     "class": "h-6 w-6 mr-2 rounded-full object-cover",
-    src: _ctx.$page.props.user.profile_photo_url,
+    src: $options.getProfilePhoto(),
     alt: _ctx.$page.props.user.name
   }, null, 8
   /* PROPS */
-  , ["src", "alt"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.name), 1
+  , ["src", "alt"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.name === $data.authUser.name ? 'You' : $data.user.name), 1
   /* TEXT */
   ), _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getTimeAgo($props.datePosted)), 1
   /* TEXT */
@@ -26248,8 +26261,37 @@ var getUser = /*#__PURE__*/function () {
   };
 }();
 
+var getAuthUser = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    var request, response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            request = axios__WEBPACK_IMPORTED_MODULE_1___default().get("/currentUser");
+            _context2.next = 3;
+            return request;
+
+          case 3:
+            response = _context2.sent;
+            return _context2.abrupt("return", response.data);
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function getAuthUser() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  getUser: getUser
+  getUser: getUser,
+  getAuthUser: getAuthUser
 });
 
 /***/ }),
