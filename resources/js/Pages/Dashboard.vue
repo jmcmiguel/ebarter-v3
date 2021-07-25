@@ -40,14 +40,18 @@
             </div>
         </div>
         
-        <div class="container mx-auto p-6">
-            <post-card v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
-                        :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
-                        :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
-                        :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
+
+        <div class="p-6">
+            <div class="container mx-auto">
+                <div class="flex flex-wrap -mx-4">
+                    <post-card v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
+                                :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
+                                :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
+                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
+                </div>
+            </div>
+
         </div>
-
-
 
         <!-- Floating Action Button -->
         <fab @click="showAddPostModal"> 
@@ -258,6 +262,7 @@
     import PostCard from '@/Components/PostCard';
     import PostServices from '@/Services/Post';
 
+
     // Create FilePond Component    
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
@@ -280,7 +285,7 @@
             Select,
             JetLabel,
             FilePond,
-            PostCard
+            PostCard,
         },
 
         props: ['data', 'errors'],
@@ -363,6 +368,7 @@
         },
 
         mounted() {
+
             PostServices.getAll()
             .then(
                 allPost => {
@@ -371,7 +377,7 @@
             )
             .catch(err => {
                 console.log(err.message)
-            });
+            });        
         }
     }
 </script>

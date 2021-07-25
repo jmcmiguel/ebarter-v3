@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\PostImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -17,6 +18,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        // $posts = Post::orderBy('id', 'desc')->paginate(10);
+
+        // return Inertia::render('Dashboard', [
+        //     'posts' => $posts
+        // ]);
+
         $posts = Post::all();
         return response()->json($posts);
     }
