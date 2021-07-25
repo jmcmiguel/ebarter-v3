@@ -1,37 +1,12 @@
 <template>
     <app-layout>
+
+        <!-- Categories -->
         <template #header>
-            <div class="overflow-y-auto whitespace-nowrap scroll-hidden space-x-5">
-                        <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                            All
-                        </jet-nav-link>
-
-                        <jet-nav-link :href="route('messages')" :active="route().current('messages')">
-                            Livestocks
-                        </jet-nav-link>
-
-                        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
-                            Crops
-                        </jet-nav-link>
-
-                        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
-                            Dairy
-                        </jet-nav-link>
-
-                        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
-                            Fish-Farming
-                        </jet-nav-link>
-
-                        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
-                            Machineries
-                        </jet-nav-link>
-
-                        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
-                            Others
-                        </jet-nav-link>
-            </div>
+            <categories />
         </template>
-
+        
+        <!-- All Posts -->
         <div class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
@@ -41,7 +16,6 @@
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
                 </div>
             </div>
-            
             <pagination :links="posts.links" />
         </div>
 
@@ -57,27 +31,26 @@
         <!-- Add Post Modal -->
         <add-post-modal :showingPostModal="showingPostModal" :closeAddPostModal="closeAddPostModal" />
 
-
     </app-layout>
 </template>
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
-    import JetNavLink from '@/Jetstream/NavLink'
     import Fab from '../Components/Fab'
     import PostCard from '@/Components/PostCard';
     import Pagination from '@/Components/Pagination'
     import AddPostModal from '@/Components/AddPostModal'
+    import Categories from '@/Components/Categories'
 
     export default {
 
         components: {
             AppLayout,
-            JetNavLink,
             Fab,
             PostCard,
             Pagination,
-            AddPostModal
+            AddPostModal,
+            Categories,
         },
 
         props: ['posts'],
