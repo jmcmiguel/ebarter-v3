@@ -40,6 +40,12 @@
             </div>
         </div>
 
+        <post-card v-for="post in posts" :key="post.id" :title="post.title" :description="post.description" 
+                    price="6969" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
+                    :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
+                    :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
+
+
         <!-- Floating Action Button -->
         <fab @click="showAddPostModal"> 
             <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
@@ -236,6 +242,8 @@
     import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+    import PostCard from '@/Components/PostCard';
+    import PostServices from '@/Services/Post';
 
     // Create FilePond Component    
     const FilePond = vueFilePond(
@@ -258,7 +266,8 @@
             TextArea,
             Select,
             JetLabel,
-            FilePond
+            FilePond,
+            PostCard
         },
 
         props: ['data', 'errors'],
@@ -268,6 +277,10 @@
                 showingPostModal: false,
 
                 csrfToken: window.Laravel.csrfToken,
+
+                title: null,
+
+                posts: [],
 
                 form: this.$inertia.form({
                     post_title: null,
@@ -319,7 +332,7 @@
                 this.form.reset()
             },
 
-            createPost: function () {
+            createPost() {
                 this.form.post(route('post.store'), {
                     preserveScroll: true,
                     onSuccess: () => this.closeAddPostModal(),
@@ -334,5 +347,17 @@
             },
 
         },
+
+        mounted() {
+            PostServices.getAll()
+            .then(
+                allPost => {
+                    this.posts = allPost
+                }
+            )
+            .catch(err => {
+                console.log(err.message)
+            });
+        }
     }
 </script>

@@ -17,8 +17,20 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::all();
-        return Inertia::render('posts', ['data' => $data]);
+        $posts = Post::all();
+        return response()->json($posts);
+    }
+
+    /**
+     * Get a single Post
+     *
+     * @return Response
+     */
+    public function get($postID)
+    {
+        $post = Post::find($postID);
+
+        return response()->json($post);
     }
   
     /**

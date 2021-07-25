@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PostImageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('post', PostController::class);
     Route::post('postImg/process', [PostImageController::class, 'store']);
     Route::post('postImg/revert', [PostImageController::class, 'revert']);
+
+    Route::get('user/{id}', function($id) {
+        $user = User::find($id);
+        $filtered =$user->only(['name','city']);
+        return response()->json($filtered);
+    });
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
