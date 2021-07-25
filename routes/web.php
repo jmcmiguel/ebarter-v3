@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use App\Models\PostImage;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,15 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    
+    $posts = Post::orderBy('id', 'desc')->paginate(10);
+
+    return Inertia::render('Dashboard', [
+        'posts' => $posts
+    ]);
+    
+    return Inertia::render('Dashboard', ['posts', $posts]);
+    
 })->name('dashboard');
 
 

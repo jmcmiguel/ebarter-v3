@@ -18,12 +18,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $posts = Post::orderBy('id', 'desc')->paginate(10);
-
-        // return Inertia::render('Dashboard', [
-        //     'posts' => $posts
-        // ]);
-
         $posts = Post::all();
         return response()->json($posts);
     }

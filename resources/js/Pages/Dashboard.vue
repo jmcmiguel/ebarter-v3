@@ -44,13 +44,14 @@
         <div class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
-                    <post-card v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
+                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
                 </div>
             </div>
-
+            
+            <pagination :links="posts.links" />
         </div>
 
         <!-- Floating Action Button -->
@@ -260,8 +261,7 @@
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
     import PostCard from '@/Components/PostCard';
-    import PostServices from '@/Services/Post';
-
+    import Pagination from '@/Components/Pagination'
 
     // Create FilePond Component    
     const FilePond = vueFilePond(
@@ -286,9 +286,10 @@
             JetLabel,
             FilePond,
             PostCard,
+            Pagination
         },
 
-        props: ['data', 'errors'],
+        props: ['data', 'errors', 'posts'],
         
         data() {
             return {
@@ -297,8 +298,6 @@
                 csrfToken: window.Laravel.csrfToken,
 
                 title: null,
-
-                posts: [],
 
                 form: this.$inertia.form({
                     post_title: null,
@@ -368,16 +367,6 @@
         },
 
         mounted() {
-
-            PostServices.getAll()
-            .then(
-                allPost => {
-                    this.posts = allPost
-                }
-            )
-            .catch(err => {
-                console.log(err.message)
-            });        
         }
     }
 </script>
