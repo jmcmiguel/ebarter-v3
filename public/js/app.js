@@ -24834,7 +24834,7 @@ var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
   "class": "w-full lg:w-9/12 px-4"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
   "class": "mb-4 text-lg leading-relaxed text-gray-800"
-}, " An artist of considerable range, Jenna the name taken by Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range. ")])])], -1
+}, " And, in a strange way, this is liberating. We no longer need to give a fuck about everything. Life is just what it is. We accept it, warts and all. We realize that we’re never going to cure cancer or go to the moon or feel Jennifer Aniston’s tits. And that’s okay. Life goes on. We now reserve our ever-dwindling fucks for the most truly fuck-worthy parts of our lives: our families, our best friends, our golf swing. And, to our astonishment, this is enough. This simplification actually makes us really fucking happy on a consistent basis. And we start to think, Maybe that crazy alcoholic Bukowski was onto something. Don’t try. ")])])], -1
 /* HOISTED */
 );
 
