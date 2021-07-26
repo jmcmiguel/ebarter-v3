@@ -36,8 +36,8 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
-    import Fab from '../Components/Fab'
-    import PostCard from '@/Components/PostCard';
+    import Fab from '@/Components/Fab'
+    import PostCard from '@/Components/PostCard'
     import Pagination from '@/Components/Pagination'
     import AddPostModal from '@/Components/AddPostModal'
     import Categories from '@/Components/Categories'

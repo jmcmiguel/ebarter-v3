@@ -127,7 +127,7 @@
                                     Manage Account
                                 </div>
 
-                                <jet-dropdown-link :href="route('profile.show')">
+                                <jet-dropdown-link :href="route('userProfile')">
                                     Profile
                                 </jet-dropdown-link>
 
@@ -204,7 +204,7 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
+                    <jet-responsive-nav-link :href="route('userProfile')" :active="route().current('userProfile')">
                         Profile
                     </jet-responsive-nav-link>
 
@@ -274,6 +274,7 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import JetNavLink from '@/Jetstream/NavLink'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
+    import UserServices from '@/Services/User'
 
     export default{
         components:{
@@ -286,6 +287,7 @@
 
         data() {
             return {
+                authUser: {},
                 showingNavigationDropdown: false,
             }
         },
@@ -303,5 +305,16 @@
                 this.$inertia.post(route('logout'));
             },
         },
+
+        created(){
+            UserServices.getAuthUser()
+            .then(
+                authUser => {
+                    this.authUser = authUser
+                }
+            ).catch(err => {
+                console.log(err.message)
+            })
+        }
     }
 </script>

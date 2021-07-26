@@ -6,4 +6,10 @@ const getAll = async () => {
     return response.data;
 };
 
-export default { getAll };
+const getAuthUserPosts = async () => {
+    const request = axios.get("/getAuthUserPosts");
+    const response = await request;
+    return response.data;
+};
+
+export default { getAll, getAuthUserPosts };

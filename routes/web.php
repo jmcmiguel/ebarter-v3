@@ -42,6 +42,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     
 })->name('dashboard');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile', function () {
+
+    $posts = Post::where('user_id', Auth::user()->id)->paginate(12);
+    
+    return Inertia::render('Profile', [
+        'posts' => $posts
+    ]);
+    
+})->name('userProfile');
+
 
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('post', PostController::class);
@@ -62,6 +72,8 @@ Route::group(['middleware' => 'auth'], function() {
         $postImages = PostImage::where('post_id', $postID)->get();
         return response()->json($postImages);
     });
+
+    Route::get('getAuthUserPosts', [PostController::class, 'getAuthUserPosts']);
 
 });
 

@@ -33,6 +33,21 @@ class PostController extends Controller
 
         return response()->json($post);
     }
+
+    /**
+     * Get all Post of Authenticated User
+     *
+     * @return Response
+     */
+    public function getAuthUserPosts()
+    {
+        $posts = Post::where('user_id', Auth::user()->id)
+                    ->orderBy('id','desc')
+                    ->get();
+
+
+        return response()->json($posts);
+    }
   
     /**
      * Creates a new Post
