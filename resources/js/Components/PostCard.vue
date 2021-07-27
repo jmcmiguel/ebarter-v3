@@ -82,20 +82,20 @@
                         <template #content>
                             <div v-if="user.id === authUser.id">
                                 <div class="block px-4 py-2 text-xs text-gray-400">Manage Post</div>
-                                <jet-dropdown-link href="">
+                                <jet-dropdown-link @click.prevent="showEditPostModal()" as="button">
                                     Edit Post
                                 </jet-dropdown-link>
-                                <jet-dropdown-link href="">
+                                <jet-dropdown-link as="button">
                                     Delete Post
                                 </jet-dropdown-link>
                             </div>
 
                             <div>
                                 <div class="block px-4 py-2 text-xs text-gray-400">Rate Post</div>
-                                <jet-dropdown-link href="">
+                                <jet-dropdown-link as="button">
                                     Give Ratings
                                 </jet-dropdown-link>
-                                <jet-dropdown-link href="">
+                                <jet-dropdown-link as="button">
                                     Report Post
                                 </jet-dropdown-link>
                             </div>
@@ -131,7 +131,7 @@
         props: ['title', 'description', 'price', 'views', 'preferredItem',
                 'status', 'userID', 'prodName', 'qty', 'qtyType',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted',
-                'location', 'id', 'price'],
+                'location', 'id', 'price', 'showEditPostModal'],
 
         data() {
             return{
@@ -150,7 +150,6 @@
                     arrows: false,
                     bulletsOutside: true
                     },
-                    // The order you list breakpoints does not matter, Vueper Slides will sort them for you.
                     1100: {
                     slideRatio: 1 / 4
                     }
@@ -201,31 +200,24 @@
                 switch (qtyType) {
                     case 'categ-1':
                         return 'Kilogram'
-                        break;
                     
                     case 'categ-2':
                         return 'Liter'
-                        break;
                     
                     case 'categ-3':
                         return 'Box'
-                        break;
                     
                     case 'categ-4':
                         return 'Sack'
-                        break;
                     
                     case 'categ-5':
                         return 'Truck'
-                        break;
                     
                     case 'categ-6':
                         return 'Piece'
-                        break;
 
                     default:
                         return 'Unknown'
-                        break;
                 }
             },
 
@@ -234,31 +226,24 @@
                 switch (category) {
                     case 'categ-1':
                         return 'Crops'
-                        break;
                     
                     case 'categ-2':
                         return 'Livestocks'
-                        break;
                     
                     case 'categ-3':
                         return 'Dairy'
-                        break;
                     
                     case 'categ-4':
                         return 'Fish Farming'
-                        break;
                     
                     case 'categ-5':
                         return 'Machineries'
-                        break;
                     
                     case 'categ-6':
                         return 'Others'
-                        break;
 
                     default:
                         return 'Unknown'
-                        break;
                 }
 
             }

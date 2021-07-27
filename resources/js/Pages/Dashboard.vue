@@ -13,7 +13,7 @@
                     <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
-                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
+                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showEditPostModal="showEditPostModal" />
                 </div>
             </div>
             <pagination :links="posts.links" />
@@ -31,6 +31,9 @@
         <!-- Add Post Modal -->
         <add-post-modal :showingPostModal="showingPostModal" :closeAddPostModal="closeAddPostModal" />
 
+        <!-- Edit Post Modal -->
+        <edit-post-modal :showingEditModal="showingEditModal" :closeEditPostModal="closeEditPostModal" />
+
     </app-layout>
 </template>
 
@@ -41,6 +44,7 @@
     import Pagination from '@/Components/Pagination'
     import AddPostModal from '@/Components/AddPostModal'
     import Categories from '@/Components/Categories'
+    import EditPostModal from '@/Components/EditPostModal'
 
     export default {
 
@@ -51,6 +55,7 @@
             Pagination,
             AddPostModal,
             Categories,
+            EditPostModal
         },
 
         props: ['posts'],
@@ -58,6 +63,7 @@
         data(){
             return {
                 showingPostModal: false,
+                showingEditModal: false,
             }
         },
 
@@ -76,6 +82,14 @@
 
             closeAddPostModal() {
                 this.showingPostModal = false
+            },
+
+            showEditPostModal() {
+                this.showingEditModal = true
+            },
+
+            closeEditPostModal() {
+                this.showingEditModal = false
             },
 
             hideFabOnBottom(event) {
