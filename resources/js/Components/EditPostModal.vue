@@ -278,7 +278,7 @@
                 date_expired: this.postData.dateExpiree,
                 pref_prod: this.postData.preferredItem,
                 est_price: this.postData.price,
-                postimg_filepath: this.postData.images.map(img => img.image.replace("/storage/","")),
+                postimg_filepath: [],
             })
 
             this.myFiles = this.postData.images.map(img => {
