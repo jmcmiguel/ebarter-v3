@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('user/{id}', function($id) {
         $user = User::find($id);
-        $filtered =$user->only(['name','city', 'profile_photo_path']);
+        $filtered =$user->only(['name','city', 'profile_photo_path', 'id']);
         return response()->json($filtered);
     });
 
