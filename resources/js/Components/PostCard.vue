@@ -82,7 +82,7 @@
                         <template #content>
                             <div v-if="user.id === authUser.id">
                                 <div class="block px-4 py-2 text-xs text-gray-400">Manage Post</div>
-                                <jet-dropdown-link @click.prevent="showEditPostModal()" as="button">
+                                <jet-dropdown-link @click="showEditModal()" as="button">
                                     Edit Post
                                 </jet-dropdown-link>
                                 <jet-dropdown-link as="button">
@@ -131,7 +131,7 @@
         props: ['title', 'description', 'price', 'views', 'preferredItem',
                 'status', 'userID', 'prodName', 'qty', 'qtyType',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted',
-                'location', 'id', 'price', 'showEditPostModal'],
+                'id', 'showEditPostModal'],
 
         data() {
             return{
@@ -158,6 +158,29 @@
         },
 
         methods: {
+
+            showEditModal(){
+
+                const post = {
+                    title: this.title,
+                    description: this.description,
+                    price: this.price,
+                    views: this.views,
+                    preferredItem: this.preferredItem,
+                    status: this.status,
+                    userID: this.userID,
+                    prodName: this.prodName,
+                    qty: this.qty,
+                    qtyType: this.qtyType,
+                    dateProduced: this.dateProduced,
+                    dateExpiree: this.dateExpiree,
+                    category: this.category,
+                    datePosted: this.datePosted,
+                    id: this.id,
+                }
+
+                this.showEditPostModal(post)
+            },
 
             numberWithCommas(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")

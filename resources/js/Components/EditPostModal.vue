@@ -189,6 +189,7 @@
     import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+    import PostImageServices from '@/Services/PostImage'
 
     // Create FilePond Component    
     const FilePond = vueFilePond(
@@ -210,25 +211,13 @@
             FilePond,
         },
 
-        props: ['data', 'errors', 'showingEditModal', 'closeEditPostModal'],
+        props: ['postData', 'showingEditModal', 'closeEditPostModal'],
         
         data() {
             return {
                 csrfToken: window.Laravel.csrfToken,
 
-                form: this.$inertia.form({
-                    post_title: null,
-                    post_desc: null,
-                    prod_name: null,
-                    prod_qty: null,
-                    category: null,
-                    qty_type: null,
-                    date_produced: null,
-                    date_expired: null,
-                    pref_prod: null,
-                    est_price: null,
-                    postimg_filepath: [],
-                }),
+                form: null,
 
                 categoryOptions: [
                 { text: 'Crops', value: 'categ-1' },
@@ -253,6 +242,7 @@
         },
 
         methods:{
+
             logFilePath(data){
                 this.form.postimg_filepath.push(data)
             },
@@ -273,9 +263,40 @@
 
         },
 
+        beforeUpdate(){
+
+            this.form = this.$inertia.form({
+                post_title: this.postData.title,
+                post_desc: this.postData.description,
+                prod_name: this.postData.prodName,
+                prod_qty: this.postData.qty,
+                category: this.postData.category,
+                qty_type: this.postData.qtyType,
+                date_produced: this.postData.dateProduced,
+                date_expired: this.postData.dateExpiree,
+                pref_prod: this.postData.preferredItem,
+                est_price: this.postData.price,
+                postimg_filepath: [],
+            })
+
+            PostImageServices.get(this.postData.id)
+            .then(
+                postImages => {
+                    this.myFiles = postImages.map(img => {
+                        return {
+                            source:  `/storage/${img.post_image_path}`
+                        }
+                    }) 
+                }
+            )
+            .catch(err => {
+                console.log(err)
+            })
+        },
+
         beforeUnmount() {
             this.form.reset()
-        }
-        
+        },
+
     }
 </script>

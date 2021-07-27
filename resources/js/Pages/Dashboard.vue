@@ -32,7 +32,7 @@
         <add-post-modal :showingPostModal="showingPostModal" :closeAddPostModal="closeAddPostModal" />
 
         <!-- Edit Post Modal -->
-        <edit-post-modal :showingEditModal="showingEditModal" :closeEditPostModal="closeEditPostModal" />
+        <edit-post-modal :postData="editPostData" :showingEditModal="showingEditModal" :closeEditPostModal="closeEditPostModal" />
 
     </app-layout>
 </template>
@@ -64,6 +64,7 @@
             return {
                 showingPostModal: false,
                 showingEditModal: false,
+                editPostData: null,
             }
         },
 
@@ -84,7 +85,8 @@
                 this.showingPostModal = false
             },
 
-            showEditPostModal() {
+            showEditPostModal(postData) {
+                this.editPostData = postData
                 this.showingEditModal = true
             },
 

@@ -18188,6 +18188,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var filepond_plugin_file_validate_type__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(filepond_plugin_file_validate_type__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var filepond_plugin_image_preview__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! filepond-plugin-image-preview */ "./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js");
 /* harmony import */ var filepond_plugin_image_preview__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(filepond_plugin_image_preview__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _Services_PostImage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/Services/PostImage */ "./resources/js/Services/PostImage.js");
+
 
 
 
@@ -18215,23 +18217,11 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
     JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_7__.default,
     FilePond: FilePond
   },
-  props: ['data', 'errors', 'showingEditModal', 'closeEditPostModal'],
+  props: ['postData', 'showingEditModal', 'closeEditPostModal'],
   data: function data() {
     return {
       csrfToken: window.Laravel.csrfToken,
-      form: this.$inertia.form({
-        post_title: null,
-        post_desc: null,
-        prod_name: null,
-        prod_qty: null,
-        category: null,
-        qty_type: null,
-        date_produced: null,
-        date_expired: null,
-        pref_prod: null,
-        est_price: null,
-        postimg_filepath: []
-      }),
+      form: null,
       categoryOptions: [{
         text: 'Crops',
         value: 'categ-1'
@@ -18301,6 +18291,32 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
       }, 250); // Should be on Mounted Hook         
       // FilePond instance methods are available on `this.$refs.pond`
     }
+  },
+  beforeUpdate: function beforeUpdate() {
+    var _this3 = this;
+
+    this.form = this.$inertia.form({
+      post_title: this.postData.title,
+      post_desc: this.postData.description,
+      prod_name: this.postData.prodName,
+      prod_qty: this.postData.qty,
+      category: this.postData.category,
+      qty_type: this.postData.qtyType,
+      date_produced: this.postData.dateProduced,
+      date_expired: this.postData.dateExpiree,
+      pref_prod: this.postData.preferredItem,
+      est_price: this.postData.price,
+      postimg_filepath: []
+    });
+    _Services_PostImage__WEBPACK_IMPORTED_MODULE_13__.default.get(this.postData.id).then(function (postImages) {
+      _this3.myFiles = postImages.map(function (img) {
+        return {
+          source: "/storage/".concat(img.post_image_path)
+        };
+      });
+    })["catch"](function (err) {
+      console.log(err);
+    });
   },
   beforeUnmount: function beforeUnmount() {
     this.form.reset();
@@ -18448,7 +18464,7 @@ var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_
     JetDropdown: _Jetstream_Dropdown__WEBPACK_IMPORTED_MODULE_4__.default,
     JetDropdownLink: _Jetstream_DropdownLink__WEBPACK_IMPORTED_MODULE_5__.default
   },
-  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'location', 'id', 'price', 'showEditPostModal'],
+  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'id', 'showEditPostModal'],
   data: function data() {
     return {
       authUser: {},
@@ -18473,6 +18489,26 @@ var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_
     };
   },
   methods: {
+    showEditModal: function showEditModal() {
+      var post = {
+        title: this.title,
+        description: this.description,
+        price: this.price,
+        views: this.views,
+        preferredItem: this.preferredItem,
+        status: this.status,
+        userID: this.userID,
+        prodName: this.prodName,
+        qty: this.qty,
+        qtyType: this.qtyType,
+        dateProduced: this.dateProduced,
+        dateExpiree: this.dateExpiree,
+        category: this.category,
+        datePosted: this.datePosted,
+        id: this.id
+      };
+      this.showEditPostModal(post);
+    },
     numberWithCommas: function numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
@@ -19921,7 +19957,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showingPostModal: false,
-      showingEditModal: false
+      showingEditModal: false,
+      editPostData: null
     };
   },
   created: function created() {
@@ -19937,7 +19974,8 @@ __webpack_require__.r(__webpack_exports__);
     closeAddPostModal: function closeAddPostModal() {
       this.showingPostModal = false;
     },
-    showEditPostModal: function showEditPostModal() {
+    showEditPostModal: function showEditPostModal(postData) {
+      this.editPostData = postData;
       this.showingEditModal = true;
     },
     closeEditPostModal: function closeEditPostModal() {
@@ -22575,9 +22613,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [$data.user.id === $data.authUser.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_35, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
-        onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-          return $props.showEditPostModal();
-        }, ["prevent"])),
+        onClick: _cache[1] || (_cache[1] = function ($event) {
+          return $options.showEditModal();
+        }),
         as: "button"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -25319,11 +25357,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8
       /* PROPS */
       , ["showingPostModal", "closeAddPostModal"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_edit_post_modal, {
+        postData: $data.editPostData,
         showingEditModal: $data.showingEditModal,
         closeEditPostModal: $options.closeEditPostModal
       }, null, 8
       /* PROPS */
-      , ["showingEditModal", "closeEditPostModal"])];
+      , ["postData", "showingEditModal", "closeEditPostModal"])];
     }),
     _: 1
     /* STABLE */
