@@ -247,12 +247,15 @@
             },
             
             createPost() {
-                this.form.post(route('post.store'), {
-                    preserveScroll: true,
-                    onSuccess: () => this.closeEditPostModal(),
-                    onError: () => this.$refs.post_title.focus(),
-                    onFinish: () => this.form.reset(),
-                })
+
+                console.log(this.form)
+
+                // this.form.post(route('post.store'), {
+                //     preserveScroll: true,
+                //     onSuccess: () => this.closeEditPostModal(),
+                //     onError: () => this.$refs.post_title.focus(),
+                //     onFinish: () => this.form.reset(),
+                // })
             },
     
             handleFilePondInit: function () {
@@ -275,7 +278,7 @@
                 date_expired: this.postData.dateExpiree,
                 pref_prod: this.postData.preferredItem,
                 est_price: this.postData.price,
-                postimg_filepath: [],
+                postimg_filepath: this.postData.images.map(img => img.image.replace("/storage/","")),
             })
 
             this.myFiles = this.postData.images.map(img => {
