@@ -50,7 +50,7 @@
                 </span> 
 
                 <span class="flex items-center mb-1">
-                    <span class="far fa-address-card fa-fw text-gray-900 mr-2">Estimated Price: </span> {{ price }} pesos
+                    <span class="far fa-address-card fa-fw text-gray-900 mr-2">Estimated Price: </span> {{ numberWithCommas(price) }} pesos
                 </span>
 
                 <span class="flex items-center mb-1">
@@ -159,6 +159,10 @@
         },
 
         methods: {
+
+            numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            },
 
             getProfilePhoto(){
                 if(this.user.profile_photo_path){
