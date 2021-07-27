@@ -177,6 +177,7 @@
                     category: this.category,
                     datePosted: this.datePosted,
                     id: this.id,
+                    images: this.images,
                 }
 
                 this.showEditPostModal(post)

@@ -189,7 +189,6 @@
     import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-    import PostImageServices from '@/Services/PostImage'
 
     // Create FilePond Component    
     const FilePond = vueFilePond(
@@ -279,19 +278,13 @@
                 postimg_filepath: [],
             })
 
-            PostImageServices.get(this.postData.id)
-            .then(
-                postImages => {
-                    this.myFiles = postImages.map(img => {
-                        return {
-                            source:  `/storage/${img.post_image_path}`
-                        }
-                    }) 
+            this.myFiles = this.postData.images.map(img => {
+                return {
+                    source:`${img.image}`
                 }
-            )
-            .catch(err => {
-                console.log(err)
-            })
+            }) 
+
+
         },
 
         beforeUnmount() {

@@ -18188,8 +18188,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var filepond_plugin_file_validate_type__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(filepond_plugin_file_validate_type__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var filepond_plugin_image_preview__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! filepond-plugin-image-preview */ "./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js");
 /* harmony import */ var filepond_plugin_image_preview__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(filepond_plugin_image_preview__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _Services_PostImage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/Services/PostImage */ "./resources/js/Services/PostImage.js");
-
 
 
 
@@ -18293,8 +18291,6 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
     }
   },
   beforeUpdate: function beforeUpdate() {
-    var _this3 = this;
-
     this.form = this.$inertia.form({
       post_title: this.postData.title,
       post_desc: this.postData.description,
@@ -18308,14 +18304,10 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
       est_price: this.postData.price,
       postimg_filepath: []
     });
-    _Services_PostImage__WEBPACK_IMPORTED_MODULE_13__.default.get(this.postData.id).then(function (postImages) {
-      _this3.myFiles = postImages.map(function (img) {
-        return {
-          source: "/storage/".concat(img.post_image_path)
-        };
-      });
-    })["catch"](function (err) {
-      console.log(err);
+    this.myFiles = this.postData.images.map(function (img) {
+      return {
+        source: "".concat(img.image)
+      };
     });
   },
   beforeUnmount: function beforeUnmount() {
@@ -18505,7 +18497,8 @@ var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_
         dateExpiree: this.dateExpiree,
         category: this.category,
         datePosted: this.datePosted,
-        id: this.id
+        id: this.id,
+        images: this.images
       };
       this.showEditPostModal(post);
     },
