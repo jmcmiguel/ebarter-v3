@@ -247,15 +247,12 @@
             },
             
             createPost() {
-
-                console.log(this.form)
-
-                // this.form.post(route('post.store'), {
-                //     preserveScroll: true,
-                //     onSuccess: () => this.closeEditPostModal(),
-                //     onError: () => this.$refs.post_title.focus(),
-                //     onFinish: () => this.form.reset(),
-                // })
+                this.form.put(route('post.update', this.postData.id), {
+                    preserveScroll: true,
+                    onSuccess: () => this.closeEditPostModal(),
+                    onError: () => this.$refs.post_title.focus(),
+                    onFinish: () => this.form.reset(),
+                })
             },
     
             handleFilePondInit: function () {
@@ -279,6 +276,7 @@
                 pref_prod: this.postData.preferredItem,
                 est_price: this.postData.price,
                 postimg_filepath: [],
+                post_id: this.postData.id,
             })
 
             this.myFiles = this.postData.images.map(img => {
