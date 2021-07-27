@@ -279,11 +279,16 @@
                 post_id: this.postData.id,
             })
 
-            this.myFiles = this.postData.images.map(img => {
-                return {
-                    source:`${img.image}`
-                }
-            }) 
+            if(this.postData.images.length === 1 && this.postData.images[0].image === '/img/noimage.svg'){
+                this.myFiles = null
+            }else{
+                this.myFiles = this.postData.images.map(img => {
+                    return {
+                        source:`${img.image}`
+                    }
+                }) 
+            }
+
 
 
         },

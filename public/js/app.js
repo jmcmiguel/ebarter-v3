@@ -18305,11 +18305,16 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
       postimg_filepath: [],
       post_id: this.postData.id
     });
-    this.myFiles = this.postData.images.map(function (img) {
-      return {
-        source: "".concat(img.image)
-      };
-    });
+
+    if (this.postData.images.length === 1 && this.postData.images[0].image === '/img/noimage.svg') {
+      this.myFiles = null;
+    } else {
+      this.myFiles = this.postData.images.map(function (img) {
+        return {
+          source: "".concat(img.image)
+        };
+      });
+    }
   },
   beforeUnmount: function beforeUnmount() {
     this.form.reset();
