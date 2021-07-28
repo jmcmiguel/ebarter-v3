@@ -12,7 +12,7 @@
                 <div class="flex flex-wrap -mx-4">
                     <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
-                                :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
+                                :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showEditPostModal="showEditPostModal" />
                 </div>
             </div>
@@ -34,6 +34,9 @@
         <!-- Edit Post Modal -->
         <edit-post-modal :postData="editPostData" :showingEditModal="showingEditModal" :closeEditPostModal="closeEditPostModal" />
 
+        <!-- Delete Post Modal -->
+        <delete-post-modal :postData="deletePostData" :showingDeletePostModal="showingDeleteModal" :closeDeletePostModal="closeDeletePostModal" />
+
     </app-layout>
 </template>
 
@@ -45,6 +48,7 @@
     import AddPostModal from '@/Components/AddPostModal'
     import Categories from '@/Components/Categories'
     import EditPostModal from '@/Components/EditPostModal'
+    import DeletePostModal from '@/Components/DeletePostModal'
 
     export default {
 
@@ -55,7 +59,8 @@
             Pagination,
             AddPostModal,
             Categories,
-            EditPostModal
+            EditPostModal,
+            DeletePostModal,
         },
 
         props: ['posts'],
@@ -65,6 +70,8 @@
                 showingPostModal: false,
                 showingEditModal: false,
                 editPostData: null,
+                showingDeleteModal: false,
+                deletePostData: null,
             }
         },
 
@@ -72,7 +79,7 @@
             window.addEventListener('scroll', this.hideFabOnBottom);
         },
 
-        destroyed () {
+        unmounted() {
             window.removeEventListener('scroll', this.hideFabOnBottom);
         },
 
@@ -92,6 +99,15 @@
 
             closeEditPostModal() {
                 this.showingEditModal = false
+            },
+
+            showDeletePostModal(id, title){
+                this.deletePostData = {id: id, title: title}
+                this.showingDeleteModal = true
+            },
+            
+            closeDeletePostModal(){
+                this.showingDeleteModal = false;
             },
 
             hideFabOnBottom(event) {

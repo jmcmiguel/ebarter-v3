@@ -18161,6 +18161,71 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/DeletePostModal.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/DeletePostModal.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
+/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
+/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
+/* harmony import */ var _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/DangerButton */ "./resources/js/Jetstream/DangerButton.vue");
+/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_0__.default,
+    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_1__.default,
+    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_2__.default,
+    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_3__.default,
+    JetDangerButton: _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_4__.default,
+    JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_5__.default
+  },
+  props: ['showingDeletePostModal', 'closeDeletePostModal', 'postData'],
+  data: function data() {
+    return {
+      form: this.$inertia.form({
+        password: null
+      })
+    };
+  },
+  methods: {
+    createPost: function createPost() {
+      var _this = this;
+
+      this.form["delete"](route('post.destroy', this.postData.id), {
+        preserveScroll: true,
+        onSuccess: function onSuccess() {
+          return _this.closeDeletePostModal();
+        },
+        onError: function onError() {
+          return _this.$refs.password.focus();
+        },
+        onFinish: function onFinish() {
+          return _this.form.reset();
+        }
+      });
+    }
+  },
+  beforeUnmount: function beforeUnmount() {
+    this.form.reset();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/EditPostModal.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/EditPostModal.vue?vue&type=script&lang=js ***!
@@ -18316,8 +18381,10 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
       });
     }
   },
-  beforeUnmount: function beforeUnmount() {
-    this.form.reset();
+  unmounted: function unmounted() {
+    if (this.showingEditModal) {
+      this.form.reset();
+    }
   }
 });
 
@@ -18462,7 +18529,7 @@ var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_
     JetDropdown: _Jetstream_Dropdown__WEBPACK_IMPORTED_MODULE_4__.default,
     JetDropdownLink: _Jetstream_DropdownLink__WEBPACK_IMPORTED_MODULE_5__.default
   },
-  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'id', 'showEditPostModal'],
+  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'id', 'showEditPostModal', 'showDeletePostModal'],
   data: function data() {
     return {
       authUser: {},
@@ -19935,6 +20002,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_AddPostModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/AddPostModal */ "./resources/js/Components/AddPostModal.vue");
 /* harmony import */ var _Components_Categories__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Components/Categories */ "./resources/js/Components/Categories.vue");
 /* harmony import */ var _Components_EditPostModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Components/EditPostModal */ "./resources/js/Components/EditPostModal.vue");
+/* harmony import */ var _Components_DeletePostModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Components/DeletePostModal */ "./resources/js/Components/DeletePostModal.vue");
+
 
 
 
@@ -19950,20 +20019,23 @@ __webpack_require__.r(__webpack_exports__);
     Pagination: _Components_Pagination__WEBPACK_IMPORTED_MODULE_3__.default,
     AddPostModal: _Components_AddPostModal__WEBPACK_IMPORTED_MODULE_4__.default,
     Categories: _Components_Categories__WEBPACK_IMPORTED_MODULE_5__.default,
-    EditPostModal: _Components_EditPostModal__WEBPACK_IMPORTED_MODULE_6__.default
+    EditPostModal: _Components_EditPostModal__WEBPACK_IMPORTED_MODULE_6__.default,
+    DeletePostModal: _Components_DeletePostModal__WEBPACK_IMPORTED_MODULE_7__.default
   },
   props: ['posts'],
   data: function data() {
     return {
       showingPostModal: false,
       showingEditModal: false,
-      editPostData: null
+      editPostData: null,
+      showingDeleteModal: false,
+      deletePostData: null
     };
   },
   created: function created() {
     window.addEventListener('scroll', this.hideFabOnBottom);
   },
-  destroyed: function destroyed() {
+  unmounted: function unmounted() {
     window.removeEventListener('scroll', this.hideFabOnBottom);
   },
   methods: {
@@ -19979,6 +20051,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeEditPostModal: function closeEditPostModal() {
       this.showingEditModal = false;
+    },
+    showDeletePostModal: function showDeletePostModal(id, title) {
+      this.deletePostData = {
+        id: id,
+        title: title
+      };
+      this.showingDeleteModal = true;
+    },
+    closeDeletePostModal: function closeDeletePostModal() {
+      this.showingDeleteModal = false;
     },
     hideFabOnBottom: function hideFabOnBottom(event) {
       if (window.innerHeight + window.scrollY > document.body.clientHeight - 20) {
@@ -21119,6 +21201,115 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/DeletePostModal.vue?vue&type=template&id=783daff2":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/DeletePostModal.vue?vue&type=template&id=783daff2 ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Delete Post ");
+
+var _hoisted_2 = {
+  "class": "mt-4 flex flex-col justify-center"
+};
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ");
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Delete ");
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_jet_label = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-label");
+
+  var _component_jet_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-input");
+
+  var _component_jet_input_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-input-error");
+
+  var _component_jet_secondary_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-secondary-button");
+
+  var _component_jet_danger_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-danger-button");
+
+  var _component_jet_dialog_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-dialog-modal");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dialog_modal, {
+    show: $props.showingDeletePostModal,
+    onClose: $props.closeDeletePostModal
+  }, {
+    title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Are you sure you want to delete the post '" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.postData.title) + "'? Once it is deleted, it cannot be recovered again. It will be gone forever. Enter your password, so we can verify that you want to delete it. ", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
+        "for": "password",
+        value: "Verify Password"
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
+        type: "password",
+        "class": "mt-1 block w-full",
+        placeholder: "Type your password here",
+        id: "password",
+        ref: "password",
+        modelValue: $data.form.password,
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+          return $data.form.password = $event;
+        }),
+        required: ""
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input_error, {
+        message: $data.form.errors.password,
+        "class": "mt-2"
+      }, null, 8
+      /* PROPS */
+      , ["message"])])];
+    }),
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_secondary_button, {
+        onClick: $props.closeDeletePostModal
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_3];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_danger_button, {
+        "class": ["ml-2", {
+          'opacity-25': $data.form.processing
+        }],
+        onClick: $options.createPost,
+        disabled: $data.form.processing
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_4];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClick", "class", "disabled"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["show", "onClose"]);
 }
 
 /***/ }),
@@ -22624,6 +22815,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+        onClick: _cache[2] || (_cache[2] = function ($event) {
+          return $props.showDeletePostModal($props.id, $props.title);
+        }),
         as: "button"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -25303,6 +25497,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_edit_post_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("edit-post-modal");
 
+  var _component_delete_post_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("delete-post-modal");
+
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_app_layout, null, {
@@ -25325,13 +25521,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           qty: post.prod_qty,
           qtyType: post.qty_type,
           dateProduced: post.date_produced,
+          showDeletePostModal: $options.showDeletePostModal,
           dateExpiree: post.date_expiree,
           category: post.category,
           datePosted: post.created_at,
           showEditPostModal: $options.showEditPostModal
         }, null, 8
         /* PROPS */
-        , ["id", "title", "description", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "dateExpiree", "category", "datePosted", "showEditPostModal"]);
+        , ["id", "title", "description", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showEditPostModal"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
@@ -25361,7 +25558,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         closeEditPostModal: $options.closeEditPostModal
       }, null, 8
       /* PROPS */
-      , ["postData", "showingEditModal", "closeEditPostModal"])];
+      , ["postData", "showingEditModal", "closeEditPostModal"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_delete_post_modal, {
+        postData: $data.deletePostData,
+        showingDeletePostModal: $data.showingDeleteModal,
+        closeDeletePostModal: $options.closeDeletePostModal
+      }, null, 8
+      /* PROPS */
+      , ["postData", "showingDeletePostModal", "closeDeletePostModal"])];
     }),
     _: 1
     /* STABLE */
@@ -69436,6 +69639,32 @@ _Categories_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__f
 
 /***/ }),
 
+/***/ "./resources/js/Components/DeletePostModal.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/Components/DeletePostModal.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DeletePostModal_vue_vue_type_template_id_783daff2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeletePostModal.vue?vue&type=template&id=783daff2 */ "./resources/js/Components/DeletePostModal.vue?vue&type=template&id=783daff2");
+/* harmony import */ var _DeletePostModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeletePostModal.vue?vue&type=script&lang=js */ "./resources/js/Components/DeletePostModal.vue?vue&type=script&lang=js");
+
+
+
+_DeletePostModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _DeletePostModal_vue_vue_type_template_id_783daff2__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_DeletePostModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/Components/DeletePostModal.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_DeletePostModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
 /***/ "./resources/js/Components/EditPostModal.vue":
 /*!***************************************************!*\
   !*** ./resources/js/Components/EditPostModal.vue ***!
@@ -70840,6 +71069,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/DeletePostModal.vue?vue&type=script&lang=js":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/Components/DeletePostModal.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePostModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__.default)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePostModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeletePostModal.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/DeletePostModal.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Components/EditPostModal.vue?vue&type=script&lang=js":
 /*!***************************************************************************!*\
   !*** ./resources/js/Components/EditPostModal.vue?vue&type=script&lang=js ***!
@@ -71636,6 +71881,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Categories_vue_vue_type_template_id_337ee4a7__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Categories_vue_vue_type_template_id_337ee4a7__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Categories.vue?vue&type=template&id=337ee4a7 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Categories.vue?vue&type=template&id=337ee4a7");
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/DeletePostModal.vue?vue&type=template&id=783daff2":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Components/DeletePostModal.vue?vue&type=template&id=783daff2 ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePostModal_vue_vue_type_template_id_783daff2__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePostModal_vue_vue_type_template_id_783daff2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeletePostModal.vue?vue&type=template&id=783daff2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/DeletePostModal.vue?vue&type=template&id=783daff2");
 
 
 /***/ }),

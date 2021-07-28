@@ -293,8 +293,10 @@
 
         },
 
-        beforeUnmount() {
-            this.form.reset()
+        unmounted() {
+            if(this.showingEditModal){
+                this.form.reset()
+            }
         },
 
     }

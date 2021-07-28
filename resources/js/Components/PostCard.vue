@@ -85,7 +85,7 @@
                                 <jet-dropdown-link @click="showEditModal()" as="button">
                                     Edit Post
                                 </jet-dropdown-link>
-                                <jet-dropdown-link as="button">
+                                <jet-dropdown-link @click="showDeletePostModal(id, title)" as="button">
                                     Delete Post
                                 </jet-dropdown-link>
                             </div>
@@ -131,7 +131,7 @@
         props: ['title', 'description', 'price', 'views', 'preferredItem',
                 'status', 'userID', 'prodName', 'qty', 'qtyType',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted',
-                'id', 'showEditPostModal'],
+                'id', 'showEditPostModal', 'showDeletePostModal'],
 
         data() {
             return{

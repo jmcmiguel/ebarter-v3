@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\PostImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -173,7 +174,22 @@ class PostController extends Controller
      *
      * @return Response
      */
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
+
+        Validator::make($request->all(), [
+            'password' => ['required','current_password'],
+        ])->validate();
+
+        Post::destroy($id);
+        PostImage::where('post_id', $id)->delete();
+        
+        $request->session()->flash('flash.bannerId', uniqid());
+        $request->session()->flash('flash.banner', "Post Deleted");
+        $request->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->back()
+                    ->with('message', 'Post Created Successfully.');
+
     }
 }
