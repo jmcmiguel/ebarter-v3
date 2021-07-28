@@ -91,7 +91,10 @@
                             </div>
 
                             <div>
-                                <div class="block px-4 py-2 text-xs text-gray-400">Rate Post</div>
+                                <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
+                                <jet-dropdown-link as="button">
+                                    Add To Cart
+                                </jet-dropdown-link>
                                 <jet-dropdown-link as="button">
                                     Give Ratings
                                 </jet-dropdown-link>
@@ -116,6 +119,8 @@
     import 'vueperslides/dist/vueperslides.css'
     var dayjs = require('dayjs')
     var relativeTime = require('dayjs/plugin/relativeTime')
+    var isBetween = require('dayjs/plugin/isBetween')
+    dayjs.extend(isBetween)
     import JetDropdown from '@/Jetstream/Dropdown'
     import JetDropdownLink from '@/Jetstream/DropdownLink'
 
@@ -205,7 +210,7 @@
             },
 
             isExpiree(date){
-                if(dayjs(dayjs(new Date).subtract(1, 'week')).isAfter(new Date(date))){
+                if(dayjs(new Date()).isBetween(dayjs(new Date(date)).subtract(1, 'week'), dayjs(new Date(date)))){
                     return true
                 }else{
                     return false
