@@ -22515,7 +22515,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4"
+  "class": "w-full sm:w-1/2 md:w-1/2 xl:w-1/4 sm:px-2 md:px-4 xl:px-4 py-6"
 };
 var _hoisted_2 = {
   "class": "block bg-white shadow-md hover:shadow-xl rounded-lg"

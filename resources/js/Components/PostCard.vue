@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+    <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 sm:px-2 md:px-4 xl:px-4 py-6">
     
         <div class="block bg-white shadow-md hover:shadow-xl rounded-lg">
 
