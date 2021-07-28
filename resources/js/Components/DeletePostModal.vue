@@ -6,7 +6,7 @@
 
         <template #content>
             Are you sure you want to delete the post '{{ postData.title }}'? Once it is deleted, it cannot be recovered again. It will be gone forever.
-            Enter your password, so we can verify that you want to delete it.
+            We value your privacy, so we won't keep your data. Enter your password, so we can verify that you want to delete it.
                 <div class="mt-4 flex flex-col justify-center">
                     <jet-label for="password" value="Verify Password" />
                     <jet-input type="password" class="mt-1 block w-full" placeholder="Type your password here"
