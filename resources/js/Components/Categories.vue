@@ -4,7 +4,7 @@
         All
         </jet-nav-link>
         
-        <jet-nav-link :href="route('dashboard','categ-1')" :active="route().current('cart')">
+        <jet-nav-link :href="route('dashboard','categ-1')" active="/dashboard/categ-1">
         Crops
         </jet-nav-link>
 

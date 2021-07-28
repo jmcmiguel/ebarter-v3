@@ -1261,6 +1261,9 @@ select {
 .mt-0 {
 	margin-top: 0px;
 }
+.mt-20 {
+	margin-top: 5rem;
+}
 .block {
 	display: block;
 }
@@ -1317,6 +1320,21 @@ select {
 }
 .h-36 {
 	height: 9rem;
+}
+.h-24 {
+	height: 6rem;
+}
+.h-40 {
+	height: 10rem;
+}
+.h-72 {
+	height: 18rem;
+}
+.h-80 {
+	height: 20rem;
+}
+.max-h-10 {
+	max-height: 2.5rem;
 }
 .min-h-screen {
 	min-height: 100vh;
