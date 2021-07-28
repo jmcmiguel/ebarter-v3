@@ -92,10 +92,10 @@
 
                             <div>
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
-                                <jet-dropdown-link as="button">
+                                <jet-dropdown-link v-if="userID !== authUser.id" @click="addToCart(id)" as="button">
                                     Add To Cart
                                 </jet-dropdown-link>
-                                <jet-dropdown-link as="button">
+                                <jet-dropdown-link v-if="userID !== authUser.id" as="button">
                                     Give Ratings
                                 </jet-dropdown-link>
                                 <jet-dropdown-link as="button">
@@ -136,7 +136,7 @@
         props: ['title', 'description', 'price', 'views', 'preferredItem',
                 'status', 'userID', 'prodName', 'qty', 'qtyType',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted',
-                'id', 'showEditPostModal', 'showDeletePostModal'],
+                'id', 'showEditPostModal', 'showDeletePostModal', 'addToCart'],
 
         data() {
             return{

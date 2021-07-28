@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\PostImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
 use App\Models\User;
 use App\Models\PostImage;
 use App\Models\Post;
@@ -54,6 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile', function () {
 
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('post', PostController::class);
+    Route::resource('cart', CartController::class);
     Route::post('postImg/process', [PostImageController::class, 'store']);
     Route::post('postImg/revert', [PostImageController::class, 'revert']);
 

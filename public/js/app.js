@@ -18538,7 +18538,7 @@ dayjs.extend(isBetween);
     JetDropdown: _Jetstream_Dropdown__WEBPACK_IMPORTED_MODULE_4__.default,
     JetDropdownLink: _Jetstream_DropdownLink__WEBPACK_IMPORTED_MODULE_5__.default
   },
-  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'id', 'showEditPostModal', 'showDeletePostModal'],
+  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'id', 'showEditPostModal', 'showDeletePostModal', 'addToCart'],
   data: function data() {
     return {
       authUser: {},
@@ -20032,6 +20032,25 @@ __webpack_require__.r(__webpack_exports__);
     window.removeEventListener('scroll', this.hideFabOnBottom);
   },
   methods: {
+    addToCart: function addToCart(postID) {
+      var _this = this;
+
+      var form = this.$inertia.form({
+        'post_id': postID
+      });
+      form.post(route('cart.store'), {
+        preserveScroll: true,
+        onSuccess: function onSuccess() {
+          return form.reset();
+        },
+        onError: function onError() {
+          return _this.$refs.post_title.focus();
+        },
+        onFinish: function onFinish() {
+          return form.reset();
+        }
+      });
+    },
     showAddPostModal: function showAddPostModal() {
       this.showingPostModal = true;
     },
@@ -20057,7 +20076,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     hideFabOnBottom: function hideFabOnBottom(event) {
       if (window.innerHeight + window.scrollY > document.body.clientHeight - 20) {
-        document.getElementById('fab').style.display = 'none';
+        if (window.scrollY === 0) {
+          document.getElementById('fab').style.dispay = 'unset';
+        } else {
+          document.getElementById('fab').style.display = 'none';
+        }
       } else {
         document.getElementById('fab').style.display = 'unset';
       }
@@ -22818,7 +22841,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+      })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_39, $props.userID !== $data.authUser.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dropdown_link, {
+        key: 0,
+        onClick: _cache[3] || (_cache[3] = function ($event) {
+          return $props.addToCart($props.id);
+        }),
         as: "button"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22827,7 +22854,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.userID !== $data.authUser.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dropdown_link, {
+        key: 1,
         as: "button"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22836,7 +22864,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
         as: "button"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -25535,10 +25563,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           dateExpiree: post.date_expiree,
           category: post.category,
           datePosted: post.created_at,
-          showEditPostModal: $options.showEditPostModal
+          showEditPostModal: $options.showEditPostModal,
+          addToCart: $options.addToCart
         }, null, 8
         /* PROPS */
-        , ["id", "title", "description", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showEditPostModal"]);
+        , ["id", "title", "description", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showEditPostModal", "addToCart"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
