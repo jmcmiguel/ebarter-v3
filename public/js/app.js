@@ -18219,7 +18219,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  beforeUnmount: function beforeUnmount() {
+  beforeUpdate: function beforeUpdate() {
     this.form.reset();
   }
 });

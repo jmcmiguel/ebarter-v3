@@ -73,7 +73,7 @@
             },
         },
 
-        beforeUnmount() {
+        beforeUpdate() {
             this.form.reset()
         }
         
