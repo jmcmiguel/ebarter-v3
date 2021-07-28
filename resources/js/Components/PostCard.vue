@@ -3,7 +3,7 @@
     
         <div class="block bg-white shadow-md hover:shadow-xl rounded-lg">
 
-            <vueper-slides :breakpoints="breakpoints" :parallax="1" :parallax-fixed-content="false" fixed-height="12rem" :touchable="false">
+            <vueper-slides :parallax="1" :parallax-fixed-content="false" fixed-height="12rem" :touchable="false">
                 <vueper-slide v-for="image in images" :key="image.id" :image="image.image">
                 </vueper-slide>
             </vueper-slides>
@@ -143,22 +143,6 @@
                 authUser: {},
                 user: {},
                 images: [],
-                breakpoints: {
-                    1200: {
-                    slideRatio: 1 / 5
-                    },
-                    900: {
-                    slideRatio: 1 / 3
-                    },
-                    600: {
-                    slideRatio: 1 / 2,
-                    arrows: false,
-                    bulletsOutside: true
-                    },
-                    1100: {
-                    slideRatio: 1 / 4
-                    }
-                },
             }
         },
 

@@ -18543,23 +18543,7 @@ dayjs.extend(isBetween);
     return {
       authUser: {},
       user: {},
-      images: [],
-      breakpoints: {
-        1200: {
-          slideRatio: 1 / 5
-        },
-        900: {
-          slideRatio: 1 / 3
-        },
-        600: {
-          slideRatio: 1 / 2,
-          arrows: false,
-          bulletsOutside: true
-        },
-        1100: {
-          slideRatio: 1 / 4
-        }
-      }
+      images: []
     };
   },
   methods: {
@@ -22748,7 +22732,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_jet_dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-dropdown");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vueper_slides, {
-    breakpoints: $data.breakpoints,
     parallax: 1,
     "parallax-fixed-content": false,
     "fixed-height": "12rem",
@@ -22769,9 +22752,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }, 8
-  /* PROPS */
-  , ["breakpoints"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.status), 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.status), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getCategory($props.category)), 1
   /* TEXT */
