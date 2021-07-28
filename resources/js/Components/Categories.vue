@@ -3,28 +3,28 @@
         <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
         All
         </jet-nav-link>
-
-        <jet-nav-link :href="route('messages')" :active="route().current('messages')">
-        Livestocks
-        </jet-nav-link>
-
-        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
+        
+        <jet-nav-link :href="route('dashboard','categ-1')" :active="route().current('cart')">
         Crops
         </jet-nav-link>
 
-        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
+        <jet-nav-link :href="route('dashboard', 'categ-2')" :active="route().current('cart')">
+        Livestocks
+        </jet-nav-link>
+
+        <jet-nav-link :href="route('dashboard', 'categ-3')" :active="route().current('cart')">
         Dairy
         </jet-nav-link>
 
-        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
+        <jet-nav-link :href="route('dashboard', 'categ-4')" :active="route().current('cart')">
         Fish-Farming
         </jet-nav-link>
 
-        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
+        <jet-nav-link :href="route('dashboard', 'categ-5')" :active="route().current('cart')">
         Machineries
         </jet-nav-link>
 
-        <jet-nav-link :href="route('cart')" :active="route().current('cart')">
+        <jet-nav-link :href="route('dashboard', 'categ-6')" :active="route().current('cart')">
         Others
         </jet-nav-link>
     </div>

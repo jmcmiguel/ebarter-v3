@@ -30,15 +30,14 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    
-    $posts = Post::orderBy('id', 'desc')->paginate(12);
-
-    return Inertia::render('Dashboard', [
-        'posts' => $posts
-    ]);
-    
-    return Inertia::render('Dashboard', ['posts', $posts]);
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', function ($category = 'all') {
+    if($category == 'all'){
+        $posts = Post::orderBy('updated_at', 'desc')->paginate(12);
+        return Inertia::render('Dashboard', ['posts' => $posts]);
+    }else{
+        $posts = Post::where('category', $category)->orderBy('updated_at', 'desc')->paginate(12);
+        return Inertia::render('Dashboard', ['posts' => $posts]);
+    }
     
 })->name('dashboard');
 
