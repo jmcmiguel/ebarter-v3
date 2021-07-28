@@ -1317,6 +1317,9 @@ select {
 .-mr-64 {
 	margin-right: -16rem;
 }
+.mb-20 {
+	margin-bottom: 5rem;
+}
 .block {
 	display: block;
 }

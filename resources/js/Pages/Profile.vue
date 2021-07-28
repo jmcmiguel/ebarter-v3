@@ -107,7 +107,7 @@
       </section>
 
       <!-- All Posts -->
-        <div class="p-6">
+        <div v-if="posts.data.length" class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
                     <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
@@ -117,6 +117,13 @@
                 </div>
             </div>
             <pagination :links="posts.links" />
+        </div>
+
+        <div v-else class="flex justify-center flex-col mt-10 mb-20">
+            <img class="h-72" src="/img/void.svg" alt="">
+            <div class="mx-auto">
+            no posts found
+            </div>
         </div>
 
     </main>
