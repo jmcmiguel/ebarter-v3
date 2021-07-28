@@ -21253,7 +21253,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_1];
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Are you sure you want to delete the post '" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.postData.title) + "'? Once it is deleted, it cannot be recovered again. It will be gone forever. We value your privacy, so we won't keep your data. Enter your password, so we can verify that you want to delete it. ", 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Are you sure you want to delete the post '" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.postData.title) + "'? Once it is deleted, it cannot be recovered again. It will be gone forever. Enter your password, so we can verify that you want to delete it. ", 1
       /* TEXT */
       ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
         "for": "password",
