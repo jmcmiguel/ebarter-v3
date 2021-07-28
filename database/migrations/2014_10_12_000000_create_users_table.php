@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_reported')->nullable();
             $table->string('city')->nullable();
             $table->string('contact_number')->nullable();
+            $table->string('bio')->nullable();
         });
     }
 

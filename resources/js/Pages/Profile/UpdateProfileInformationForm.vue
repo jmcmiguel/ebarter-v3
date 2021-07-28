@@ -75,6 +75,13 @@
                 <jet-input id="birthdate" type="date" class="mt-1 block w-full" v-model="form.birthdate" />
                 <jet-input-error :message="form.errors.birthdate" class="mt-2" />
             </div>
+
+            <!-- Bio -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="bio" value="Profile Bio" />
+                <jet-input id="bio" type="text" class="mt-1 block w-full" v-model="form.bio" />
+                <jet-input-error :message="form.errors.bio" class="mt-2" />
+            </div>
         </template>
         
         <template #actions>
@@ -120,7 +127,8 @@
                     photo: null,
                     contact_number: this.user.contact_number,
                     city: this.user.city,
-                    birthdate: this.user.birthdate
+                    birthdate: this.user.birthdate,
+                    bio: this.user.bio,
                 }),
 
                 photoPreview: null,
