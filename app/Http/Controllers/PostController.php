@@ -51,6 +51,20 @@ class PostController extends Controller
     }
   
     /**
+     * Get all Post of User
+     *
+     * @return Response
+     */
+    public function getUserPosts($userID)
+    {
+        $posts = Post::where('user_id', $userID)
+                    ->orderBy('id','desc')
+                    ->get();
+
+        return response()->json($posts);
+    }
+  
+    /**
      * Creates a new Post
      *
      * @return Response

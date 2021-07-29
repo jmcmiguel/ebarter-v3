@@ -24,7 +24,7 @@
                     <span class="text-sm font-semibold">Preferred Item: </span>&nbsp;<span class="font-bold"> {{ preferredItem }} </span>
                 </div>
                 
-                <a href="" class="mt-3 flex items-center text-xs text-gray-700">
+                <a :href="route('userProfile', user.id)" class="mt-3 flex items-center text-xs text-gray-700">
                     <span> <img class="h-6 w-6 mr-2 rounded-full object-cover" :src="getProfilePhoto()" :alt="$page.props.user.name" /> </span>
                     <span>{{ user.id === authUser.id ? 'You' : user.name }} </span> &nbsp; · &nbsp;
                     <span> {{ getTimeAgo(datePosted) }} </span>

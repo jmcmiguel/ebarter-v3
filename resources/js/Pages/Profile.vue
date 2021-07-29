@@ -41,7 +41,7 @@
                       type="button"
                       style="transition: all 0.15s ease 0s;"
                     >
-                      Connect
+                      Give Ratings!
                     </button>
                   </div>
                 </div>
@@ -56,7 +56,7 @@
                     <div class="mr-4 p-3 text-center">
                       <span
                         class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                        >{{ authUserPosts.length }}</span
+                        >{{ userPosts.length }}</span
                       ><span class="text-sm text-gray-500">Posts</span>
                     </div>
                     <div class="lg:mr-4 p-3 text-center">
@@ -146,18 +146,18 @@
       Pagination,
     },
 
-    props: ['posts'],
+    props: ['posts', 'id'],
 
     data(){
       return {
-        authUserPosts: [],
+        userPosts: [],
         user: {},
       }
     },
 
     created() {
-      this.getAuthUser()
-      this.getAuthUserPosts()
+      this.getUser()
+      this.getUserPosts()
     }, 
 
     methods:{
@@ -170,11 +170,12 @@
         }
       },
 
-      getAuthUser() {
-        UserServices.getAuthUser()
+      getUser() {
+
+        UserServices.getUser(this.id)
         .then(
-          authUser => {
-            this.user = authUser
+          user => {
+            this.user = user
           }
         )
         .catch(err =>{
@@ -182,11 +183,11 @@
         })
       },
 
-      getAuthUserPosts() {
-        PostServices.getAuthUserPosts()
+      getUserPosts() {
+        PostServices.getUserPosts(this.id)
         .then(
-          authUserPost => {
-            this.authUserPosts = authUserPost
+          userPosts => {
+            this.userPosts = userPosts
           }
         )
         .catch(err => {

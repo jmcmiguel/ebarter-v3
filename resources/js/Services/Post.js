@@ -12,4 +12,10 @@ const getAuthUserPosts = async () => {
     return response.data;
 };
 
-export default { getAll, getAuthUserPosts };
+const getUserPosts = async (userID) => {
+    const request = axios.get(`/getUserPosts/${userID}`);
+    const response = await request;
+    return response.data;
+};
+
+export default { getAll, getAuthUserPosts, getUserPosts };

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\PostImage;
 use App\Models\Post;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Crypt;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,12 +44,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
     
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/profile', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('profile/{id?}', function ($id) {
 
-    $posts = Post::where('user_id', Auth::user()->id)->paginate(12);
+    $posts = Post::where('user_id', $id)->paginate(12);
     
     return Inertia::render('Profile', [
-        'posts' => $posts
+        'posts' => $posts,
+        'id' => $id,
     ]);
     
 })->name('userProfile');
@@ -62,7 +64,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('user/{id}', function($id) {
         $user = User::find($id);
-        $filtered =$user->only(['name','city', 'profile_photo_path', 'id']);
+        $filtered =$user->only(['name','city', 'profile_photo_path', 'id', 'contact_number', 'email','bio']);
         return response()->json($filtered);
     });
 
@@ -77,6 +79,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('getAuthUserPosts', [PostController::class, 'getAuthUserPosts']);
 
+    Route::get('getUserPosts/{userID}', [PostController::class, 'getUserPosts']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {

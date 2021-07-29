@@ -12,4 +12,10 @@ const getAuthUser = async () => {
     return response.data;
 };
 
-export default { getUser, getAuthUser };
+const getEncryptedUserId = async (userID) => {
+    const request = axios.post(`/encrypt/${userID}`);
+    const response = await request;
+    return response.data;
+};
+
+export default { getUser, getAuthUser, getEncryptedUserId };

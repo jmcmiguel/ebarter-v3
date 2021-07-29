@@ -127,7 +127,7 @@
                                     Manage Account
                                 </div>
 
-                                <jet-dropdown-link :href="route('userProfile')">
+                                <jet-dropdown-link :href="route('userProfile', $page.props.user.id)">
                                     Profile
                                 </jet-dropdown-link>
 
