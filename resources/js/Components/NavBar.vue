@@ -204,7 +204,7 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <jet-responsive-nav-link :href="route('userProfile')" :active="route().current('userProfile')">
+                    <jet-responsive-nav-link :href="route('userProfile', $page.props.user.id)" :active="route().current('userProfile')">
                         Profile
                     </jet-responsive-nav-link>
 
@@ -216,7 +216,7 @@
                         Account Settings
                     </jet-responsive-nav-link>
 
-                    <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
+                    <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('transaction')">
                         Transaction History
                     </jet-responsive-nav-link>
 
