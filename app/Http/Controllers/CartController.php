@@ -27,6 +27,20 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        $alreadyExists = Cart::where([
+            ['post_id', '=', $request->post_id],
+            ['user_id', '=', Auth::user()->id],
+        ])->first();
+
+        if($alreadyExists){
+            $request->session()->flash('flash.bannerId', uniqid());
+            $request->session()->flash('flash.banner', 'Item already added to cart');
+            $request->session()->flash('flash.bannerStyle', 'danger');
+
+            return redirect()->back()
+                    ->with('message', 'Added to cart Successfully.');
+        }
+
         Validator::make($request->all(), [
             'post_id' => ['required', 'integer', 'exists:posts,id'],
         ])->validate();

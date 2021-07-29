@@ -13,7 +13,7 @@
         
         <div class="col-start-2 col-end-6 px-4 py-2 -mx-3">
             <div class="mx-3">
-                <span class="font-semibold" :class="{ 'text-green-500': style == 'success', 'text-red-700': style == 'danger' }">Success</span>
+                <span class="font-semibold" :class="{ 'text-green-500': style == 'success', 'text-red-700': style == 'danger' }">{{ style == 'success' ? 'Success' : 'Error' }}</span>
                 <p class="text-sm text-gray-600">{{ message }}</p>
             </div>
         </div>
