@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed bottom-10 border border-gray-300 z-50 grid grid-cols-6 gap-0 flex max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-2xl" v-if="show && message">
+    <div class="fixed bottom-10 border ml-5 mr-5 border-gray-300 z-50 grid grid-cols-6 gap-0 flex max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-2xl" v-if="show && message">
 
         <div class="col-start-1 col-end-2 flex items-center justify-center w-12" :class="{ 'bg-green-500': style == 'success', 'bg-red-700': style == 'danger' }">
             <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" v-if="style == 'success'">

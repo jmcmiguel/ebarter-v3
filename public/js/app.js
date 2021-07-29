@@ -23131,7 +23131,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _hoisted_1 = {
   key: 0,
-  "class": "fixed bottom-10 border border-gray-300 z-50 grid grid-cols-6 gap-0 flex max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-2xl"
+  "class": "fixed bottom-10 border ml-5 mr-5 border-gray-300 z-50 grid grid-cols-6 gap-0 flex max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-2xl"
 };
 var _hoisted_2 = {
   key: 0,
