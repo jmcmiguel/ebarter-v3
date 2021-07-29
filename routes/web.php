@@ -10,6 +10,7 @@ use App\Http\Controllers\CartController;
 use App\Models\User;
 use App\Models\PostImage;
 use App\Models\Post;
+use App\Models\Cart;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,5 +84,21 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
 })->name('messages');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/cart', function () {
-    return Inertia::render('Cart');
+
+    // Get the content of the user's cart
+    $cart = Cart::where('user_id', Auth::user()->id)->get();
+
+    $postIds = [];
+    
+    // Store all the post id's in postIds Array
+    foreach($cart as $cartItem) {
+        array_push($postIds, $cartItem->post_id);
+    }
+
+    // Get all posts containg the gathered postIds
+    $posts = Post::whereIn('id', $postIds)->paginate(12);
+
+    return Inertia::render('Cart', [
+        'posts' => $posts
+    ]);
 })->name('cart');
