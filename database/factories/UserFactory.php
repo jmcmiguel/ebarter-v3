@@ -30,9 +30,27 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'birthdate' => $this->faker->dateTimeBetween('1950-01-01', '2003-01-01')->format('Y-m-d'),
+            'city' => $this->faker->randomElement(['Balanga', 'Pilar', 'Abucay', 'Dinalupihan', 'Orion', 'Bagac', 'Morong', 'Orani']),
+            'contact_number' => $this->faker->unique()->numerify('09#########'),
+            'bio' => $this->faker->sentence(10),
         ];
     }
 
+    /**
+     * Indicate that the model's is reported.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function reported()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_reported' => true,
+            ];
+        });
+    }
+    
     /**
      * Indicate that the model's email address should be unverified.
      *
