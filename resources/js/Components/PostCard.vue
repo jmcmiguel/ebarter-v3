@@ -143,7 +143,7 @@
         props: ['title', 'description', 'price', 'views', 'preferredItem',
                 'status', 'userID', 'prodName', 'qty', 'qtyType',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted',
-                'id', 'addToCart'],
+                'id', 'addToCart', 'showEditPostModal', 'showDeletePostModal'],
 
         data() {
             return{

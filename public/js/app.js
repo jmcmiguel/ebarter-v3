@@ -18538,7 +18538,7 @@ dayjs.extend(isBetween);
     JetDropdown: _Jetstream_Dropdown__WEBPACK_IMPORTED_MODULE_4__.default,
     JetDropdownLink: _Jetstream_DropdownLink__WEBPACK_IMPORTED_MODULE_5__.default
   },
-  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'id', 'addToCart'],
+  props: ['title', 'description', 'price', 'views', 'preferredItem', 'status', 'userID', 'prodName', 'qty', 'qtyType', 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'id', 'addToCart', 'showEditPostModal', 'showDeletePostModal'],
   data: function data() {
     return {
       authUser: {},
@@ -22867,7 +22867,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
         onClick: _cache[2] || (_cache[2] = function ($event) {
-          return _ctx.showDeletePostModal($props.id, $props.title);
+          return $props.showDeletePostModal($props.id, $props.title);
         }),
         as: "button"
       }, {
