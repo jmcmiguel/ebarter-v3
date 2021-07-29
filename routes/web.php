@@ -44,7 +44,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
     
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('profile/{id?}', function ($id) {
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id?}', function ($id) {
 
     $posts = Post::where('user_id', $id)->paginate(12);
     
