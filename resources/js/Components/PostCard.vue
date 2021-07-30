@@ -95,7 +95,7 @@
 
                             <div>
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
-                                <jet-dropdown-link v-if="route().current('cart') || this.userID !== this.authUser.id" @click="showMakeOfferModal(id)" as="button">
+                                <jet-dropdown-link v-if="route().current('cart') || this.userID !== this.authUser.id && this.offerExists === false" @click="showMakeOfferModal(id, this.authUser.id)" as="button">
                                     Make offer
                                 </jet-dropdown-link>
                                 <jet-dropdown-link v-if="route().current('cart')" as="button">
@@ -132,6 +132,7 @@
     dayjs.extend(isBetween)
     import JetDropdown from '@/Jetstream/Dropdown'
     import JetDropdownLink from '@/Jetstream/DropdownLink'
+    import OfferServices from '@/Services/Offer'
 
     export default {
 
@@ -152,6 +153,7 @@
                 authUser: {},
                 user: {},
                 images: [],
+                offerExists: null,
             }
         },
 
@@ -286,6 +288,17 @@
             .then(
                 authUser => {
                     this.authUser = authUser
+
+                    // Check if current user already made offer to the post
+                    OfferServices.checkIfOfferAlreadyExists(this.id, authUser.id)
+                    .then(
+                        offer => {
+                            this.offerExists = offer.exists
+                        }
+                    ).catch( err => {
+                        console.log(err.message)
+                    })
+
                 }
             ).catch(err => {
                 console.log(err.message)
@@ -309,8 +322,7 @@
                     }
 
                 }
-
             )
-        }
+        },
 }
 </script>

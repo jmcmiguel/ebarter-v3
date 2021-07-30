@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -12,7 +13,7 @@ use App\Models\User;
 use App\Models\PostImage;
 use App\Models\Post;
 use App\Models\Cart;
-use Illuminate\Support\Facades\Crypt;
+use App\Models\Offer;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,21 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('postImg/{postID}', function($postID) {
         $postImages = PostImage::where('post_id', $postID)->get();
         return response()->json($postImages);
+    });
+
+    Route::post('offerExists/post/{postID}/user/{userID}', function($postID,$userID, Request $request) {
+        
+        $alreadyExists = Offer::where([
+            ['post_id', '=', $postID],
+            ['user_id', '=', $userID],
+        ])->first();
+
+        if($alreadyExists){    
+            return response()->json(['exists' => true]);
+        }else{
+            return response()->json(['exists' => false]);
+        }
+        
     });
 
     Route::get('getAuthUserPosts', [PostController::class, 'getAuthUserPosts']);

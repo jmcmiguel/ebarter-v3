@@ -29,7 +29,7 @@ class OfferController extends Controller
     }
 
     /**
-     * Creates a new Post
+     * Creates a new offer
      *
      * @return Response
      */
@@ -80,7 +80,7 @@ class OfferController extends Controller
     }
   
     /**
-     * Update a Post
+     * Update an offer
      *
      * @return Response
      */
@@ -89,7 +89,7 @@ class OfferController extends Controller
     }
   
     /**
-     * Destroy a Post
+     * Destroy an offer
      *
      * @return Response
      */
