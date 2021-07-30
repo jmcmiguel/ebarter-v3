@@ -46,6 +46,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id?}', function ($id) {
 
+    // If user does not exists, return error
+    $user = User::findOrFail($id);
+
     $posts = Post::where('user_id', $id)->paginate(12);
     
     return Inertia::render('Profile', [
