@@ -22369,7 +22369,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_7 = {
-  "class": "hidden sm:flex sm:items-center sm:ml-6"
+  "class": "hidden md:flex md:items-center md:ml-6"
 };
 var _hoisted_8 = {
   "class": "hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
@@ -22509,7 +22509,7 @@ var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Log Out ");
 
 var _hoisted_38 = {
-  "class": "-mr-2 flex items-center sm:hidden"
+  "class": "-mr-2 flex items-center md:hidden"
 };
 var _hoisted_39 = {
   "class": "h-6 w-6",
@@ -22846,7 +22846,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": [{
       'block': $data.showingNavigationDropdown,
       'hidden': !$data.showingNavigationDropdown
-    }, "sm:hidden"]
+    }, "md:hidden"]
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_responsive_nav_link, {
     href: _ctx.route('dashboard'),
     active: _ctx.route().current('dashboard')
