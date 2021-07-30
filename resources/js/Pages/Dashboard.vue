@@ -10,7 +10,7 @@
         <div v-if="posts.data.length" class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
-                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
+                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showMakeOfferModal="showMakeOfferModal"
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showEditPostModal="showEditPostModal" :addToCart="addToCart" />
@@ -44,6 +44,9 @@
         <!-- Delete Post Modal -->
         <delete-post-modal :postData="deletePostData" :showingDeletePostModal="showingDeleteModal" :closeDeletePostModal="closeDeletePostModal" />
 
+        <!-- Make Offer Modal -->
+        <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" :postID="makeOfferData" />
+
     </app-layout>
 </template>
 
@@ -56,6 +59,7 @@
     import Categories from '@/Components/Categories'
     import EditPostModal from '@/Components/EditPostModal'
     import DeletePostModal from '@/Components/DeletePostModal'
+    import MakeOfferModal from '@/Components/MakeOfferModal'
 
     export default {
 
@@ -68,6 +72,7 @@
             Categories,
             EditPostModal,
             DeletePostModal,
+            MakeOfferModal
         },
 
         props: ['posts'],
@@ -79,6 +84,8 @@
                 editPostData: null,
                 showingDeleteModal: false,
                 deletePostData: null,
+                showingMakeOfferModal: false,
+                makeOfferData: null,
             }
         },
 
@@ -127,7 +134,16 @@
             },
             
             closeDeletePostModal(){
-                this.showingDeleteModal = false;
+                this.showingDeleteModal = false
+            },
+
+            showMakeOfferModal(postID) {
+                this.makeOfferData = postID
+                this.showingMakeOfferModal = true
+            },
+
+            closeMakeOfferModal() {
+                this.showingMakeOfferModal = false
             },
 
             hideFabOnBottom(event) {

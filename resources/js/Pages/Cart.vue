@@ -11,7 +11,7 @@
         <div v-if="posts.data.length" class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
-                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
+                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showMakeOfferModal="showMakeOfferModal"
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
@@ -27,6 +27,9 @@
             </div>
         </div>
 
+        <!-- Make Offer Modal -->
+        <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" />
+
     </app-layout>
 </template>
 
@@ -34,6 +37,7 @@
     import AppLayout from '@/Layouts/AppLayout'
     import PostCard from '@/Components/PostCard'
     import Pagination from '@/Components/Pagination'
+    import MakeOfferModal from '@/Components/MakeOfferModal'
     
     export default {
 
@@ -42,11 +46,25 @@
         components:{
             AppLayout,
             PostCard,
-            Pagination
+            Pagination,
+            MakeOfferModal,
         },
 
-        mounted(){
-            
+        data(){
+            return{
+                showingMakeOfferModal: false
+            }
+        },
+
+        methods:{
+            showMakeOfferModal(postID) {
+                this.showingMakeOfferModal = true
+            },
+
+            closeMakeOfferModal() {
+                this.showingMakeOfferModal = false
+            },
+
         },
         
     }
