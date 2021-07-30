@@ -214,7 +214,7 @@
         
         data() {
             return {
-                csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
+                csrfToken: this.$page.props.csrf_token,
 
                 form: null,
 

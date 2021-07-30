@@ -185,7 +185,7 @@
         
         data() {
             return {
-                csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
+                csrfToken: this.$page.props.csrf_token,
 
                 form: this.$inertia.form({
                     prod_name: null,
