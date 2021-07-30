@@ -214,7 +214,7 @@
         
         data() {
             return {
-                csrfToken: window.Laravel.csrfToken,
+                csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
 
                 form: null,
 

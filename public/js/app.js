@@ -18049,7 +18049,7 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
   props: ['data', 'errors', 'showingPostModal', 'closeAddPostModal'],
   data: function data() {
     return {
-      csrfToken: window.Laravel.csrfToken,
+      csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
       form: this.$inertia.form({
         post_title: null,
         post_desc: null,
@@ -18289,7 +18289,7 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
   props: ['postData', 'showingEditModal', 'closeEditPostModal'],
   data: function data() {
     return {
-      csrfToken: window.Laravel.csrfToken,
+      csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
       form: null,
       categoryOptions: [{
         text: 'Crops',
@@ -18475,7 +18475,7 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
   props: ['data', 'errors', 'showingMakeOfferModal', 'closeMakeOfferModal', 'postID'],
   data: function data() {
     return {
-      csrfToken: window.Laravel.csrfToken,
+      csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
       form: this.$inertia.form({
         prod_name: null,
         prod_qty: null,

@@ -185,7 +185,7 @@
         
         data() {
             return {
-                csrfToken: window.Laravel.csrfToken,
+                csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
 
                 form: this.$inertia.form({
                     prod_name: null,
