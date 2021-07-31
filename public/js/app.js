@@ -20397,6 +20397,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_PostCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/PostCard */ "./resources/js/Components/PostCard.vue");
 /* harmony import */ var _Components_Pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/Pagination */ "./resources/js/Components/Pagination.vue");
 /* harmony import */ var _Components_ShowOffersModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Components/ShowOffersModal */ "./resources/js/Components/ShowOffersModal.vue");
+/* harmony import */ var _Components_EditPostModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Components/EditPostModal */ "./resources/js/Components/EditPostModal.vue");
+/* harmony import */ var _Components_DeletePostModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Components/DeletePostModal */ "./resources/js/Components/DeletePostModal.vue");
+
+
 
 
 
@@ -20408,14 +20412,20 @@ __webpack_require__.r(__webpack_exports__);
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     PostCard: _Components_PostCard__WEBPACK_IMPORTED_MODULE_3__.default,
     Pagination: _Components_Pagination__WEBPACK_IMPORTED_MODULE_4__.default,
-    ShowOffersModal: _Components_ShowOffersModal__WEBPACK_IMPORTED_MODULE_5__.default
+    ShowOffersModal: _Components_ShowOffersModal__WEBPACK_IMPORTED_MODULE_5__.default,
+    EditPostModal: _Components_EditPostModal__WEBPACK_IMPORTED_MODULE_6__.default,
+    DeletePostModal: _Components_DeletePostModal__WEBPACK_IMPORTED_MODULE_7__.default
   },
   props: ['posts', 'id'],
   data: function data() {
     return {
       userPosts: [],
       user: {},
-      showingOffersModal: false
+      showingOffersModal: false,
+      showingEditModal: false,
+      editPostData: null,
+      showingDeleteModal: false,
+      deletePostData: null
     };
   },
   created: function created() {
@@ -20428,6 +20438,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeOffersModal: function closeOffersModal() {
       this.showingOffersModal = false;
+    },
+    showEditPostModal: function showEditPostModal(postData) {
+      this.editPostData = postData;
+      this.showingEditModal = true;
+    },
+    closeEditPostModal: function closeEditPostModal() {
+      this.showingEditModal = false;
+    },
+    showDeletePostModal: function showDeletePostModal(id, title) {
+      this.deletePostData = {
+        id: id,
+        title: title
+      };
+      this.showingDeleteModal = true;
+    },
+    closeDeletePostModal: function closeDeletePostModal() {
+      this.showingDeleteModal = false;
     },
     getProfilePhoto: function getProfilePhoto() {
       if (this.user.profile_photo_path) {
@@ -26716,6 +26743,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_pagination = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("pagination");
 
+  var _component_edit_post_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("edit-post-modal");
+
+  var _component_delete_post_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("delete-post-modal");
+
   var _component_show_offers_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("show-offers-modal");
 
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
@@ -26749,6 +26780,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           id: post.id,
           title: post.title,
           description: post.description,
+          showEditPostModal: $options.showEditPostModal,
           price: post.est_price,
           views: post.views,
           preferredItem: post.preferred_prod,
@@ -26758,13 +26790,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           qty: post.prod_qty,
           qtyType: post.qty_type,
           dateProduced: post.date_produced,
+          showDeletePostModal: $options.showDeletePostModal,
           dateExpiree: post.date_expiree,
           category: post.category,
           datePosted: post.created_at,
           showOffersModal: $options.showOffersModal
         }, null, 8
         /* PROPS */
-        , ["id", "title", "description", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "dateExpiree", "category", "datePosted", "showOffersModal"]);
+        , ["id", "title", "description", "showEditPostModal", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showOffersModal"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
@@ -26775,7 +26808,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         key: 1
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Show if no posts found "), _hoisted_33], 2112
       /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
-      )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Show Offers Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_show_offers_modal, {
+      )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Edit Post Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_edit_post_modal, {
+        postData: $data.editPostData,
+        showingEditModal: $data.showingEditModal,
+        closeEditPostModal: $options.closeEditPostModal
+      }, null, 8
+      /* PROPS */
+      , ["postData", "showingEditModal", "closeEditPostModal"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Delete Post Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_delete_post_modal, {
+        postData: $data.deletePostData,
+        showingDeletePostModal: $data.showingDeleteModal,
+        closeDeletePostModal: $options.closeDeletePostModal
+      }, null, 8
+      /* PROPS */
+      , ["postData", "showingDeletePostModal", "closeDeletePostModal"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Show Offers Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_show_offers_modal, {
         showingOffersModal: $data.showingOffersModal,
         closeOffersModal: $options.closeOffersModal
       }, null, 8

@@ -110,9 +110,9 @@
         <div v-if="posts.data.length" class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
-                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
+                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showEditPostModal="showEditPostModal"
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
-                                :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
+                                :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showOffersModal="showOffersModal" />
                 </div>
             </div>
@@ -125,7 +125,13 @@
             no posts found
             </div>
         </div>
-      
+
+      <!-- Edit Post Modal -->
+      <edit-post-modal :postData="editPostData" :showingEditModal="showingEditModal" :closeEditPostModal="closeEditPostModal" />
+
+      <!-- Delete Post Modal -->
+      <delete-post-modal :postData="deletePostData" :showingDeletePostModal="showingDeleteModal" :closeDeletePostModal="closeDeletePostModal" />
+
       <!-- Show Offers Modal -->
       <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" />
 
@@ -141,6 +147,8 @@
   import PostCard from '@/Components/PostCard'
   import Pagination from '@/Components/Pagination'
   import ShowOffersModal from '@/Components/ShowOffersModal'
+  import EditPostModal from '@/Components/EditPostModal'
+  import DeletePostModal from '@/Components/DeletePostModal'
 
   export default {
   
@@ -148,7 +156,9 @@
       AppLayout,
       PostCard,
       Pagination,
-      ShowOffersModal
+      ShowOffersModal,
+      EditPostModal,
+      DeletePostModal
     },
 
     props: ['posts', 'id'],
@@ -158,6 +168,10 @@
         userPosts: [],
         user: {},
         showingOffersModal: false,
+        showingEditModal: false,
+        editPostData: null,
+        showingDeleteModal: false,
+        deletePostData: null,
       }
     },
 
@@ -174,6 +188,24 @@
 
       closeOffersModal() {
           this.showingOffersModal = false
+      },
+
+      showEditPostModal(postData) {
+          this.editPostData = postData
+          this.showingEditModal = true
+      },
+
+      closeEditPostModal() {
+          this.showingEditModal = false
+      },
+
+      showDeletePostModal(id, title){
+          this.deletePostData = {id: id, title: title}
+          this.showingDeleteModal = true
+      },
+      
+      closeDeletePostModal(){
+          this.showingDeleteModal = false
       },
 
       getProfilePhoto() {
