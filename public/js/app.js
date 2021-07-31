@@ -20638,6 +20638,25 @@ __webpack_require__.r(__webpack_exports__);
     this.getUserPosts();
   },
   methods: {
+    addToCart: function addToCart(postID) {
+      var _this = this;
+
+      var form = this.$inertia.form({
+        'post_id': postID
+      });
+      form.post(route('cart.store'), {
+        preserveScroll: true,
+        onSuccess: function onSuccess() {
+          return form.reset();
+        },
+        onError: function onError() {
+          return _this.$refs.post_title.focus();
+        },
+        onFinish: function onFinish() {
+          return form.reset();
+        }
+      });
+    },
     showOffersModal: function showOffersModal(postID, postTitle) {
       this.showingOffersData = {
         id: postID,
@@ -20673,19 +20692,19 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getUser: function getUser() {
-      var _this = this;
+      var _this2 = this;
 
       _Services_User__WEBPACK_IMPORTED_MODULE_1__.default.getUser(this.id).then(function (user) {
-        _this.user = user;
+        _this2.user = user;
       })["catch"](function (err) {
         console.log(err.message);
       });
     },
     getUserPosts: function getUserPosts() {
-      var _this2 = this;
+      var _this3 = this;
 
       _Services_Post__WEBPACK_IMPORTED_MODULE_2__.default.getUserPosts(this.id).then(function (userPosts) {
-        _this2.userPosts = userPosts;
+        _this3.userPosts = userPosts;
       })["catch"](function (err) {
         console.log(err.message);
       });
@@ -27140,10 +27159,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           dateExpiree: post.date_expiree,
           category: post.category,
           datePosted: post.created_at,
-          showOffersModal: $options.showOffersModal
+          showOffersModal: $options.showOffersModal,
+          addToCart: $options.addToCart
         }, null, 8
         /* PROPS */
-        , ["id", "title", "description", "showEditPostModal", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showOffersModal"]);
+        , ["id", "title", "description", "showEditPostModal", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showOffersModal", "addToCart"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {

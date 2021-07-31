@@ -113,7 +113,7 @@
                     <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showEditPostModal="showEditPostModal"
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
-                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showOffersModal="showOffersModal" />
+                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showOffersModal="showOffersModal" :addToCart="addToCart" />
                 </div>
             </div>
             <pagination :links="posts.links" />
@@ -182,6 +182,18 @@
     }, 
 
     methods:{
+        addToCart(postID){
+          const form = this.$inertia.form({
+              'post_id': postID
+          })
+
+          form.post(route('cart.store'), {
+              preserveScroll: true,
+              onSuccess: () => form.reset(),
+              onError: () => this.$refs.post_title.focus(),
+              onFinish: () => form.reset(),
+          })
+      },
 
       showOffersModal(postID, postTitle) {
           this.showingOffersData = {id: postID, title: postTitle}
