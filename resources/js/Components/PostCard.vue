@@ -90,7 +90,7 @@
                                 <jet-dropdown-link @click="showDeletePostModal(id, title)" as="button">
                                     Delete Post
                                 </jet-dropdown-link>
-                                <jet-dropdown-link @click="showOffersModal" as="button">
+                                <jet-dropdown-link @click="showOffersModal(id, title)" as="button">
                                     View Offers
                                 </jet-dropdown-link>
                             </div>

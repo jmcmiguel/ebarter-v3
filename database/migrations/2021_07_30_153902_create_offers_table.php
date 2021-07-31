@@ -16,7 +16,7 @@ class CreateOffersTable extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id'); // user id of offerror
             $table->string('prod_name');
             $table->double('est_price');
             $table->double('prod_qty')->nullable();

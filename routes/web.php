@@ -70,7 +70,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('user/{id}', function($id) {
         $user = User::find($id);
-        $filtered =$user->only(['name','city', 'profile_photo_path', 'id', 'contact_number', 'email','bio']);
+        $filtered = $user->only(['name','city', 'profile_photo_path', 'id', 'contact_number', 'email','bio']);
         return response()->json($filtered);
     });
 
@@ -81,6 +81,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('postImg/{postID}', function($postID) {
         $postImages = PostImage::where('post_id', $postID)->get();
         return response()->json($postImages);
+    });
+
+    Route::get('postOffers/{postID}', function($postID) {
+        $postOffers = Offer::where('post_id', $postID)->get();
+        return response()->json($postOffers);
     });
 
     Route::post('offerExists/post/{postID}/user/{userID}', function($postID,$userID, Request $request) {

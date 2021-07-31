@@ -133,7 +133,7 @@
       <delete-post-modal :postData="deletePostData" :showingDeletePostModal="showingDeleteModal" :closeDeletePostModal="closeDeletePostModal" />
 
       <!-- Show Offers Modal -->
-      <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" />
+      <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" :post="showingOffersData" />
 
     </main>
 
@@ -172,6 +172,7 @@
         editPostData: null,
         showingDeleteModal: false,
         deletePostData: null,
+        showingOffersData: null,
       }
     },
 
@@ -182,7 +183,8 @@
 
     methods:{
 
-      showOffersModal() {
+      showOffersModal(postID, postTitle) {
+          this.showingOffersData = {id: postID, title: postTitle}
           this.showingOffersModal = true
       },
 

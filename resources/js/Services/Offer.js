@@ -6,4 +6,10 @@ const checkIfOfferAlreadyExists = async (postID, userID) => {
     return response.data;
 };
 
-export default { checkIfOfferAlreadyExists };
+const getPostOffers = async (postID) => {
+    const request = axios.get(`/postOffers/${postID}`);
+    const response = await request;
+    return response.data;
+};
+
+export default { checkIfOfferAlreadyExists, getPostOffers };

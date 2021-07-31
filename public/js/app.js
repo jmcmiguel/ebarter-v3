@@ -18629,6 +18629,166 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OfferCard.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OfferCard.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Services_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Services/User */ "./resources/js/Services/User.js");
+
+
+var dayjs = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+
+var relativeTime = __webpack_require__(/*! dayjs/plugin/relativeTime */ "./node_modules/dayjs/plugin/relativeTime.js");
+
+var isBetween = __webpack_require__(/*! dayjs/plugin/isBetween */ "./node_modules/dayjs/plugin/isBetween.js");
+
+dayjs.extend(isBetween);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['offer'],
+  data: function data() {
+    return {
+      user: {},
+      categoryOptions: [{
+        text: 'Crops',
+        value: 'categ-1'
+      }, {
+        text: 'Livestocks',
+        value: 'categ-2'
+      }, {
+        text: 'Dairy',
+        value: 'categ-3'
+      }, {
+        text: 'Fish Farming',
+        value: 'categ-4'
+      }, {
+        text: 'Machineries',
+        value: 'categ-5'
+      }, {
+        text: 'Others',
+        value: 'categ-6'
+      }],
+      qtyOptions: [{
+        text: 'Kilogram',
+        value: 'categ-1'
+      }, {
+        text: 'Liter',
+        value: 'categ-2'
+      }, {
+        text: 'Box',
+        value: 'categ-3'
+      }, {
+        text: 'Sack',
+        value: 'categ-4'
+      }, {
+        text: 'Truck',
+        value: 'categ-5'
+      }, {
+        text: 'Piece',
+        value: 'categ-6'
+      }]
+    };
+  },
+  methods: {
+    numberWithCommas: function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    formatDate: function formatDate(date) {
+      return dayjs(new Date(date)).format('MMM DD, YYYY');
+    },
+    getTimeAgo: function getTimeAgo(date) {
+      dayjs.extend(relativeTime);
+      return dayjs(new Date(date)).fromNow();
+    },
+    isExpiree: function isExpiree(date) {
+      if (dayjs(new Date()).isBetween(dayjs(new Date(date)).subtract(1, 'week'), dayjs(new Date(date)))) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isExpired: function isExpired(date) {
+      if (dayjs(new Date()).isAfter(new Date(date))) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    getQuantityType: function getQuantityType(qtyType) {
+      switch (qtyType) {
+        case 'categ-1':
+          return 'Kilogram';
+
+        case 'categ-2':
+          return 'Liter';
+
+        case 'categ-3':
+          return 'Box';
+
+        case 'categ-4':
+          return 'Sack';
+
+        case 'categ-5':
+          return 'Truck';
+
+        case 'categ-6':
+          return 'Piece';
+
+        default:
+          return 'Unknown';
+      }
+    },
+    getCategory: function getCategory(category) {
+      switch (category) {
+        case 'categ-1':
+          return 'Crops';
+
+        case 'categ-2':
+          return 'Livestocks';
+
+        case 'categ-3':
+          return 'Dairy';
+
+        case 'categ-4':
+          return 'Fish Farming';
+
+        case 'categ-5':
+          return 'Machineries';
+
+        case 'categ-6':
+          return 'Others';
+
+        default:
+          return 'Unknown';
+      }
+    },
+    getProfilePhoto: function getProfilePhoto() {
+      if (this.user.profile_photo_path) {
+        return '/storage/' + this.user.profile_photo_path;
+      } else {
+        return "https://ui-avatars.com/api/?name=".concat(this.user.name, "&color=059669&background=ECFDF5");
+      }
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    _Services_User__WEBPACK_IMPORTED_MODULE_0__.default.getUser(this.offer.user_id).then(function (userData) {
+      _this.user = userData;
+    })["catch"](function (err) {
+      console.log(err.message);
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Pagination.vue?vue&type=script&lang=js":
 /*!****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Pagination.vue?vue&type=script&lang=js ***!
@@ -18874,13 +19034,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
-/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
-/* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
-/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
-/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
-
-
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Services_Offer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Services/Offer */ "./resources/js/Services/Offer.js");
+/* harmony import */ var _Components_OfferCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/OfferCard */ "./resources/js/Components/OfferCard.vue");
 
 
 
@@ -18888,20 +19044,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_0__.default,
-    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__.default,
-    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_2__.default,
-    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__.default,
-    JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_4__.default,
-    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_5__.default
+    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__.default,
+    OfferCard: _Components_OfferCard__WEBPACK_IMPORTED_MODULE_3__.default
   },
-  props: ['showingOffersModal', 'closeOffersModal'],
+  props: ['showingOffersModal', 'closeOffersModal', 'post'],
   data: function data() {
     return {
-      form: this.$inertia.form({})
+      postOffers: [],
+      categoryOptions: [{
+        text: 'Crops',
+        value: 'categ-1'
+      }, {
+        text: 'Livestocks',
+        value: 'categ-2'
+      }, {
+        text: 'Dairy',
+        value: 'categ-3'
+      }, {
+        text: 'Fish Farming',
+        value: 'categ-4'
+      }, {
+        text: 'Machineries',
+        value: 'categ-5'
+      }, {
+        text: 'Others',
+        value: 'categ-6'
+      }],
+      qtyOptions: [{
+        text: 'Kilogram',
+        value: 'categ-1'
+      }, {
+        text: 'Liter',
+        value: 'categ-2'
+      }, {
+        text: 'Box',
+        value: 'categ-3'
+      }, {
+        text: 'Sack',
+        value: 'categ-4'
+      }, {
+        text: 'Truck',
+        value: 'categ-5'
+      }, {
+        text: 'Piece',
+        value: 'categ-6'
+      }]
     };
   },
   methods: {},
-  beforeUnmount: function beforeUnmount() {}
+  beforeUpdate: function beforeUpdate() {
+    var _this = this;
+
+    _Services_Offer__WEBPACK_IMPORTED_MODULE_2__.default.getPostOffers(this.post.id).then(function (postOffers) {
+      _this.postOffers = postOffers;
+    })["catch"](function (err) {
+      console.log(err.message);
+    });
+  }
 });
 
 /***/ }),
@@ -20277,7 +20476,8 @@ __webpack_require__.r(__webpack_exports__);
       deletePostData: null,
       showingMakeOfferModal: false,
       makeOfferData: null,
-      showingOffersModal: false
+      showingOffersModal: false,
+      showingOffersData: null
     };
   },
   created: function created() {
@@ -20287,7 +20487,11 @@ __webpack_require__.r(__webpack_exports__);
     window.removeEventListener('scroll', this.hideFabOnBottom);
   },
   methods: {
-    showOffersModal: function showOffersModal() {
+    showOffersModal: function showOffersModal(postID, postTitle) {
+      this.showingOffersData = {
+        id: postID,
+        title: postTitle
+      };
       this.showingOffersModal = true;
     },
     closeOffersModal: function closeOffersModal() {
@@ -20425,7 +20629,8 @@ __webpack_require__.r(__webpack_exports__);
       showingEditModal: false,
       editPostData: null,
       showingDeleteModal: false,
-      deletePostData: null
+      deletePostData: null,
+      showingOffersData: null
     };
   },
   created: function created() {
@@ -20433,7 +20638,11 @@ __webpack_require__.r(__webpack_exports__);
     this.getUserPosts();
   },
   methods: {
-    showOffersModal: function showOffersModal() {
+    showOffersModal: function showOffersModal(postID, postTitle) {
+      this.showingOffersData = {
+        id: postID,
+        title: postTitle
+      };
       this.showingOffersModal = true;
     },
     closeOffersModal: function closeOffersModal() {
@@ -23109,6 +23318,119 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OfferCard.vue?vue&type=template&id=31e0b85e":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OfferCard.vue?vue&type=template&id=31e0b85e ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "max-w-2xl mx-auto overflow-hidden bg-white rounded-lg shadow-2xl mt-10"
+};
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+  "class": "object-cover w-full h-64",
+  src: "https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+  alt: "Article"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_3 = {
+  "class": "p-6"
+};
+var _hoisted_4 = {
+  "class": "inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"
+};
+var _hoisted_5 = {
+  key: 0,
+  "class": "inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"
+};
+var _hoisted_6 = {
+  key: 1,
+  "class": "inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs"
+};
+var _hoisted_7 = {
+  "class": "block mt-2 text-2xl font-semibold text-gray-800"
+};
+var _hoisted_8 = {
+  "class": "mt-2 text-sm text-gray-600"
+};
+var _hoisted_9 = {
+  "class": "mt-2 text-sm text-gray-600"
+};
+var _hoisted_10 = {
+  "class": "mt-2 text-sm text-gray-600"
+};
+var _hoisted_11 = {
+  "class": "mt-2 text-sm text-gray-600"
+};
+var _hoisted_12 = {
+  "class": "mt-2 text-sm text-gray-600"
+};
+var _hoisted_13 = {
+  "class": "mt-4"
+};
+var _hoisted_14 = {
+  "class": "flex items-center"
+};
+var _hoisted_15 = {
+  "class": "flex items-center"
+};
+var _hoisted_16 = {
+  "class": "mx-1 text-xs text-gray-600 dark:text-gray-300"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_inertia_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("inertia-link");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getCategory($props.offer.category)), 1
+  /* TEXT */
+  ), $options.isExpired($props.offer.dateExpiree) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_5, "Expired")) : $options.isExpiree($props.offer.dateExpiree) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_6, "Expiree")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.offer.prod_name), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_8, "Quantity: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.offer.prod_qty) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getQuantityType($props.offer.qty_type)), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_9, "Date Produced: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDate($props.offer.date_produced)), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_10, "Date Expiree: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDate($props.offer.date_expiree)), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_11, "Estimated Price: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.numberWithCommas($props.offer.est_price)) + " pesos ", 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_12, "Location: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.city), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+    "class": "object-cover h-10 rounded-full",
+    src: $options.getProfilePhoto(),
+    alt: $data.user.name
+  }, null, 8
+  /* PROPS */
+  , ["src", "alt"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
+    href: _ctx.route('userProfile', $data.user.id),
+    "class": "mx-2 font-semibold text-gray-700 dark:text-gray-200"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.name), 1
+      /* TEXT */
+      )];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getTimeAgo($props.offer.created_at)), 1
+  /* TEXT */
+  )])])])]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Pagination.vue?vue&type=template&id=0e1fe725":
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Pagination.vue?vue&type=template&id=0e1fe725 ***!
@@ -23513,7 +23835,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
-        onClick: $props.showOffersModal,
+        onClick: _cache[3] || (_cache[3] = function ($event) {
+          return $props.showOffersModal($props.id, $props.title);
+        }),
         as: "button"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -23522,11 +23846,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }, 8
-      /* PROPS */
-      , ["onClick"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_39, _this.userID !== _this.authUser.id && _this.offerExists === false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dropdown_link, {
+      })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_39, _this.userID !== _this.authUser.id && _this.offerExists === false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dropdown_link, {
         key: 0,
-        onClick: _cache[3] || (_cache[3] = function ($event) {
+        onClick: _cache[4] || (_cache[4] = function ($event) {
           return $props.showMakeOfferModal();
         }),
         as: "button"
@@ -23549,7 +23871,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _this.userID !== _this.authUser.id && !_ctx.route().current('cart') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dropdown_link, {
         key: 2,
-        onClick: _cache[4] || (_cache[4] = function ($event) {
+        onClick: _cache[5] || (_cache[5] = function ($event) {
           return $props.addToCart($props.id);
         }),
         as: "button"
@@ -23629,17 +23951,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  key: 0,
+  "class": "p-6"
+};
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Offers Received ");
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Showing all the offers received from other users for this post ", -1
+/* HOISTED */
+);
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" This all the offers received from the other users ");
+var _hoisted_3 = {
+  "class": "container mx-auto"
+};
+var _hoisted_4 = {
+  "class": "flex flex-wrap -mx-4"
+};
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ");
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "flex justify-center flex-col mt-20"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+  "class": "h-72",
+  src: "/img/void.svg",
+  alt: ""
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "mx-auto"
+}, " no offer received yet ")], -1
+/* HOISTED */
+);
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" OK ");
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Close ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_jet_secondary_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-secondary-button");
+  var _component_offer_card = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("offer-card");
 
   var _component_jet_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-button");
 
@@ -23650,38 +23993,40 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClose: $props.closeOffersModal
   }, {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_1];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.postOffers.length ? $data.postOffers.length : 'No') + " Offers Received from post '" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.post.title) + "' ", 1
+      /* TEXT */
+      )];
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_2];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Show all offers received "), $data.postOffers.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.postOffers, function (postOffer) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_offer_card, {
+          key: postOffer.id,
+          offer: postOffer
+        }, null, 8
+        /* PROPS */
+        , ["offer"]);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))])])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        key: 1
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Show if no offers received "), _hoisted_5], 2112
+      /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+      ))];
     }),
     footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_secondary_button, {
-        onClick: $props.closeOffersModal
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_button, {
+        onClick: $props.closeOffersModal,
+        "class": "ml-2"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_3];
+          return [_hoisted_6];
         }),
         _: 1
         /* STABLE */
 
       }, 8
       /* PROPS */
-      , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_button, {
-        "class": ["ml-2", {
-          'opacity-25': $data.form.processing
-        }],
-        disabled: $data.form.processing
-      }, {
-        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_4];
-        }),
-        _: 1
-        /* STABLE */
-
-      }, 8
-      /* PROPS */
-      , ["class", "disabled"])];
+      , ["onClick"])];
     }),
     _: 1
     /* STABLE */
@@ -26506,10 +26851,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["showingMakeOfferModal", "closeMakeOfferModal", "postID"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_show_offers_modal, {
         showingOffersModal: $data.showingOffersModal,
-        closeOffersModal: $options.closeOffersModal
+        closeOffersModal: $options.closeOffersModal,
+        post: $data.showingOffersData
       }, null, 8
       /* PROPS */
-      , ["showingOffersModal", "closeOffersModal"])];
+      , ["showingOffersModal", "closeOffersModal", "post"])];
     }),
     _: 1
     /* STABLE */
@@ -26822,10 +27168,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["postData", "showingDeletePostModal", "closeDeletePostModal"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Show Offers Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_show_offers_modal, {
         showingOffersModal: $data.showingOffersModal,
-        closeOffersModal: $options.closeOffersModal
+        closeOffersModal: $options.closeOffersModal,
+        post: $data.showingOffersData
       }, null, 8
       /* PROPS */
-      , ["showingOffersModal", "closeOffersModal"])])];
+      , ["showingOffersModal", "closeOffersModal", "post"])])];
     }),
     _: 1
     /* STABLE */
@@ -28331,8 +28678,37 @@ var checkIfOfferAlreadyExists = /*#__PURE__*/function () {
   };
 }();
 
+var getPostOffers = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(postID) {
+    var request, response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            request = axios__WEBPACK_IMPORTED_MODULE_1___default().get("/postOffers/".concat(postID));
+            _context2.next = 3;
+            return request;
+
+          case 3:
+            response = _context2.sent;
+            return _context2.abrupt("return", response.data);
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function getPostOffers(_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  checkIfOfferAlreadyExists: checkIfOfferAlreadyExists
+  checkIfOfferAlreadyExists: checkIfOfferAlreadyExists,
+  getPostOffers: getPostOffers
 });
 
 /***/ }),
@@ -70907,6 +71283,32 @@ _NavBar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file 
 
 /***/ }),
 
+/***/ "./resources/js/Components/OfferCard.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/Components/OfferCard.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _OfferCard_vue_vue_type_template_id_31e0b85e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OfferCard.vue?vue&type=template&id=31e0b85e */ "./resources/js/Components/OfferCard.vue?vue&type=template&id=31e0b85e");
+/* harmony import */ var _OfferCard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OfferCard.vue?vue&type=script&lang=js */ "./resources/js/Components/OfferCard.vue?vue&type=script&lang=js");
+
+
+
+_OfferCard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _OfferCard_vue_vue_type_template_id_31e0b85e__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_OfferCard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/Components/OfferCard.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_OfferCard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
 /***/ "./resources/js/Components/Pagination.vue":
 /*!************************************************!*\
   !*** ./resources/js/Components/Pagination.vue ***!
@@ -72365,6 +72767,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/OfferCard.vue?vue&type=script&lang=js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Components/OfferCard.vue?vue&type=script&lang=js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OfferCard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__.default)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OfferCard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./OfferCard.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OfferCard.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Components/Pagination.vue?vue&type=script&lang=js":
 /*!************************************************************************!*\
   !*** ./resources/js/Components/Pagination.vue?vue&type=script&lang=js ***!
@@ -73225,6 +73643,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_NavBar_vue_vue_type_template_id_3df829fb__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_NavBar_vue_vue_type_template_id_3df829fb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./NavBar.vue?vue&type=template&id=3df829fb */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/NavBar.vue?vue&type=template&id=3df829fb");
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/OfferCard.vue?vue&type=template&id=31e0b85e":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/Components/OfferCard.vue?vue&type=template&id=31e0b85e ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OfferCard_vue_vue_type_template_id_31e0b85e__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OfferCard_vue_vue_type_template_id_31e0b85e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./OfferCard.vue?vue&type=template&id=31e0b85e */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OfferCard.vue?vue&type=template&id=31e0b85e");
 
 
 /***/ }),

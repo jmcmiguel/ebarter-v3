@@ -48,7 +48,7 @@
         <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" :postID="makeOfferData" />
 
         <!-- Show Offers Modal -->
-      <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" />
+      <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" :post="showingOffersData" />
 
     </app-layout>
 </template>
@@ -92,6 +92,7 @@
                 showingMakeOfferModal: false,
                 makeOfferData: null,
                 showingOffersModal: false,
+                showingOffersData: null,
             }
         },
 
@@ -105,7 +106,8 @@
 
         methods: {
 
-            showOffersModal() {
+            showOffersModal(postID, postTitle) {
+                this.showingOffersData = {id: postID, title: postTitle}
                 this.showingOffersModal = true
             },
 
