@@ -28,7 +28,7 @@
         </div>
 
         <!-- Make Offer Modal -->
-        <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" />
+        <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" :postID="makeOfferData" />
     </app-layout>
 </template>
 
@@ -52,12 +52,15 @@
         data(){
             return{
                 showingMakeOfferModal: false,
+                makeOfferData: null,
             }
         },
 
         methods:{
 
-            showMakeOfferModal() {
+            showMakeOfferModal(postID) {
+                this.makeOfferData = postID
+                console.log(postID)
                 this.showingMakeOfferModal = true
             },
 
