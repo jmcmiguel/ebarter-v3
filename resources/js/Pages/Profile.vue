@@ -113,18 +113,21 @@
                     <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" 
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" 
-                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
+                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showOffersModal="showOffersModal" />
                 </div>
             </div>
             <pagination :links="posts.links" />
         </div>
-
+      <!-- Show if no posts found -->
         <div v-else class="flex justify-center flex-col mt-10 mb-20">
             <img class="h-72" src="/img/void.svg" alt="">
             <div class="mx-auto">
             no posts found
             </div>
         </div>
+      
+      <!-- Show Offers Modal -->
+      <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" />
 
     </main>
 
@@ -137,6 +140,7 @@
   import PostServices from '@/Services/Post'
   import PostCard from '@/Components/PostCard'
   import Pagination from '@/Components/Pagination'
+  import ShowOffersModal from '@/Components/ShowOffersModal'
 
   export default {
   
@@ -144,6 +148,7 @@
       AppLayout,
       PostCard,
       Pagination,
+      ShowOffersModal
     },
 
     props: ['posts', 'id'],
@@ -152,6 +157,7 @@
       return {
         userPosts: [],
         user: {},
+        showingOffersModal: false,
       }
     },
 
@@ -161,6 +167,14 @@
     }, 
 
     methods:{
+
+      showOffersModal() {
+          this.showingOffersModal = true
+      },
+
+      closeOffersModal() {
+          this.showingOffersModal = false
+      },
 
       getProfilePhoto() {
         if(this.user.profile_photo_path){

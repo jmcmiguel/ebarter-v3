@@ -29,7 +29,6 @@
 
         <!-- Make Offer Modal -->
         <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" />
-
     </app-layout>
 </template>
 
@@ -52,12 +51,13 @@
 
         data(){
             return{
-                showingMakeOfferModal: false
+                showingMakeOfferModal: false,
             }
         },
 
         methods:{
-            showMakeOfferModal(postID) {
+
+            showMakeOfferModal() {
                 this.showingMakeOfferModal = true
             },
 

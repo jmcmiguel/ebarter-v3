@@ -90,14 +90,14 @@
                                 <jet-dropdown-link @click="showDeletePostModal(id, title)" as="button">
                                     Delete Post
                                 </jet-dropdown-link>
-                                <jet-dropdown-link as="button">
+                                <jet-dropdown-link @click="showOffersModal" as="button">
                                     View Offers
                                 </jet-dropdown-link>
                             </div>
 
                             <div>
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
-                                <jet-dropdown-link v-if="this.userID !== this.authUser.id && this.offerExists === false" @click="showMakeOfferModal(id, this.authUser.id)" as="button">
+                                <jet-dropdown-link v-if="this.userID !== this.authUser.id && this.offerExists === false" @click="showMakeOfferModal()" as="button">
                                     Make offer
                                 </jet-dropdown-link>
                                 <jet-dropdown-link v-if="route().current('cart')" as="button">
@@ -147,7 +147,7 @@
 
         props: ['title', 'description', 'price', 'views', 'preferredItem',
                 'status', 'userID', 'prodName', 'qty', 'qtyType', 'showMakeOfferModal',
-                'dateProduced', 'dateExpiree', 'category', 'datePosted',
+                'dateProduced', 'dateExpiree', 'category', 'datePosted', 'showOffersModal',
                 'id', 'addToCart', 'showEditPostModal', 'showDeletePostModal'],
 
         data() {
