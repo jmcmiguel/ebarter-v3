@@ -1,13 +1,17 @@
 <template>
-    <div class="max-w-2xl mx-auto overflow-hidden bg-white rounded-lg shadow-2xl mt-10">
-        <img class="object-cover w-full h-64" src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Article">
+    <div class="w-full mx-auto overflow-hidden bg-white rounded-lg shadow-2xl mt-10">
+
+        <vueper-slides :parallax="1" :parallax-fixed-content="false" fixed-height="12rem" :touchable="false">
+            <vueper-slide v-for="image in offerImages" :key="image.id" :image="image.image">
+            </vueper-slide>
+        </vueper-slides>
 
         <div class="p-6">
             <div>
                 <span class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(offer.category) }} </span>
                 <span v-if="isExpired(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
                 <span v-else-if="isExpiree(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expiree</span>
-             
+                
                 <p class="block mt-2 text-2xl font-semibold text-gray-800">{{ offer.prod_name }}</p>
 
                 <p class="mt-2 text-sm text-gray-600">Quantity: {{ offer.prod_qty }} {{ getQuantityType(offer.qty_type) }} </p>
@@ -27,6 +31,9 @@
                         <img class="object-cover h-10 rounded-full" :src="getProfilePhoto()" :alt="user.name">
                         <inertia-link :href="route('userProfile', user.id)" class="mx-2 font-semibold text-gray-700 dark:text-gray-200">{{ user.name }}</inertia-link>
                     </div>
+                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
+                     ·
+                    </span>
                     <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
                 </div>
             </div>
@@ -40,15 +47,25 @@
     var relativeTime = require('dayjs/plugin/relativeTime')
     var isBetween = require('dayjs/plugin/isBetween')
     dayjs.extend(isBetween)
+    import { VueperSlides, VueperSlide } from 'vueperslides'
+    import 'vueperslides/dist/vueperslides.css'
+    import OfferImageServices from '@/Services/OfferImage'
 
     export default {
 
         props: ['offer'],
 
+        components: {
+            VueperSlides, 
+            VueperSlide,
+        },
+
         data(){
             return{
 
                 user:{},
+
+                offerImages: [],
 
                 categoryOptions: [
                 { text: 'Crops', value: 'categ-1' },
@@ -163,6 +180,8 @@
         },
 
         created(){
+
+            // Fetch user data of offerror
             UserServices.getUser(this.offer.user_id)
             .then(
                 userData => {
@@ -170,6 +189,28 @@
                 }
             )
             .catch(err => {
+                console.log(err.message)
+            })
+
+            // Get Offer Images
+            OfferImageServices.getOfferImages(this.offer.id)
+            .then(
+                offerImages => {
+                    if (offerImages.length === 0) {
+                        this.offerImages = [{
+                            id: 1,
+                            image: '/img/noimage.svg',
+                        }]
+                    }else{
+                        this.offerImages = offerImages.map(image => {
+                            return {
+                                id: image.id,
+                                image: `/storage/${image.offer_image_path}` 
+                            }
+                        })
+                    }
+                }
+            ).catch(err =>{
                 console.log(err.message)
             })
         }

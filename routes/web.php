@@ -14,6 +14,7 @@ use App\Models\PostImage;
 use App\Models\Post;
 use App\Models\Cart;
 use App\Models\Offer;
+use App\Models\OfferImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('postOffers/{postID}', function($postID) {
         $postOffers = Offer::where('post_id', $postID)->get();
         return response()->json($postOffers);
+    });
+
+    Route::get('offerImages/{offerID}', function($offerID) {
+        $offerImages = OfferImage::where('offer_id', $offerID)->get();
+        return response()->json($offerImages);
     });
 
     Route::post('offerExists/post/{postID}/user/{userID}', function($postID,$userID, Request $request) {
