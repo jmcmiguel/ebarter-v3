@@ -1,7 +1,7 @@
 <template>
     <div class="w-full mx-auto overflow-hidden bg-white rounded-lg shadow-2xl mt-10">
 
-        <vueper-slides :parallax="1" :parallax-fixed-content="false" fixed-height="12rem" :touchable="false">
+        <vueper-slides :parallax="1" :parallax-fixed-content="false" fixed-height="20rem" :touchable="false">
             <vueper-slide v-for="image in offerImages" :key="image.id" :image="image.image">
             </vueper-slide>
         </vueper-slides>
