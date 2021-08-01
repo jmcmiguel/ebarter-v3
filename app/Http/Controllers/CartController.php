@@ -100,8 +100,19 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($postID, Request $request)
     {
-        //
+        
+        Cart::where([
+            ['post_id', '=', $postID],
+            ['user_id', '=', Auth::user()->id],
+        ])->delete();
+        
+        $request->session()->flash('flash.bannerId', uniqid());
+        $request->session()->flash('flash.banner', "Cart Item Deleted");
+        $request->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->back()
+                    ->with('message', 'Cart Item Deleted Successfully.');
     }
 }

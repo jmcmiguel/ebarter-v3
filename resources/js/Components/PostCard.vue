@@ -100,7 +100,7 @@
                                 <jet-dropdown-link v-if="this.userID !== this.authUser.id && this.offerExists === false" @click="showMakeOfferModal(id)" as="button">
                                     Make offer
                                 </jet-dropdown-link>
-                                <jet-dropdown-link v-if="route().current('cart')" as="button">
+                                <jet-dropdown-link v-if="route().current('cart')" @click="removeFromCart(id)" as="button">
                                     Remove from cart
                                 </jet-dropdown-link>
                                 <jet-dropdown-link v-if="this.userID !== this.authUser.id && !route().current('cart')" @click="addToCart(id)" as="button">
@@ -148,7 +148,7 @@
         props: ['title', 'description', 'price', 'views', 'preferredItem',
                 'status', 'userID', 'prodName', 'qty', 'qtyType', 'showMakeOfferModal',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'showOffersModal',
-                'id', 'addToCart', 'showEditPostModal', 'showDeletePostModal'],
+                'id', 'addToCart', 'showEditPostModal', 'showDeletePostModal', 'removeFromCart'],
 
         data() {
             return{

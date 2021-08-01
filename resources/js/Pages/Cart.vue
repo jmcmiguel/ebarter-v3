@@ -14,7 +14,7 @@
                     <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showMakeOfferModal="showMakeOfferModal"
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced"
-                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" />
+                                :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :removeFromCart="showRemoveCartModal" />
                 </div>
             </div>
             <pagination :links="posts.links" />
@@ -29,6 +29,10 @@
 
         <!-- Make Offer Modal -->
         <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" :postID="makeOfferData" />
+
+        <!-- Confirm Remove to Cart Modal -->
+        <remove-cart-modal :show="showingRemoveCartModal" :close="closeRemoveCartModal" :postID="removeCartData" />
+        
     </app-layout>
 </template>
 
@@ -37,6 +41,8 @@
     import PostCard from '@/Components/PostCard'
     import Pagination from '@/Components/Pagination'
     import MakeOfferModal from '@/Components/MakeOfferModal'
+    import RemoveCartModal from '@/Components/RemoveCartModal'
+
     
     export default {
 
@@ -47,16 +53,28 @@
             PostCard,
             Pagination,
             MakeOfferModal,
+            RemoveCartModal,
         },
 
         data(){
             return{
                 showingMakeOfferModal: false,
                 makeOfferData: null,
+                showingRemoveCartModal: false,
+                removeCartData: null,
             }
         },
 
         methods:{
+
+            showRemoveCartModal(postID){
+                this.removeCartData = postID
+                this.showingRemoveCartModal = true
+            },
+
+            closeRemoveCartModal() {
+                this.showingRemoveCartModal = false
+            },
 
             showMakeOfferModal(postID) {
                 this.makeOfferData = postID
