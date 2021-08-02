@@ -6,6 +6,15 @@
             <categories />
         </template>
 
+        <!-- Sort Posts -->
+        <div>
+            <div class="container mx-auto">
+                <div class="flex flex-wramp">
+                    <sort-posts />
+                </div>
+            </div>
+        </div>
+
         <!-- All Posts -->
         <div v-if="posts.data.length" class="p-6">
             <div class="container mx-auto">
@@ -64,6 +73,7 @@
     import DeletePostModal from '@/Components/DeletePostModal'
     import MakeOfferModal from '@/Components/MakeOfferModal'
     import ShowOffersModal from '@/Components/ShowOffersModal'
+    import SortPosts from '@/Components/SortPosts'
 
     export default {
 
@@ -77,7 +87,8 @@
             EditPostModal,
             DeletePostModal,
             MakeOfferModal,
-            ShowOffersModal
+            ShowOffersModal,
+            SortPosts,
         },
 
         props: ['posts'],
