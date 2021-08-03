@@ -20,47 +20,47 @@
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Location</h3>
 								<div class="flex flex-col">
 									<div class="flex py-2">
-                                        <inertia-link :href="route('dashboard',{
+                                        <jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'balanga'
-										})" class="flex-1">Balanga</inertia-link>
+										})" :active="isLocationFilterActive('balanga')" class="flex-1">Balanga</jet-nav-link>
 									</div>
 									<div class="flex py-2 font-bold">
-										<inertia-link :href="route('dashboard',{
+										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'pilar'
-										})" class="flex-1">Pilar</inertia-link>
-										<inertia-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></inertia-link>
+										})" :active="isLocationFilterActive('pilar')" class="flex-1">Pilar</jet-nav-link>
+										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link :href="route('dashboard',{
+										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'abucay'
-										})" class="flex-1">Abucay</inertia-link>
+										})" :active="isLocationFilterActive('abucay')" class="flex-1">Abucay</jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link :href="route('dashboard',{
+										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'bagac'
-										})" class="flex-1">Bagac</inertia-link>
+										})" :active="isLocationFilterActive('bagac')" class="flex-1">Bagac</jet-nav-link>
 									</div>
                                     <div class="flex py-2">
-										<inertia-link :href="route('dashboard',{
+										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'morong'
-										})" class="flex-1">Morong</inertia-link>
+										})" :active="isLocationFilterActive('morong')" class="flex-1">Morong</jet-nav-link>
 									</div>
                                     <div class="flex py-2">
-										<inertia-link :href="route('dashboard',{
+										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'dinalupihan'
-										})" class="flex-1">Dinalupihan</inertia-link>
+										})" :active="isLocationFilterActive('dinalupihan')" class="flex-1">Dinalupihan</jet-nav-link>
 									</div>
                                     <div class="flex py-2">
-										<inertia-link :href="route('dashboard',{
+										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'orani'
-										})" class="flex-1">Orani</inertia-link>
+										})" :active="isLocationFilterActive('orani')" class="flex-1">Orani</jet-nav-link>
 									</div>
 								</div>
 							</div>
@@ -68,23 +68,23 @@
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Price</h3>
 								<div class="flex flex-col">
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1"> &#60; 100 </inertia-link>
+										<jet-nav-link href="#" class="flex-1"> &#60; 100 </jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1"> 101 to 500 </inertia-link>
+										<jet-nav-link href="#" class="flex-1"> 101 to 500 </jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">501 to 1,000</inertia-link>
+										<jet-nav-link href="#" class="flex-1">501 to 1,000</jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">1,001 to 2,000</inertia-link>
+										<jet-nav-link href="#" class="flex-1">1,001 to 2,000</jet-nav-link>
 									</div>
 									<div class="flex py-2 font-bold">
-										<inertia-link href="#" class="flex-1">2,001 to 5,000</inertia-link>
-										<inertia-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></inertia-link>
+										<jet-nav-link href="#" class="flex-1">2,001 to 5,000</jet-nav-link>
+										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1"> &#62; 5,000</inertia-link>
+										<jet-nav-link href="#" class="flex-1"> &#62; 5,000</jet-nav-link>
 									</div>
 								</div>
 							</div>
@@ -92,11 +92,11 @@
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Date Posted</h3>
 								<div class="flex flex-col">
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">Ascending</inertia-link>
+										<jet-nav-link href="#" class="flex-1">Ascending</jet-nav-link>
 									</div>
 									<div class="flex py-2 font-bold">
-										<inertia-link href="#" class="flex-1">Descending</inertia-link>
-										<inertia-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></inertia-link>
+										<jet-nav-link href="#" class="flex-1">Descending</jet-nav-link>
+										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 								</div>
 							</div>
@@ -104,20 +104,20 @@
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Date Produced</h3>
 								<div class="flex flex-col">
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">Today</inertia-link>
+										<jet-nav-link href="#" class="flex-1">Today</jet-nav-link>
 									</div>
 									<div class="flex py-2 font-bold">
-										<inertia-link href="#" class="flex-1">This week</inertia-link>
-										<inertia-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></inertia-link>
+										<jet-nav-link href="#" class="flex-1">This week</jet-nav-link>
+										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">Last week</inertia-link>
+										<jet-nav-link href="#" class="flex-1">Last week</jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">This month</inertia-link>
+										<jet-nav-link href="#" class="flex-1">This month</jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">Before</inertia-link>
+										<jet-nav-link href="#" class="flex-1">Before</jet-nav-link>
 									</div>
 								</div>
 							</div>
@@ -125,20 +125,20 @@
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Availability</h3>
 								<div class="flex flex-col">
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">Available</inertia-link>
+										<jet-nav-link href="#" class="flex-1">Available</jet-nav-link>
 									</div>
 									<div class="flex py-2 font-bold">
-										<inertia-link href="#" class="flex-1">Unavailable</inertia-link>
-										<inertia-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></inertia-link>
+										<jet-nav-link href="#" class="flex-1">Unavailable</jet-nav-link>
+										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<inertia-link href="#" class="flex-1">Negotiations</inertia-link>
+										<jet-nav-link href="#" class="flex-1">Negotiations</jet-nav-link>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="flex mt-5">
-							<inertia-link href="#" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</inertia-link>
+							<jet-nav-link href="#" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</jet-nav-link>
 						</div>
                     </div>
                 </div>
@@ -149,12 +149,23 @@
 <script>
     import Dropdown from '@/Jetstream/Dropdown'
     import DropdownLink from '@/Jetstream/DropdownLink'
+	import JetNavLink from '@/Jetstream/NavLink'
 
     export default {
 
         components: {
             Dropdown,
             DropdownLink,
+			JetNavLink,
+        },
+
+		methods: {
+            isLocationFilterActive(url) {
+
+                if(url === route().params.location) return true
+
+                return false
+            },
         }
 
     }

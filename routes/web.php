@@ -44,13 +44,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
     $location = isset($request->query()['location']) ? $request->query()['location'] : null;
 
     if($location){
-
-        $posts = $categ ? Post::with(['user'])->get()->reject(function ($post) use($location){
-                                return strtolower($post->user->city) != strtolower($location);
+        
+        $posts = $categ ? Post::with(['user'])->get()->filter(function ($post) use($location){
+                                return strtolower($post->user->city) === strtolower($location);
                             })->toQuery()->where('category', $category)->orderBy('updated_at', 'desc')->paginate(12)
-                        : Post::with(['user'])->get()->reject(function ($post) use($location){
-                                return strtolower($post->user->city) != strtolower($location);
+                        : Post::with(['user'])->get()->filter(function ($post) use($location){
+                                return strtolower($post->user->city) === strtolower($location);
                             })->toQuery()->orderBy('updated_at', 'desc')->paginate(12);
+        
+        // Appends the query string to the pagination
+        $posts->appends(['location' => $location]);
                         
 
     }else{
