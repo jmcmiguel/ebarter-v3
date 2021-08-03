@@ -36,15 +36,31 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', function ($category = 'all') {
-    if($category == 'all'){
-        $posts = Post::orderBy('updated_at', 'desc')->paginate(12);
-        return Inertia::render('Dashboard', ['posts' => $posts]);
-    }else{
-        $posts = Post::where('category', $category)->orderBy('updated_at', 'desc')->paginate(12);
-        return Inertia::render('Dashboard', ['posts' => $posts]);
-    }
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', function ($category = 'all', Request $request) {
     
+    // Check if category exists, if not return null
+    $categ = $category == 'all' ? null : $category;
+    
+    $location = isset($request->query()['location']) ? $request->query()['location'] : null;
+
+    if($location){
+
+        $posts = $categ ? Post::with(['user'])->get()->reject(function ($post) use($location){
+                                return strtolower($post->user->city) != strtolower($location);
+                            })->toQuery()->where('category', $category)->orderBy('updated_at', 'desc')->paginate(12)
+                        : Post::with(['user'])->get()->reject(function ($post) use($location){
+                                return strtolower($post->user->city) != strtolower($location);
+                            })->toQuery()->orderBy('updated_at', 'desc')->paginate(12);
+                        
+
+    }else{
+        // Check if category query exists, if not, return 'all' category
+        $posts = $categ ? Post::where('category', $category)->orderBy('updated_at', 'desc')->paginate(12)
+                        : Post::orderBy('updated_at', 'desc')->paginate(12);
+    }
+
+    return Inertia::render('Dashboard', ['posts' => $posts]);
+
 })->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id?}', function ($id) {

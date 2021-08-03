@@ -9,7 +9,7 @@
         <!-- Sort Posts -->
         <div>
             <div class="container mx-auto">
-                <div class="flex flex-wramp">
+                <div class="flex flex-wrap">
                     <sort-posts />
                 </div>
             </div>

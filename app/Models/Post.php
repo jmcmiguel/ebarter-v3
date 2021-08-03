@@ -21,4 +21,9 @@ class Post extends Model
         'views', 'preferred_prod', 'user_id',
         'est_price'
     ];
+
+    // User and post relationship
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
