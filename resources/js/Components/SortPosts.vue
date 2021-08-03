@@ -25,12 +25,11 @@
 											location: 'balanga'
 										})" :active="isLocationFilterActive('balanga')" class="flex-1">Balanga</jet-nav-link>
 									</div>
-									<div class="flex py-2 font-bold">
+									<div class="flex py-2 ">
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: 'pilar'
 										})" :active="isLocationFilterActive('pilar')" class="flex-1">Pilar</jet-nav-link>
-										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link :href="route('dashboard',{
@@ -79,9 +78,8 @@
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1">1,001 to 2,000</jet-nav-link>
 									</div>
-									<div class="flex py-2 font-bold">
+									<div class="flex py-2 ">
 										<jet-nav-link href="#" class="flex-1">2,001 to 5,000</jet-nav-link>
-										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1"> &#62; 5,000</jet-nav-link>
@@ -94,9 +92,8 @@
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1">Ascending</jet-nav-link>
 									</div>
-									<div class="flex py-2 font-bold">
+									<div class="flex py-2 ">
 										<jet-nav-link href="#" class="flex-1">Descending</jet-nav-link>
-										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 								</div>
 							</div>
@@ -106,9 +103,8 @@
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1">Today</jet-nav-link>
 									</div>
-									<div class="flex py-2 font-bold">
+									<div class="flex py-2 ">
 										<jet-nav-link href="#" class="flex-1">This week</jet-nav-link>
-										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1">Last week</jet-nav-link>
@@ -127,9 +123,8 @@
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1">Available</jet-nav-link>
 									</div>
-									<div class="flex py-2 font-bold">
+									<div class="flex py-2 ">
 										<jet-nav-link href="#" class="flex-1">Unavailable</jet-nav-link>
-										<jet-nav-link href="#"><svg class="h-5 py-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg></jet-nav-link>
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1">Negotiations</jet-nav-link>
