@@ -22,55 +22,70 @@
 									<div class="flex py-2">
                                         <jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
-											location: 'balanga'
+											location: 'balanga',
+											price: route().params.price,
 										})" :active="isLocationFilterActive('balanga')" class="flex-1">Balanga</jet-nav-link>
 									</div>
 									<div class="flex py-2 ">
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
-											location: 'pilar'
+											location: 'pilar',
+											price: route().params.price,
 										})" :active="isLocationFilterActive('pilar')" class="flex-1">Pilar</jet-nav-link>
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
-											location: 'abucay'
+											location: 'abucay',
+											price: route().params.price,
 										})" :active="isLocationFilterActive('abucay')" class="flex-1">Abucay</jet-nav-link>
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
-											location: 'bagac'
+											location: 'bagac',
+											price: route().params.price,
 										})" :active="isLocationFilterActive('bagac')" class="flex-1">Bagac</jet-nav-link>
 									</div>
                                     <div class="flex py-2">
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
-											location: 'morong'
+											location: 'morong',
+											price: route().params.price,
 										})" :active="isLocationFilterActive('morong')" class="flex-1">Morong</jet-nav-link>
 									</div>
                                     <div class="flex py-2">
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
-											location: 'dinalupihan'
+											location: 'dinalupihan',
+											price: route().params.price,
 										})" :active="isLocationFilterActive('dinalupihan')" class="flex-1">Dinalupihan</jet-nav-link>
 									</div>
                                     <div class="flex py-2">
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
-											location: 'orani'
+											location: 'orani',
+											price: route().params.price,
 										})" :active="isLocationFilterActive('orani')" class="flex-1">Orani</jet-nav-link>
 									</div>
 								</div>
 							</div>
-							<div class="w-32 mr-10">
+							<div class="w-28 mr-10">
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Price</h3>
 								<div class="flex flex-col">
 									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1"> &#60; 100 </jet-nav-link>
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: 100
+										})" :active="isPriceFilterActive('100')" class="flex-1"> &#60; 100 </jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1"> 101 to 500 </jet-nav-link>
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: 500
+										})" :active="isPriceFilterActive('500')" class="flex-1"> 101 to 500 </jet-nav-link>
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1">501 to 1,000</jet-nav-link>
@@ -83,51 +98,6 @@
 									</div>
 									<div class="flex py-2">
 										<jet-nav-link href="#" class="flex-1"> &#62; 5,000</jet-nav-link>
-									</div>
-								</div>
-							</div>
-							<div class="w-28 mr-10">
-								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Date Posted</h3>
-								<div class="flex flex-col">
-									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">Ascending</jet-nav-link>
-									</div>
-									<div class="flex py-2 ">
-										<jet-nav-link href="#" class="flex-1">Descending</jet-nav-link>
-									</div>
-								</div>
-							</div>
-							<div class="w-28 mr-10">
-								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Date Produced</h3>
-								<div class="flex flex-col">
-									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">Today</jet-nav-link>
-									</div>
-									<div class="flex py-2 ">
-										<jet-nav-link href="#" class="flex-1">This week</jet-nav-link>
-									</div>
-									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">Last week</jet-nav-link>
-									</div>
-									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">This month</jet-nav-link>
-									</div>
-									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">Before</jet-nav-link>
-									</div>
-								</div>
-							</div>
-                            <div class="w-28 mr-10">
-								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Availability</h3>
-								<div class="flex flex-col">
-									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">Available</jet-nav-link>
-									</div>
-									<div class="flex py-2 ">
-										<jet-nav-link href="#" class="flex-1">Unavailable</jet-nav-link>
-									</div>
-									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">Negotiations</jet-nav-link>
 									</div>
 								</div>
 							</div>
@@ -162,6 +132,12 @@ import { registerRuntimeCompiler } from '@vue/runtime-core'
 
                 return false
             },
+
+			isPriceFilterActive(url){
+				if(url === route().params.price) return true
+
+				return false
+			},
 
 			clearFilter(){
 				return route().params.category ? route('dashboard',route().params.category) 
