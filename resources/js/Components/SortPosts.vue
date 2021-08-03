@@ -133,7 +133,7 @@
 							</div>
 						</div>
 						<div class="flex mt-5">
-							<jet-nav-link href="#" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</jet-nav-link>
+							<inertia-link :href="route('dashboard')" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</inertia-link>
 						</div>
                     </div>
                 </div>
