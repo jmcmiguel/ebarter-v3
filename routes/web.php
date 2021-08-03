@@ -47,15 +47,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
         
         $posts = $categ ? Post::with(['user'])->get()->filter(function ($post) use($location){
                                 return strtolower($post->user->city) === strtolower($location);
-                            })->toQuery()->where('category', $category)->orderBy('updated_at', 'desc')->paginate(12)
+                            })->toQuery()->where('category', $category)->orderBy('updated_at', 'desc')->paginate(12)->withQueryString()
                         : Post::with(['user'])->get()->filter(function ($post) use($location){
                                 return strtolower($post->user->city) === strtolower($location);
-                            })->toQuery()->orderBy('updated_at', 'desc')->paginate(12);
+                            })->toQuery()->orderBy('updated_at', 'desc')->paginate(12)->withQueryString();;
         
-        // Appends the query string to the pagination
-        $posts->appends(['location' => $location]);
-                        
-
     }else{
         // Check if category query exists, if not, return 'all' category
         $posts = $categ ? Post::where('category', $category)->orderBy('updated_at', 'desc')->paginate(12)
