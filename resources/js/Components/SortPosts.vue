@@ -133,7 +133,7 @@
 							</div>
 						</div>
 						<div class="flex mt-5">
-							<inertia-link :href="route('dashboard')" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</inertia-link>
+							<inertia-link :href="clearFilter()" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</inertia-link>
 						</div>
                     </div>
                 </div>
@@ -145,6 +145,7 @@
     import Dropdown from '@/Jetstream/Dropdown'
     import DropdownLink from '@/Jetstream/DropdownLink'
 	import JetNavLink from '@/Jetstream/NavLink'
+import { registerRuntimeCompiler } from '@vue/runtime-core'
 
     export default {
 
@@ -161,6 +162,11 @@
 
                 return false
             },
+
+			clearFilter(){
+				return route().params.category ? route('dashboard',route().params.category) 
+											   : route('dashboard');
+			},
         }
 
     }

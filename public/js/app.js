@@ -19207,6 +19207,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Dropdown: _Jetstream_Dropdown__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -19217,6 +19218,9 @@ __webpack_require__.r(__webpack_exports__);
     isLocationFilterActive: function isLocationFilterActive(url) {
       if (url === route().params.location) return true;
       return false;
+    },
+    clearFilter: function clearFilter() {
+      return route().params.category ? route('dashboard', route().params.category) : route('dashboard');
     }
   }
 });
@@ -24839,7 +24843,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       })])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
-        href: _ctx.route('dashboard'),
+        href: $options.clearFilter(),
         "class": "text-gray-700 font-normal text-sm hover:underline"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
