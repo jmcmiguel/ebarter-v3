@@ -38,20 +38,30 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', function ($category = 'all', Request $request) {
     
-    // Check if category exists, if not return null
+    // Get Category params
     $hasCategory = $category == 'all' ? null : $category;
     
-    // Check if location query param exists
+    // Get location params
     $location = isset($request->query()['location']) ? $request->query()['location'] : null;
 
-    // Check if price query param exists
+    // Get price params
     $price = isset($request->query()['price']) ? $request->query()['price'] : null; 
+    $price2 = isset($request->query()['price2']) ? $request->query()['price2'] : null; 
 
+    // Check if filter query params exists
+    $hasFilter = $price || $price2 || $location; 
+
+    // Check existence of query params
     if($location && $price){
-
-        if($price > 100){
-            $filterQuery = Post::with(['user'])->get()->filter(function ($post) use($price){
-                return $post->est_price > $price - 400 && $post->est_price < $price;
+        if($price > 5000){
+            $filterQuery = Post::with(['user'])->get()->filter(function ($post) use($location, $price){
+                return strtolower($post->user->city) === strtolower($location) &&
+                        $post->est_price > 5000;
+            });
+        }else if($price > 100){
+            $filterQuery = Post::with(['user'])->get()->filter(function ($post) use($location, $price, $price2){
+                return strtolower($post->user->city) === strtolower($location) &&
+                        $post->est_price >= $price2 && $post->est_price <= $price;
             });
         }else{
             $filterQuery = Post::with(['user'])->get()->filter(function ($post) use($location, $price){
@@ -65,9 +75,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
         });
     }else if($location == null && $price){
 
-        if($price > 100){
+        if($price > 5000){
             $filterQuery = Post::with(['user'])->get()->filter(function ($post) use($price){
-                return $post->est_price > $price - 400 && $post->est_price < $price;
+                return $post->est_price > 5000;
+            });
+        }else if($price > 100){
+            $filterQuery = Post::with(['user'])->get()->filter(function ($post) use($price, $price2){
+                return $post->est_price >= $price2 && $post->est_price <= $price;
             });
         }else{
             $filterQuery = Post::with(['user'])->get()->filter(function ($post) use($price){
@@ -79,9 +93,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
         $filterQuery = Post::with(['user'])->get();
     }
 
-    
-
-
+    // Check existence of category and filter queries
     if($hasCategory && $filterQuery->isNotEmpty()){
         $posts = $filterQuery->toQuery()->where('category', $category)->orderBy('updated_at', 'desc')->paginate(12)->withQueryString();
     }
@@ -93,6 +105,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', f
     }
     else if($hasCategory && $filterQuery->isEmpty()){
         $posts = Post::where('category', $category)->orderBy('updated_at','desc')->paginate(12);
+    }
+
+    // If filter exists but filterQuery is empty, return empty posts
+    if($hasFilter && $filterQuery->isEmpty()){
+        $posts = Post::where('id', '<', 0)->paginate(12);
     }
 
     return Inertia::render('Dashboard', ['posts' => $posts]);

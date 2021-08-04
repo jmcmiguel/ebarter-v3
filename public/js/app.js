@@ -24615,7 +24615,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         href: _ctx.route('dashboard', {
           category: _ctx.route().params.category,
           location: _ctx.route().params.location,
-          price: 500
+          price: 500,
+          price2: 100
         }),
         active: $options.isPriceFilterActive('500'),
         "class": "flex-1"
@@ -24629,7 +24630,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8
       /* PROPS */
       , ["href", "active"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-        href: "#",
+        href: _ctx.route('dashboard', {
+          category: _ctx.route().params.category,
+          location: _ctx.route().params.location,
+          price: 1000,
+          price2: 500
+        }),
+        active: $options.isPriceFilterActive('1000'),
         "class": "flex-1"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -24638,8 +24645,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-        href: "#",
+      }, 8
+      /* PROPS */
+      , ["href", "active"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('dashboard', {
+          category: _ctx.route().params.category,
+          location: _ctx.route().params.location,
+          price: 2000,
+          price2: 1000
+        }),
+        active: $options.isPriceFilterActive('2000'),
         "class": "flex-1"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -24648,8 +24663,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-        href: "#",
+      }, 8
+      /* PROPS */
+      , ["href", "active"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('dashboard', {
+          category: _ctx.route().params.category,
+          location: _ctx.route().params.location,
+          price: 5000,
+          price2: 2000
+        }),
+        active: $options.isPriceFilterActive('5000'),
         "class": "flex-1"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -24658,8 +24681,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-        href: "#",
+      }, 8
+      /* PROPS */
+      , ["href", "active"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('dashboard', {
+          category: _ctx.route().params.category,
+          location: _ctx.route().params.location,
+          price: 5001
+        }),
+        active: $options.isPriceFilterActive('5001'),
         "class": "flex-1"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -24668,7 +24698,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
+      }, 8
+      /* PROPS */
+      , ["href", "active"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
         href: $options.clearFilter(),
         "class": "text-gray-700 font-normal text-sm hover:underline"
       }, {

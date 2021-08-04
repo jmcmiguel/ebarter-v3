@@ -84,20 +84,40 @@
 										<jet-nav-link :href="route('dashboard',{
 											category: route().params.category,
 											location: route().params.location,
-											price: 500
+											price: 500,
+											price2: 100,
 										})" :active="isPriceFilterActive('500')" class="flex-1"> 101 to 500 </jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">501 to 1,000</jet-nav-link>
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: 1000,
+											price2: 500,
+										})" :active="isPriceFilterActive('1000')" class="flex-1">501 to 1,000</jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1">1,001 to 2,000</jet-nav-link>
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: 2000,
+											price2: 1000,
+										})" :active="isPriceFilterActive('2000')" class="flex-1">1,001 to 2,000</jet-nav-link>
 									</div>
 									<div class="flex py-2 ">
-										<jet-nav-link href="#" class="flex-1">2,001 to 5,000</jet-nav-link>
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: 5000,
+											price2: 2000,
+										})" :active="isPriceFilterActive('5000')" class="flex-1">2,001 to 5,000</jet-nav-link>
 									</div>
 									<div class="flex py-2">
-										<jet-nav-link href="#" class="flex-1"> &#62; 5,000</jet-nav-link>
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: 5001,
+										})" :active="isPriceFilterActive('5001')" class="flex-1"> &#62; 5,000</jet-nav-link>
 									</div>
 								</div>
 							</div>
