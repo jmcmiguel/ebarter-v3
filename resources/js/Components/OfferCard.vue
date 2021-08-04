@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full mx-auto overflow-hidden bg-white rounded-lg shadow-2xl mt-10">
+    <div class="w-full mx-auto bg-white rounded-lg shadow-2xl mt-10">
 
         <vueper-slides :parallax="1" :parallax-fixed-content="false" fixed-height="20rem" :touchable="false">
             <vueper-slide v-for="image in offerImages" :key="image.id" :image="image.image">
@@ -25,30 +25,68 @@
                 <p class="mt-2 text-sm text-gray-600">Location: {{ user.city }} </p>
             </div>
 
-            <div v-if="offerror" class="mt-4">
-                <div class="flex items-center">
-                    <div class="flex items-center">
+            <div class="flex justify-between">
+                <div>
+                    <div v-if="offerror" class="mt-4">
+                        <div class="flex items-center">
+                            <div class="flex items-center">
 
-                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">You made an offer to &nbsp; </span>
-                        <img class="object-cover h-5 w-5 rounded-full" :src="getProfilePhoto(this.offeree.profile_photo_path, this.offeree.name)" :alt="this.offeree.name">
-                        <inertia-link :href="route('userProfile', this.offeree.id)" class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ this.offeree.name }}</inertia-link>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">You made an offer to &nbsp; </span>
+                                <img class="object-cover h-5 w-5 rounded-full" :src="getProfilePhoto(this.offeree.profile_photo_path, this.offeree.name)" :alt="this.offeree.name">
+                                <inertia-link :href="route('userProfile', this.offeree.id)" class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ this.offeree.name }}</inertia-link>
+                            </div>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
+                            ·
+                            </span>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
+                        </div>
                     </div>
-                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
-                     ·
-                    </span>
-                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
+                    <div v-else class="mt-4">
+                        <div class="flex items-center">
+                            <div class="flex items-center">
+                                <img class="object-cover h-10 w-10 rounded-full" :src="getProfilePhoto(this.user.profile_photo_path, this.user.name)" :alt="user.name">
+                                <inertia-link :href="route('userProfile', user.id)" class="mx-2 font-semibold text-gray-700 dark:text-gray-200">{{ user.name }}</inertia-link>
+                            </div>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
+                            ·
+                            </span>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div v-else class="mt-4">
-                <div class="flex items-center">
-                    <div class="flex items-center">
-                        <img class="object-cover h-10 w-10 rounded-full" :src="getProfilePhoto(this.user.profile_photo_path, this.user.name)" :alt="user.name">
-                        <inertia-link :href="route('userProfile', user.id)" class="mx-2 font-semibold text-gray-700 dark:text-gray-200">{{ user.name }}</inertia-link>
-                    </div>
-                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
-                     ·
-                    </span>
-                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
+
+                <div>
+                    <jet-dropdown align="right" width="48">
+                        <template #trigger>
+                            <button class="relative z-10 mt-5 block p-2 transition-colors duration-200 transform bg-gray-300 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-300">
+                                <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                </svg>
+                            </button>
+                        </template>
+
+                        <template #content>
+                            <div>
+                                <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
+                                
+                                <div v-if="this.offerror">
+                                    <jet-dropdown-link as="button">
+                                        Cancel Offer
+                                    </jet-dropdown-link>
+                                </div>
+
+                                <div v-else>
+                                    <jet-dropdown-link as="button">
+                                        Accept Offer
+                                    </jet-dropdown-link>
+                                    <jet-dropdown-link as="button">
+                                        Reject Offer
+                                    </jet-dropdown-link>
+                                </div>
+                                
+                            </div>
+                        </template>
+                    </jet-dropdown>
                 </div>
             </div>
         </div>
@@ -65,6 +103,8 @@
     import { VueperSlides, VueperSlide } from 'vueperslides'
     import 'vueperslides/dist/vueperslides.css'
     import OfferImageServices from '@/Services/OfferImage'
+    import JetDropdown from '@/Jetstream/Dropdown'
+    import JetDropdownLink from '@/Jetstream/DropdownLink'
 
     export default {
 
@@ -73,6 +113,8 @@
         components: {
             VueperSlides, 
             VueperSlide,
+            JetDropdown,
+            JetDropdownLink
         },
 
         data(){
