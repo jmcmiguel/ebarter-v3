@@ -25,10 +25,24 @@
                 <p class="mt-2 text-sm text-gray-600">Location: {{ user.city }} </p>
             </div>
 
-            <div class="mt-4">
+            <div v-if="offerror" class="mt-4">
                 <div class="flex items-center">
                     <div class="flex items-center">
-                        <img class="object-cover h-10 rounded-full" :src="getProfilePhoto()" :alt="user.name">
+
+                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">You made an offer to &nbsp; </span>
+                        <img class="object-cover h-5 w-5 rounded-full" :src="getProfilePhoto(this.offeree.profile_photo_path, this.offeree.name)" :alt="this.offeree.name">
+                        <inertia-link :href="route('userProfile', this.offeree.id)" class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ this.offeree.name }}</inertia-link>
+                    </div>
+                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
+                     ·
+                    </span>
+                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
+                </div>
+            </div>
+            <div v-else class="mt-4">
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <img class="object-cover h-10 w-10 rounded-full" :src="getProfilePhoto(this.user.profile_photo_path, this.user.name)" :alt="user.name">
                         <inertia-link :href="route('userProfile', user.id)" class="mx-2 font-semibold text-gray-700 dark:text-gray-200">{{ user.name }}</inertia-link>
                     </div>
                     <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
@@ -43,6 +57,7 @@
 
 <script>
     import UserServices from '@/Services/User'
+    import PostServices from '@/Services/Post'
     var dayjs = require('dayjs')
     var relativeTime = require('dayjs/plugin/relativeTime')
     var isBetween = require('dayjs/plugin/isBetween')
@@ -53,7 +68,7 @@
 
     export default {
 
-        props: ['offer'],
+        props: ['offer', 'offerror'],
 
         components: {
             VueperSlides, 
@@ -64,6 +79,8 @@
             return{
 
                 user:{},
+
+                offeree: {},
 
                 offerImages: [],
 
@@ -170,16 +187,28 @@
 
             },
 
-            getProfilePhoto(){
-                if(this.user.profile_photo_path){
-                    return '/storage/' + this.user.profile_photo_path
+            getProfilePhoto(path, name){
+                if(path){
+                    return '/storage/' + path
                 }else{
-                    return `https://ui-avatars.com/api/?name=${this.user.name}&color=059669&background=ECFDF5`
+                    return `https://ui-avatars.com/api/?name=${name}&color=059669&background=ECFDF5`
                 }
             },
         },
 
         created(){
+
+            // If showing from offerror, display offeree info
+            if(this.offerror){
+                PostServices.getPostAuthor(this.offer.post_id)
+                .then(
+                    user => {
+                        this.offeree = user
+                    }
+                ).catch(err => {
+                    console.lo
+                })
+            }
 
             // Fetch user data of offerror
             UserServices.getUser(this.offer.user_id)

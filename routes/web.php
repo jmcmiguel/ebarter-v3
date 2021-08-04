@@ -137,6 +137,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('offer', OfferController::class );
     Route::post('postImg/process', [PostImageController::class, 'store']);
     Route::post('postImg/revert', [PostImageController::class, 'revert']);
+    Route::get('getPostAuthor/{postID}', [PostController::class, 'extractUser']);
 
     Route::get('user/{id}', function($id) {
         $user = User::find($id);
@@ -206,3 +207,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/cart', function () {
         'posts' => $posts
     ]);
 })->name('cart');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/offersMade', function () {
+
+    $offersMade = Offer::where('user_id', Auth::user()->id)->paginate(12);
+
+    return Inertia::render('OffersMade', ['offersMade' => $offersMade]);
+})->name('offersMade');

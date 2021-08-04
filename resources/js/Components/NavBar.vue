@@ -147,6 +147,10 @@
                                 <jet-dropdown-link :href="route('profile.show')">
                                     Transaction History 
                                 </jet-dropdown-link>
+                                
+                                <jet-dropdown-link :href="route('offersMade')">
+                                    Offers Made 
+                                </jet-dropdown-link>
 
                                 <!-- Divider -->
                                 <div class="border-t border-gray-100"></div>
@@ -218,6 +222,10 @@
 
                     <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('transaction')">
                         Transaction History
+                    </jet-responsive-nav-link>
+
+                    <jet-responsive-nav-link :href="route('offersMade')" :active="route().current('offersMade')">
+                        Offers Made
                     </jet-responsive-nav-link>
 
                     <!-- Authentication -->

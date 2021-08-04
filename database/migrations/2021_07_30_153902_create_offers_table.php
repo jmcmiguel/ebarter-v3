@@ -23,7 +23,7 @@ class CreateOffersTable extends Migration
             $table->string('qty_type')->nullable();
             $table->date('date_produced')->nullable();
             $table->date('date_expiree')->nullable();
-            $table->string('category')->nwullable();
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }

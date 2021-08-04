@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\PostImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -204,6 +205,15 @@ class PostController extends Controller
 
         return redirect()->back()
                     ->with('message', 'Post Created Successfully.');
+
+    }
+
+    public function extractUser ($postID, Request $request){
+
+        $post = Post::find($postID);
+        $user = User::find($post->user_id);
+
+        return response()->json($user);
 
     }
 }

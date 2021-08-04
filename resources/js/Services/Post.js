@@ -18,4 +18,10 @@ const getUserPosts = async (userID) => {
     return response.data;
 };
 
-export default { getAll, getAuthUserPosts, getUserPosts };
+const getPostAuthor = async (postID) => {
+    const request = axios.get(`/getPostAuthor/${postID}`);
+    const response = await request;
+    return response.data;
+};
+
+export default { getAll, getAuthUserPosts, getUserPosts, getPostAuthor };
