@@ -15,6 +15,8 @@ use App\Models\Post;
 use App\Models\Cart;
 use App\Models\Offer;
 use App\Models\OfferImage;
+use App\Models\Conversation;
+use App\Models\Message;
 
 /*
 |--------------------------------------------------------------------------
@@ -182,10 +184,23 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('getAuthUserPosts', [PostController::class, 'getAuthUserPosts']);
 
     Route::get('getUserPosts/{userID}', [PostController::class, 'getUserPosts']);
+
+    Route::get('messages/{convoID}', function ($convoID){
+        $messages = Message::where('convo_id', $convoID)->get();
+        return response()->json($messages);
+    });
+
+    Route::get('lastMessage/{convoID}', function ($convoID){
+        $messages = Message::where('convo_id', $convoID)->orderBy('created_at','desc')->first();
+        return response()->json($messages);
+    });
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
-    return Inertia::render('Messages');
+
+    $conversations = Conversation::all();
+
+    return Inertia::render('Messages', ['conversations' => $conversations]);
 })->name('messages');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/cart', function () {
