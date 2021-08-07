@@ -32,13 +32,7 @@
         "filepond": "^4.28.2",
         "filepond-plugin-file-validate-type": "^1.2.6",
         "filepond-plugin-image-preview": "^4.6.7",
-        "firebase": "^8.8.1",
-        "lamejs": "^1.2.0",
-        "linkifyjs": "^3.0.0-beta.3",
-        "v-click-outside": "^3.1.2",
-        "vue-emoji-picker": "^1.0.3",
         "vue-filepond": "^7.0.0",
-        "vue-infinite-loading": "^2.4.5",
         "vueperslides": "^3.3.2"
     }
 }
