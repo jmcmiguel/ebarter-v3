@@ -69,8 +69,11 @@
                             <div>
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
                                 
-                                <div v-if="this.offerror" @click="showCancelOffer(offer.id)">
-                                    <jet-dropdown-link as="button">
+                                <div v-if="this.offerror">
+                                    <jet-dropdown-link as="button" @click="showEditOffer(offer, offerImages)">
+                                        Edit Offer
+                                    </jet-dropdown-link>
+                                    <jet-dropdown-link as="button" @click="showCancelOffer(offer.id)">
                                         Cancel Offer
                                     </jet-dropdown-link>
                                 </div>
@@ -108,7 +111,7 @@
 
     export default {
 
-        props: ['offer', 'offerror', 'showCancelOffer'],
+        props: ['offer', 'offerror', 'showCancelOffer', 'showEditOffer'],
 
         components: {
             VueperSlides, 

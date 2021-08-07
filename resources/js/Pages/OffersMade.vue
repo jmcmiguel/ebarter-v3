@@ -9,7 +9,7 @@
         <div v-if="offersMade.data.length" class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
-                    <offer-card v-for="postOffer in offersMade.data" :key="postOffer.id" :offer="postOffer" :offerror="true" class="lg:w-3/5" :showCancelOffer="showCancelOffer"/>
+                    <offer-card v-for="postOffer in offersMade.data" :key="postOffer.id" :offer="postOffer" :offerror="true" class="lg:w-3/5" :showCancelOffer="showCancelOffer" :showEditOffer="showEditOffer"/>
                 </div>
             </div>
             <pagination :links="offersMade.links" />
@@ -44,8 +44,10 @@
                     Confirm
                 </danger-button>
             </template>
-    </confirmation-modal>
+        </confirmation-modal>
 
+        <!-- Edit Offer Modal -->
+        <edit-offer-modal :show="showingEditOffer" :close="closeEditOffer" :editOfferData="editOfferData" />
     </app-layout>   
 </template>
 
@@ -56,7 +58,7 @@
     import ConfirmationModal from '@/Jetstream/ConfirmationModal'
     import SecondaryButton from '@/Jetstream/SecondaryButton'
     import DangerButton from '@/Jetstream/DangerButton'
-
+    import EditOfferModal from '@/Components/EditOfferModal'
 
     export default {
 
@@ -69,11 +71,14 @@
             ConfirmationModal,
             SecondaryButton,
             DangerButton,
+            EditOfferModal
         },
 
         data(){
             return{
                 showingCancelOffer: false,
+                showingEditOffer: false,
+                editOfferData: null,
 
                 form: this.$inertia.form({
                     offerID: null,
@@ -82,6 +87,20 @@
         },
 
         methods:{
+
+            showEditOffer(offer, offerImages){
+                this.editOfferData = {
+                    offer: offer,
+                    offerImages: offerImages
+                }
+
+                this.showingEditOffer = true
+            },
+
+            closeEditOffer(){
+                this.showingEditOffer = false
+            },
+
             showCancelOffer(offerID){
                 this.form.offerID = offerID
                 this.showingCancelOffer = true
