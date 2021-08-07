@@ -31,7 +31,7 @@
                     </div>
                 </div>
                     <div class="space-y-0.5">
-                        <h1 class="text-center font-semibold text-xl">Your Messages</h1>
+                        <h1 class="text-center font-semibold text-xl mt-5">Your Messages</h1>
                         <p class="text-center text-gray-600 min-w-46">Send private photos and messages to other traders</p>
                         <p class="text-center text-xs text-gray-600 min-w-46 mt-24">No messages here yet!</p>
                     </div>
