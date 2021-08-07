@@ -93,7 +93,19 @@ class OfferController extends Controller
      *
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($offerID, Request $request)
     {
+        Validator::make($request->all(), [
+            'offerID' => ['required']
+        ])->validate();
+
+        Offer::destroy($offerID);
+        
+        $request->session()->flash('flash.bannerId', uniqid());
+        $request->session()->flash('flash.banner', "Offer Deleted");
+        $request->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->back()
+                    ->with('message', 'Offer Deleted Successfully.');
     }
 }
