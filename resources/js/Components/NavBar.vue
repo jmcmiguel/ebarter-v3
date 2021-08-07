@@ -12,7 +12,7 @@
                     </div>
 
                     <!-- Search input on desktop screen -->
-                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <div v-if="route().current('dashboard')" class="hidden sm:flex sm:items-center sm:ml-6">
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
