@@ -22273,7 +22273,9 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
   "class": "text-center font-semibold text-xl"
 }, "Your Messages"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
   "class": "text-center text-gray-600 min-w-46"
-}, "Send private photos and messages to a friend")], -1
+}, "Send private photos and messages to other traders"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
+  "class": "text-center text-xs text-gray-600 min-w-46 mt-24"
+}, "No messages here yet!")], -1
 /* HOISTED */
 );
 
