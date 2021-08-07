@@ -1390,6 +1390,9 @@ select {
 .h-36 {
 	height: 9rem;
 }
+.h-96 {
+	height: 24rem;
+}
 .min-h-screen {
 	min-height: 100vh;
 }
@@ -1443,6 +1446,9 @@ select {
 }
 .w-28 {
 	width: 7rem;
+}
+.w-64 {
+	width: 16rem;
 }
 .min-w-0 {
 	min-width: 0px;
@@ -1604,6 +1610,9 @@ select {
 }
 .overflow-hidden {
 	overflow: hidden;
+}
+.overflow-scroll {
+	overflow: scroll;
 }
 .overflow-y-auto {
 	overflow-y: auto;
@@ -1820,6 +1829,9 @@ select {
 }
 .p-3 {
 	padding: 0.75rem;
+}
+.p-1 {
+	padding: 0.25rem;
 }
 .px-4 {
 	padding-left: 1rem;

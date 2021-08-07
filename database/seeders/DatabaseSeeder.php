@@ -29,11 +29,8 @@ class DatabaseSeeder extends Seeder
             'bio' => 'deez nuts'
         ]);
 
-        User::factory(500)
+        User::factory(100)
                 ->hasPosts(36)
-                ->hasConversations(10)
                 ->create();
-
-        Message::factory(1000)->create();
     }
 }
