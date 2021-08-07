@@ -177,7 +177,7 @@
             hideFabOnBottom(event) {
                 if (window.innerHeight + window.scrollY > document.body.clientHeight - 20) {
                     if(window.scrollY === 0){
-                        document.getElementById('fab').style.dispay='unset';                        
+                        document.getElementById('fab').style.display='unset';                        
                     }else{
                         document.getElementById('fab').style.display='none';
                     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\MessageController;
 use App\Models\User;
 use App\Models\PostImage;
 use App\Models\Post;
@@ -137,6 +138,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('post', PostController::class);
     Route::resource('cart', CartController::class);
     Route::resource('offer', OfferController::class );
+    Route::resource('message', MessageController::class);
     Route::post('postImg/process', [PostImageController::class, 'store']);
     Route::post('postImg/revert', [PostImageController::class, 'revert']);
     Route::get('getPostAuthor/{postID}', [PostController::class, 'extractUser']);
@@ -198,9 +200,15 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
 
-    $conversations = Conversation::all();
 
-    return Inertia::render('Messages', ['conversations' => $conversations]);
+    $conversations = Conversation::with(['message'])
+                ->where('sender_user_id', Auth::user()->id)
+                ->orWhere('receiver_user_id', Auth::user()->id)
+                ->get();
+
+    return Inertia::render('Messages', [
+        'conversations' => $conversations,
+    ]);
 })->name('messages');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/cart', function () {

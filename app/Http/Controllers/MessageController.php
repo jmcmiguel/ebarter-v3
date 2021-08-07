@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MessageController extends Controller
 {
@@ -35,7 +36,22 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'msg_content' => ['required', 'string'],
+        ])->validate();
+
+        Message::create([
+            'convo_id' => $request->convo_id,
+            'sender_id' => $request->sender_id,
+            'post_id' => $request->post_id,
+            'content' => $request->msg_content,
+            'image_path' => $request->image_path,
+            'is_read' => false
+        ]);
+
+        return redirect()->back()
+        ->with('message', 'message Created Successfully.');
+
     }
 
     /**

@@ -19,7 +19,13 @@ class Conversation extends Model
     ];
 
      // Conversation and Message Relationship
-     public function message(){
-        return $this->hasMany(Message::class);
+    public function message(){
+        return $this->hasMany(Message::class, 'convo_id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+
 }

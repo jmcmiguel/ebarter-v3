@@ -1,5 +1,5 @@
 <template>
-    <a class="hover:bg-gray-100 border-b border-gray-300 px-3 py-2 cursor-pointer flex items-center text-sm focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+    <a v-if="lastMessage" @click="showConvo(convo, getSender())" class="hover:bg-gray-100 border-b border-gray-300 px-3 py-2 cursor-pointer flex items-center text-sm focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
         <img class="h-10 w-10 rounded-full object-cover"
         :src="getProfilePhoto()"
         alt="username" />
@@ -15,27 +15,36 @@
 
 <script>
 import UserServices from '@services/User'
-import MessageServices from '@services/Message'
 import DateHelpers from '@utils/date-helpers'
 
 export default {
 
-    props: ['convo',],
+    props: ['convo', 'showConvo'],
 
     data(){
         return{
             authUser: this.$page.props.authUser,
             sender: null,
             receiver: null,
-            lastMessage: null,
+            lastMessage: this.convo.message[this.convo.message.length - 1],
         }
     },
 
     methods:{
 
-        getDate(){
+        getSender(){
             if(this.isNull()) return ''
 
+             if(this.isUserSender()){
+                return this.receiver
+            }else{
+                return this.sender
+            }
+        },
+
+        getDate(){
+            if(this.isNull()) return ''
+            
             return DateHelpers.getTimeAgo(this.lastMessage.created_at);
         },
 
@@ -82,6 +91,7 @@ export default {
     },
 
     created(){
+
         // Get sender data
         UserServices.getUser(this.convo.sender_user_id)
         .then(user => {
@@ -99,18 +109,6 @@ export default {
         .catch(err => {
             console.log(err.message)
         })
-
-        // Get Messages
-        MessageServices.getLastMessage(this.convo.id)
-        .then(
-            lastMessage => {
-                this.lastMessage = lastMessage
-            }
-        )
-        .catch(err => {
-            console.log(err.message)
-        })
-
     },
 
 

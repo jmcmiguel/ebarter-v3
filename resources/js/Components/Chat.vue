@@ -15,97 +15,57 @@
 
                 <ul class="overflow-auto" style="height: calc(100vh - 14.5rem);">
                     <li>
-                        <conversation v-for="convo in conversations" :key="convo.id" :convo="convo"/>
+                        <conversation v-for="convo in conversations" :key="convo.id" :convo="convo" :showConvo="showConvo"/>
                     </li>
                 </ul>
             </div>
-            <div class="col-span-2 bg-white">
-                <div class="w-full">
-                    <div class="flex items-center border-b border-gray-300 pl-3 py-3">
-                        <img class="h-10 w-10 rounded-full object-cover"
-                        src="https://images.pexels.com/photos/3777931/pexels-photo-3777931.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-                        alt="username" />
-                        <span class="block ml-2 font-bold text-base text-gray-600">Eduard</span>
-                        <span class="connected text-green-500 ml-2" >
-                            <svg width="6" height="6">
-                                <circle cx="3" cy="3" r="3" fill="currentColor"></circle>
-                            </svg>
-                        </span>
-                    </div>
-                    <div id="chat" class="w-full overflow-y-auto p-10 relative" style="height: calc(100vh - 14.5rem);" ref="toolbarChat">
-                        <ul>
-                            <li class="clearfix2">
-                                <div class="w-full flex justify-start">
-                                    <div class="bg-gray-100 rounded px-5 py-2 my-2 text-gray-700 relative" style="max-width: 300px;">
-                                        <span class="block">Hello bro</span>
-                                        <span class="block text-xs text-right">10:30pm</span>
-                                    </div>
-                                </div>
-                                <div class="w-full flex justify-end" >
-                                    <div class="bg-gray-100 rounded px-5 py-2 my-2 text-gray-700 relative" style="max-width: 300px;">
-                                        <span class="block">Hello</span>
-                                        <span class="block text-xs text-left">10:32pm</span>
-                                    </div>
-                                </div>
-                                <div class="w-full flex justify-end" >
-                                    <div class="bg-gray-100 rounded px-5 py-2 my-2 text-gray-700 relative" style="max-width: 300px;">
-                                        <span class="block">how are you?</span>
-                                        <span class="block text-xs text-left">10:32pm</span>
-                                    </div>
-                                </div>
-                                <div class="w-full flex justify-start">
-                                    <div class="bg-gray-100 rounded px-5 py-2 my-2 text-gray-700 relative" style="max-width: 300px;">
-                                        <span class="block">I am fine</span>
-                                        <span class="block text-xs text-right">10:42pm</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
 
-                    <div class="w-full py-3 px-3 flex items-center justify-between border-t border-gray-300">
-                        <button class="outline-none focus:outline-none">
-                            <svg class="text-gray-400 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                        </button>
-                        <button class="outline-none focus:outline-none ml-1">
-                            <svg class="text-gray-400 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                            </svg>
-                        </button>
+            <chat-box v-if="convo" :convo="convo"/>
 
-                        <input type="text" class="w-full py-2 pr-4 text-gray-700 bg-white border border-gray-300 rounded-xl focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Type message here...">
-                        
-                        <button class="outline-none focus:outline-none" type="submit">
-                            <svg class="text-gray-400 h-7 w-7 origin-center transform rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                            </svg>
-                        </button>
+            <div v-else class="col-span-2 bg-white w-full">
+                <div class="flex justify-center mt-24">
+                    <div class="border border-black rounded-full inline-flex p-5 items-center justify-center">
+                        <svg class="transform translate-y-1" height="52" viewBox="0 0 48 48" width="52">
+                            <path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l13.2 13c.5.4 1.1.6 1.7.3l16.6-8c.7-.3 1.6-.1 2 .5.4.7.2 1.6-.5 2l-15.6 9.9c-.5.3-.8 1-.7 1.6l4.6 19c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.5-.5.5-1.1.2-1.6z"></path>
+                        </svg>
                     </div>
                 </div>
+                    <div class="space-y-0.5">
+                        <h1 class="text-center font-semibold text-xl">Your Messages</h1>
+                        <p class="text-center text-gray-600 min-w-46">Send private photos and messages to a friend</p>
+                    </div>
             </div>
         </div>
 </template>
 
 <script>
 import Conversation from '@/Components/ChatConversation'
+import ChatBox from '@/Components/ChatBox'
 
 export default {
 
     props: ['conversations'],
 
     components:{
-        Conversation
+        Conversation,
+        ChatBox
     },
 
     data(){
         return{
+            convo: null,
         }
     },
 
-    mounted(){
-    }
+    methods:{
+        showConvo(convo, sender){
+            this.convo = {
+                convo: convo,
+                name: sender.name,
+                photo: sender.profile_photo_path ? '/storage/' + sender.profile_photo_path : `https://ui-avatars.com/api/?name=${sender.name}&color=059669&background=ECFDF5`,
+            }
+        },
+    },
     
 }
 </script>

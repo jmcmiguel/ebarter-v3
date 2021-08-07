@@ -15,13 +15,5 @@
         AppLayout,
         Chat
     },
-
-    data() {
-      return {
-      }
-    },
-
-    mounted(){
-    }
   }
 </script>

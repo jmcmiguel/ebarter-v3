@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Message;
+use App\Models\Conversation;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,7 +29,11 @@ class DatabaseSeeder extends Seeder
             'bio' => 'deez nuts'
         ]);
 
-        User::factory(100)->hasPosts(10)->create();
+        User::factory(500)
+                ->hasPosts(36)
+                ->hasConversations(10)
+                ->create();
 
+        Message::factory(1000)->create();
     }
 }

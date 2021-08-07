@@ -67,4 +67,8 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);
     }
+
+    public function conversations(){
+        return $this->hasMany(Conversation::class, 'sender_user_id');
+    }
 }
