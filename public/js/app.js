@@ -18826,6 +18826,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    getProfilePhoto: function getProfilePhoto(user) {
+      if (user.profile_photo_path) {
+        return '/storage/' + user.profile_photo_path;
+      } else {
+        return "https://ui-avatars.com/api/?name=".concat(user.name, "&color=059669&background=ECFDF5");
+      }
+    },
     switchToTeam: function switchToTeam(team) {
       this.$inertia.put(route('current-team.update'), {
         'team_id': team.id
@@ -18836,15 +18843,6 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       this.$inertia.post(route('logout'));
     }
-  },
-  created: function created() {
-    var _this = this;
-
-    _Services_User__WEBPACK_IMPORTED_MODULE_5__.default.getAuthUser().then(function (authUser) {
-      _this.authUser = authUser;
-    })["catch"](function (err) {
-      console.log(err.message);
-    });
   }
 });
 
@@ -23879,7 +23877,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     trigger: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_ctx.$page.props.jetstream.managesProfilePhotos ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("button", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
         "class": "h-8 w-8 rounded-full object-cover",
-        src: _ctx.$page.props.user.profile_photo_url,
+        src: $options.getProfilePhoto(_ctx.$page.props.authUser),
         alt: _ctx.$page.props.user.name
       }, null, 8
       /* PROPS */

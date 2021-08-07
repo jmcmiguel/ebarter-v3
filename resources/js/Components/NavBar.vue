@@ -107,7 +107,7 @@
                         <jet-dropdown align="right" width="48">
                             <template #trigger>
                                 <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
+                                    <img class="h-8 w-8 rounded-full object-cover" :src="getProfilePhoto($page.props.authUser)" :alt="$page.props.user.name" />
                                 </button>
 
                                 <span v-else class="inline-flex rounded-md">
@@ -312,6 +312,15 @@
         },
         
         methods:{
+
+            getProfilePhoto(user){
+                if(user.profile_photo_path){
+                    return '/storage/' + user.profile_photo_path
+                }else{
+                    return `https://ui-avatars.com/api/?name=${user.name}&color=059669&background=ECFDF5`
+                }
+            },
+
             switchToTeam(team) {
                 this.$inertia.put(route('current-team.update'), {
                     'team_id': team.id
@@ -324,16 +333,5 @@
                 this.$inertia.post(route('logout'));
             },
         },
-
-        created(){
-            UserServices.getAuthUser()
-            .then(
-                authUser => {
-                    this.authUser = authUser
-                }
-            ).catch(err => {
-                console.log(err.message)
-            })
-        }
     }
 </script>
