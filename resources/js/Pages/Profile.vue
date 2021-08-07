@@ -50,12 +50,6 @@
                     <div class="mr-4 p-3 text-center">
                       <span
                         class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                        >22</span
-                      ><span class="text-sm text-gray-500">Friends</span>
-                    </div>
-                    <div class="mr-4 p-3 text-center">
-                      <span
-                        class="text-xl font-bold block uppercase tracking-wide text-gray-700"
                         >{{ userPosts.length }}</span
                       ><span class="text-sm text-gray-500">Posts</span>
                     </div>
