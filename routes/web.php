@@ -142,6 +142,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('postImg/process', [PostImageController::class, 'store']);
     Route::post('postImg/revert', [PostImageController::class, 'revert']);
     Route::get('getPostAuthor/{postID}', [PostController::class, 'extractUser']);
+    Route::get('postExistsInConversation/{postID}', function($postID){
+        $existInConversation = Conversation::where('post_id', $postID)->get();
+        return $existInConversation->isEmpty() ? false : true;
+    });
 
     Route::get('user/{id}', function($id) {
         $user = User::find($id);

@@ -17,6 +17,7 @@ class CreateConversationsTable extends Migration
             $table->id();
             $table->foreignId('sender_user_id');
             $table->foreignId('receiver_user_id');
+            $table->foreignId('post_id');
             $table->timestamps();
         });
     }

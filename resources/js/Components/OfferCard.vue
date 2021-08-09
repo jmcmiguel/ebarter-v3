@@ -8,7 +8,8 @@
 
         <div class="p-6">
             <div>
-                <span class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(offer.category) }} </span>
+                <span v-if="isPending" class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
+                <span class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(offer.category) }} </span>
                 <span v-if="isExpired(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
                 <span v-else-if="isExpiree(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expiree</span>
                 
@@ -79,10 +80,10 @@
                                 </div>
 
                                 <div v-else>
-                                    <jet-dropdown-link as="button">
+                                    <jet-dropdown-link @click="acceptOffer(offer.id)" as="button">
                                         Accept Offer
                                     </jet-dropdown-link>
-                                    <jet-dropdown-link as="button">
+                                    <jet-dropdown-link @click="rejectOffer(offer.id)" as="button">
                                         Reject Offer
                                     </jet-dropdown-link>
                                 </div>
@@ -97,8 +98,9 @@
 </template>
 
 <script>
-    import UserServices from '@/Services/User'
-    import PostServices from '@/Services/Post'
+    import UserServices from '@services/User'
+    import PostServices from '@services/Post'
+    import ConversationServices from '@services/Conversation'
     var dayjs = require('dayjs')
     var relativeTime = require('dayjs/plugin/relativeTime')
     var isBetween = require('dayjs/plugin/isBetween')
@@ -129,6 +131,8 @@
 
                 offerImages: [],
 
+                isPending: false,
+
                 categoryOptions: [
                 { text: 'Crops', value: 'categ-1' },
                 { text: 'Livestocks', value: 'categ-2' },
@@ -150,6 +154,17 @@
         },
 
         methods:{
+
+            acceptOffer(offerID){
+                console.log('i work')
+            },
+
+            rejectOffer(offerID){
+                let form = this.$inertia.form({
+                    offer_id: offerID
+                })
+
+            },
 
             numberWithCommas(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -243,6 +258,17 @@
 
         created(){
 
+            ConversationServices.checkIfPostExists(this.offer.post_id)
+            .then(
+                exists => {
+                    this.isPending = !exists
+                }
+            ).catch(
+                err => {
+                    console.log(err.message)
+                }
+            )
+
             // If showing from offerror, display offeree info
             if(this.offerror){
                 PostServices.getPostAuthor(this.offer.post_id)
@@ -251,7 +277,7 @@
                         this.offeree = user
                     }
                 ).catch(err => {
-                    console.lo
+                    console.log(err.message)
                 })
             }
 

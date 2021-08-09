@@ -15,7 +15,7 @@ class Conversation extends Model
      * @var array
      */
     protected $fillable = [
-        'sender_user_id', 'receiver_user_id',
+        'sender_user_id', 'receiver_user_id', 'post_id'
     ];
 
      // Conversation and Message Relationship
