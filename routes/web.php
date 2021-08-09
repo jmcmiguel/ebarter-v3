@@ -124,7 +124,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id?}', function 
     // If user does not exists, return error
     $user = User::findOrFail($id);
 
-    $posts = Post::where('user_id', $id)->paginate(12);
+    $posts = Post::where('user_id', $id)->orderBy('updated_at','desc')->paginate(12);
     
     return Inertia::render('Profile', [
         'posts' => $posts,

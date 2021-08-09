@@ -146,7 +146,10 @@
                                 headers: {
                                     'X-CSRF-TOKEN': csrfToken,
                                     '_method': 'DELETE'
-                                }
+                                },
+                                onload: (response) => {
+                                    removeFilePath(response)
+                                },
                             }
                         }"
                     v-bind:files="myFiles"
@@ -244,6 +247,10 @@
 
             logFilePath(data){
                 this.form.postimg_filepath.push(data)
+            },
+
+            removeFilePath(data){
+                this.form.postimg_filepath = []
             },
             
             createPost() {

@@ -18554,18 +18554,24 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
   },
   methods: {
     logFilePath: function logFilePath(data) {
-      this.form.postimg_filepath.push(data);
+      this.form.offerimg_filepath.push(data);
     },
-    createPost: function createPost() {
+    removeFilePath: function removeFilePath(data) {
+      console.log(data);
+      this.form.offerimg_filepath = [];
+    },
+    editOffer: function editOffer() {
       var _this = this;
 
-      this.form.put(route('post.update', this.postData.id), {
+      this.form.put(route('offer.update', this.editOfferData.offer.id), {
         preserveScroll: true,
         onSuccess: function onSuccess() {
           return _this.close();
         },
-        onError: function onError() {
-          return _this.$refs.prod_name.focus();
+        onError: function onError(e) {
+          console.log(e);
+
+          _this.$refs.prod_name.focus();
         },
         onFinish: function onFinish() {
           return _this.form.reset();
@@ -18590,7 +18596,7 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
       date_produced: this.editOfferData.offer.date_produced,
       date_expired: this.editOfferData.offer.date_expiree,
       est_price: parseInt(this.editOfferData.offer.est_price),
-      postimg_filepath: [],
+      offerimg_filepath: [],
       post_id: this.editOfferData.offer.post_id
     });
 
@@ -18716,6 +18722,9 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
   methods: {
     logFilePath: function logFilePath(data) {
       this.form.postimg_filepath.push(data);
+    },
+    removeFilePath: function removeFilePath(data) {
+      this.form.postimg_filepath = [];
     },
     createPost: function createPost() {
       var _this = this;
@@ -23174,6 +23183,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             headers: {
               'X-CSRF-TOKEN': $data.csrfToken,
               '_method': 'DELETE'
+            },
+            onload: function onload(response) {
+              $options.removeFilePath(response);
             }
           }
         },
@@ -23183,11 +23195,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["server", "files", "onInit"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
         type: "hidden",
-        id: "postimg_filepath",
-        ref: "postimg_filepath",
-        modelValue: $data.form.postimg_filepath,
+        id: "offerimg_filepath",
+        ref: "offerimg_filepath",
+        modelValue: $data.form.offerimg_filepath,
         "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
-          return $data.form.postimg_filepath = $event;
+          return $data.form.offerimg_filepath = $event;
         })
       }, null, 8
       /* PROPS */
@@ -23209,7 +23221,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": ["ml-2", {
           'opacity-25': $data.form.processing
         }],
-        onClick: $options.createPost,
+        onClick: $options.editOffer,
         disabled: $data.form.processing
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -23584,6 +23596,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             headers: {
               'X-CSRF-TOKEN': $data.csrfToken,
               '_method': 'DELETE'
+            },
+            onload: function onload(response) {
+              $options.removeFilePath(response);
             }
           }
         },

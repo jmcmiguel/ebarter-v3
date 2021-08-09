@@ -117,6 +117,9 @@
                                 headers: {
                                     'X-CSRF-TOKEN': csrfToken,
                                     '_method': 'DELETE'
+                                },
+                                onload: (response) => {
+                                    removeFilePath(response)
                                 }
                             }
                         }"
@@ -127,9 +130,9 @@
 
                 <div class="mt-4 flex flex-col justify-center">
                     <jet-input type="hidden"
-                                id="postimg_filepath"
-                                ref="postimg_filepath"
-                                v-model="form.postimg_filepath" />
+                                id="offerimg_filepath"
+                                ref="offerimg_filepath"
+                                v-model="form.offerimg_filepath" />
                 </div>
         </template>
 
@@ -138,7 +141,7 @@
                     Cancel
                 </jet-secondary-button>
 
-                <jet-button class="ml-2" @click="createPost" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <jet-button class="ml-2" @click="editOffer" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Save
                 </jet-button>
             </template>
@@ -214,14 +217,21 @@
         methods:{
 
             logFilePath(data){
-                this.form.postimg_filepath.push(data)
+                this.form.offerimg_filepath.push(data)
+            },
+
+            removeFilePath(data){
+                console.log(data)
+                this.form.offerimg_filepath = []
             },
             
-            createPost() {
-                this.form.put(route('post.update', this.postData.id), {
+            editOffer() {
+                this.form.put(route('offer.update', this.editOfferData.offer.id), {
                     preserveScroll: true,
                     onSuccess: () => this.close(),
-                    onError: () => this.$refs.prod_name.focus(),
+                    onError: (e) => {
+                        console.log(e)
+                        this.$refs.prod_name.focus()},
                     onFinish: () => this.form.reset(),
                 })
             },
@@ -243,7 +253,7 @@
                 date_produced: this.editOfferData.offer.date_produced,
                 date_expired: this.editOfferData.offer.date_expiree,
                 est_price: parseInt(this.editOfferData.offer.est_price),
-                postimg_filepath: [],
+                offerimg_filepath: [],
                 post_id: this.editOfferData.offer.post_id,
             })
 
@@ -256,9 +266,6 @@
                     }
                 }) 
             }
-
-
-
         },
 
         unmounted() {
