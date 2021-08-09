@@ -1,4 +1,5 @@
 <template>
+<div style="background-color:#F1FAE9;">
     <jet-authentication-card>
         <template #logo>
             <jet-authentication-card-logo />
@@ -65,6 +66,7 @@
             </div>
         </form>
     </jet-authentication-card>
+</div>
 </template>
 
 <script>
