@@ -97,9 +97,12 @@
 
                             <div>
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
-                                <jet-dropdown-link v-if="this.userID !== this.authUser.id && this.offerExists === false" @click="showMakeOfferModal(id)" as="button">
-                                    Make offer
+                                <jet-dropdown-link v-if="this.userID !== this.authUser.id && this.offerExists === true" :href="route('offersMade')">
+                                    Offer already sent
                                 </jet-dropdown-link>
+                                <jet-dropdown-link v-if="this.userID !== this.authUser.id && this.offerExists === false" @click="showOffer(id)" as="button">
+                                    Make offer
+                                </jet-dropdown-link>                                
                                 <jet-dropdown-link v-if="route().current('cart')" @click="removeFromCart(id)" as="button">
                                     Remove from cart
                                 </jet-dropdown-link>
