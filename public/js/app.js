@@ -24624,8 +24624,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Responsive Settings Options "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_50, [_ctx.$page.props.jetstream.managesProfilePhotos ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
-    "class": "h-10 w-10 rounded-full object-cover",
-    src: _ctx.$page.props.user.profile_photo_url,
+    "class": "h-8 w-8 rounded-full object-cover",
+    src: $options.getProfilePhoto(_ctx.$page.props.authUser),
     alt: _ctx.$page.props.user.name
   }, null, 8
   /* PROPS */
@@ -28275,7 +28275,8 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   style: {
     "background-color": "#F1FAE9"
-  }
+  },
+  "class": "pb-10"
 };
 var _hoisted_2 = {
   "class": "mt-4"

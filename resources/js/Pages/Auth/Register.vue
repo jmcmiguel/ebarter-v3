@@ -1,5 +1,5 @@
 <template>
-<div style="background-color:#F1FAE9;">
+<div style="background-color:#F1FAE9;" class="pb-10">
     <jet-authentication-card>
         <template #logo>
             <jet-authentication-card-logo />
