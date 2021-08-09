@@ -8,7 +8,8 @@
 
         <div class="p-6">
             <div>
-                <span v-if="isPending" class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
+                <span v-if="isRejected()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Rejected </span>
+                <span v-if="isPending && !isRejected()" class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
                 <span class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(offer.category) }} </span>
                 <span v-if="isExpired(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
                 <span v-else-if="isExpiree(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expiree</span>
@@ -71,19 +72,19 @@
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
                                 
                                 <div v-if="this.offerror">
-                                    <jet-dropdown-link as="button" @click="showEditOffer(offer, offerImages)">
+                                    <jet-dropdown-link :disabled="isRejected()" as="button" @click="showEditOffer(offer, offerImages)">
                                         Edit Offer
                                     </jet-dropdown-link>
-                                    <jet-dropdown-link as="button" @click="showCancelOffer(offer.id)">
+                                    <jet-dropdown-link :disabled="isRejected()" as="button" @click="showCancelOffer(offer.id)">
                                         Cancel Offer
                                     </jet-dropdown-link>
                                 </div>
 
                                 <div v-else>
-                                    <jet-dropdown-link @click="acceptOffer(offer.id)" as="button">
+                                    <jet-dropdown-link :disabled="isRejected()" @click="acceptOffer(offer.id)" as="button">
                                         Accept Offer
                                     </jet-dropdown-link>
-                                    <jet-dropdown-link @click="rejectOffer(offer.id)" as="button">
+                                    <jet-dropdown-link :disabled="isRejected()" @click="showRejectOfferModal(offer.id)" as="button">
                                         Reject Offer
                                     </jet-dropdown-link>
                                 </div>
@@ -113,7 +114,8 @@
 
     export default {
 
-        props: ['offer', 'offerror', 'showCancelOffer', 'showEditOffer'],
+        props: ['offer', 'offerror', 'showCancelOffer', 'showEditOffer',
+                'showRejectOfferModal'],
 
         components: {
             VueperSlides, 
@@ -155,15 +157,13 @@
 
         methods:{
 
-            acceptOffer(offerID){
-                console.log('i work')
+            isRejected(){
+                console.log(this.offer)
+                return this.offer.status === 'rejected' ? true :false
             },
 
-            rejectOffer(offerID){
-                let form = this.$inertia.form({
-                    offer_id: offerID
-                })
-
+            acceptOffer(offerID){
+                console.log('i work')
             },
 
             numberWithCommas(x) {

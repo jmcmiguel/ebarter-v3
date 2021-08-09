@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="submit" class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition" v-if="as == 'button'">
+        <button type="submit" :disabled="disabled"  :class="buttonClasses" v-if="as == 'button'">
             <slot></slot>
         </button>
         
@@ -16,6 +16,14 @@
 
 <script>
     export default {
-        props: ['href', 'as']
+        props: ['href', 'as', 'disabled'],
+
+        computed: {
+            buttonClasses(){
+                return this.disabled 
+                                    ? "block w-full px-4 py-2 text-sm leading-5 text-gray-700 text-left focus:outline-none focus:bg-gray-100 transition cursor-not-allowed"
+                                    : "block w-full px-4 py-2 text-sm leading-5 text-gray-700 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition"
+            }
+        }
     }
 </script>

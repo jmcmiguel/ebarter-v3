@@ -146,6 +146,8 @@ Route::group(['middleware' => 'auth'], function() {
         $existInConversation = Conversation::where('post_id', $postID)->get();
         return $existInConversation->isEmpty() ? false : true;
     });
+    Route::put('rejectOffer/{offerID}', [OfferController::class, 'rejectOffer'])
+        ->name('rejectOffer');
 
     Route::get('user/{id}', function($id) {
         $user = User::find($id);

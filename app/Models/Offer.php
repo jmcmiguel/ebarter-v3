@@ -17,6 +17,7 @@ class Offer extends Model
     protected $fillable = [
         'post_id', 'user_id', 'prod_name',
         'prod_qty', 'qty_type', 'date_produced',
-        'date_expiree', 'category', 'est_price'
+        'date_expiree', 'category', 'est_price',
+        'status'
     ];
 }

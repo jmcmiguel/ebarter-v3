@@ -84,7 +84,7 @@
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
                     <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showEditPostModal="showEditPostModal"
-                                :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" 
+                                :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" :showRejectOfferModal="showRejectOfferModal"
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showOffersModal="showOffersModal" :addToCart="addToCart" />
                 </div>
@@ -108,6 +108,9 @@
       <!-- Show Offers Modal -->
       <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" :post="showingOffersData" />
 
+      <!-- Reject Offer Modal -->
+      <reject-offer-modal :show="showingRejectOfferModal" :close="closeRejectOfferModal" :offerID="rejectOfferData"/>
+
     </main>
 
   </app-layout>
@@ -122,6 +125,7 @@
   import ShowOffersModal from '@/Components/ShowOffersModal'
   import EditPostModal from '@/Components/EditPostModal'
   import DeletePostModal from '@/Components/DeletePostModal'
+  import RejectOfferModal from '@/Components/RejectOfferModal'
 
   export default {
   
@@ -131,7 +135,8 @@
       Pagination,
       ShowOffersModal,
       EditPostModal,
-      DeletePostModal
+      DeletePostModal,
+      RejectOfferModal
     },
 
     props: ['posts', 'id'],
@@ -146,6 +151,7 @@
         showingDeleteModal: false,
         deletePostData: null,
         showingOffersData: null,
+        showingRejectOfferModal: false,
       }
     },
 
@@ -155,6 +161,17 @@
     }, 
 
     methods:{
+        showRejectOfferModal(offerID){
+            this.rejectOfferData = offerID
+            console.log(offerID)
+            this.showingRejectOfferModal = true
+        },
+
+        closeRejectOfferModal(){
+            this.showingRejectOfferModal = false
+            this.closeOffersModal()
+        },
+
         addToCart(postID){
           const form = this.$inertia.form({
               'post_id': postID

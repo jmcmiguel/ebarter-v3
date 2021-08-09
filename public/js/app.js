@@ -19054,7 +19054,7 @@ dayjs.extend(isBetween);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['offer', 'offerror', 'showCancelOffer', 'showEditOffer'],
+  props: ['offer', 'offerror', 'showCancelOffer', 'showEditOffer', 'showRejectOfferModal'],
   components: {
     VueperSlides: vueperslides__WEBPACK_IMPORTED_MODULE_3__.VueperSlides,
     VueperSlide: vueperslides__WEBPACK_IMPORTED_MODULE_3__.VueperSlide,
@@ -19108,13 +19108,12 @@ dayjs.extend(isBetween);
     };
   },
   methods: {
+    isRejected: function isRejected() {
+      console.log(this.offer);
+      return this.offer.status === 'rejected' ? true : false;
+    },
     acceptOffer: function acceptOffer(offerID) {
       console.log('i work');
-    },
-    rejectOffer: function rejectOffer(offerID) {
-      var form = this.$inertia.form({
-        offer_id: offerID
-      });
     },
     numberWithCommas: function numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -19452,6 +19451,59 @@ dayjs.extend(isBetween);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RejectOfferModal.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RejectOfferModal.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Jetstream_ConfirmationModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/ConfirmationModal */ "./resources/js/Jetstream/ConfirmationModal.vue");
+/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/DangerButton */ "./resources/js/Jetstream/DangerButton.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['show', 'close', 'offerID'],
+  components: {
+    ConfirmationModal: _Jetstream_ConfirmationModal__WEBPACK_IMPORTED_MODULE_0__.default,
+    SecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_1__.default,
+    DangerButton: _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_2__.default
+  },
+  data: function data() {
+    return {
+      form: this.$inertia.form({
+        offerID: this.offerID
+      })
+    };
+  },
+  methods: {
+    removeFromCart: function removeFromCart() {
+      var _this = this;
+
+      this.form.put(route('rejectOffer', this.offerID), {
+        preserveScroll: true,
+        onSuccess: function onSuccess() {
+          return _this.close();
+        },
+        onError: function onError() {
+          return console.log('Cant reject offer');
+        },
+        onFinish: function onFinish() {
+          return _this.form.reset();
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RemoveCartModal.vue?vue&type=script&lang=js":
 /*!*********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RemoveCartModal.vue?vue&type=script&lang=js ***!
@@ -19543,6 +19595,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
 /* harmony import */ var _Services_Offer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Services/Offer */ "./resources/js/Services/Offer.js");
 /* harmony import */ var _Components_OfferCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/OfferCard */ "./resources/js/Components/OfferCard.vue");
+/* harmony import */ var _Components_RejectOfferModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/RejectOfferModal */ "./resources/js/Components/RejectOfferModal.vue");
+
 
 
 
@@ -19551,11 +19605,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_0__.default,
     JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__.default,
-    OfferCard: _Components_OfferCard__WEBPACK_IMPORTED_MODULE_3__.default
+    OfferCard: _Components_OfferCard__WEBPACK_IMPORTED_MODULE_3__.default,
+    RejectOfferModal: _Components_RejectOfferModal__WEBPACK_IMPORTED_MODULE_4__.default
   },
   props: ['showingOffersModal', 'closeOffersModal', 'post'],
   data: function data() {
     return {
+      showingRejectOfferModal: false,
+      rejectOfferData: null,
       postOffers: [],
       categoryOptions: [{
         text: 'Crops',
@@ -19597,7 +19654,17 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  methods: {},
+  methods: {
+    showRejectOfferModal: function showRejectOfferModal(offerID) {
+      this.rejectOfferData = offerID;
+      console.log(offerID);
+      this.showingRejectOfferModal = true;
+    },
+    closeRejectOfferModal: function closeRejectOfferModal() {
+      this.showingRejectOfferModal = false;
+      this.closeOffersModal();
+    }
+  },
   beforeUpdate: function beforeUpdate() {
     var _this = this;
 
@@ -20105,7 +20172,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['href', 'as']
+  props: ['href', 'as', 'disabled'],
+  computed: {
+    buttonClasses: function buttonClasses() {
+      return this.disabled ? "block w-full px-4 py-2 text-sm leading-5 text-gray-700 text-left focus:outline-none focus:bg-gray-100 transition cursor-not-allowed" : "block w-full px-4 py-2 text-sm leading-5 text-gray-700 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition";
+    }
+  }
 });
 
 /***/ }),
@@ -21297,6 +21369,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_ShowOffersModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Components/ShowOffersModal */ "./resources/js/Components/ShowOffersModal.vue");
 /* harmony import */ var _Components_EditPostModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Components/EditPostModal */ "./resources/js/Components/EditPostModal.vue");
 /* harmony import */ var _Components_DeletePostModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Components/DeletePostModal */ "./resources/js/Components/DeletePostModal.vue");
+/* harmony import */ var _Components_RejectOfferModal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Components/RejectOfferModal */ "./resources/js/Components/RejectOfferModal.vue");
+
 
 
 
@@ -21312,7 +21386,8 @@ __webpack_require__.r(__webpack_exports__);
     Pagination: _Components_Pagination__WEBPACK_IMPORTED_MODULE_4__.default,
     ShowOffersModal: _Components_ShowOffersModal__WEBPACK_IMPORTED_MODULE_5__.default,
     EditPostModal: _Components_EditPostModal__WEBPACK_IMPORTED_MODULE_6__.default,
-    DeletePostModal: _Components_DeletePostModal__WEBPACK_IMPORTED_MODULE_7__.default
+    DeletePostModal: _Components_DeletePostModal__WEBPACK_IMPORTED_MODULE_7__.default,
+    RejectOfferModal: _Components_RejectOfferModal__WEBPACK_IMPORTED_MODULE_8__.default
   },
   props: ['posts', 'id'],
   data: function data() {
@@ -21324,7 +21399,8 @@ __webpack_require__.r(__webpack_exports__);
       editPostData: null,
       showingDeleteModal: false,
       deletePostData: null,
-      showingOffersData: null
+      showingOffersData: null,
+      showingRejectOfferModal: false
     };
   },
   created: function created() {
@@ -21332,6 +21408,15 @@ __webpack_require__.r(__webpack_exports__);
     this.getUserPosts();
   },
   methods: {
+    showRejectOfferModal: function showRejectOfferModal(offerID) {
+      this.rejectOfferData = offerID;
+      console.log(offerID);
+      this.showingRejectOfferModal = true;
+    },
+    closeRejectOfferModal: function closeRejectOfferModal() {
+      this.showingRejectOfferModal = false;
+      this.closeOffersModal();
+    },
     addToCart: function addToCart(postID) {
       var _this = this;
 
@@ -24820,24 +24905,25 @@ var _hoisted_2 = {
 };
 var _hoisted_3 = {
   key: 0,
-  "class": "inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"
+  "class": "inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"
 };
 var _hoisted_4 = {
-  "class": "inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"
+  key: 1,
+  "class": "inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"
 };
 var _hoisted_5 = {
-  key: 1,
-  "class": "inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"
+  "class": "inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"
 };
 var _hoisted_6 = {
   key: 2,
-  "class": "inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs"
+  "class": "inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"
 };
 var _hoisted_7 = {
-  "class": "block mt-2 text-2xl font-semibold text-gray-800"
+  key: 3,
+  "class": "inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs"
 };
 var _hoisted_8 = {
-  "class": "mt-2 text-sm text-gray-600"
+  "class": "block mt-2 text-2xl font-semibold text-gray-800"
 };
 var _hoisted_9 = {
   "class": "mt-2 text-sm text-gray-600"
@@ -24852,56 +24938,59 @@ var _hoisted_12 = {
   "class": "mt-2 text-sm text-gray-600"
 };
 var _hoisted_13 = {
-  "class": "flex justify-between"
+  "class": "mt-2 text-sm text-gray-600"
 };
 var _hoisted_14 = {
-  key: 0,
-  "class": "mt-4"
+  "class": "flex justify-between"
 };
 var _hoisted_15 = {
-  "class": "flex items-center"
+  key: 0,
+  "class": "mt-4"
 };
 var _hoisted_16 = {
   "class": "flex items-center"
 };
+var _hoisted_17 = {
+  "class": "flex items-center"
+};
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
   "class": "mx-1 text-xs text-gray-600 dark:text-gray-300"
 }, "You made an offer to   ", -1
 /* HOISTED */
 );
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
   "class": "mx-1 text-xs text-gray-600 dark:text-gray-300"
 }, " · ", -1
 /* HOISTED */
 );
 
-var _hoisted_19 = {
+var _hoisted_20 = {
   "class": "mx-1 text-xs text-gray-600 dark:text-gray-300"
 };
-var _hoisted_20 = {
+var _hoisted_21 = {
   key: 1,
   "class": "mt-4"
-};
-var _hoisted_21 = {
-  "class": "flex items-center"
 };
 var _hoisted_22 = {
   "class": "flex items-center"
 };
+var _hoisted_23 = {
+  "class": "flex items-center"
+};
 
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
   "class": "mx-1 text-xs text-gray-600 dark:text-gray-300"
 }, " · ", -1
 /* HOISTED */
 );
 
-var _hoisted_24 = {
+var _hoisted_25 = {
   "class": "mx-1 text-xs text-gray-600 dark:text-gray-300"
 };
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
   "class": "relative z-10 mt-5 block p-2 transition-colors duration-200 transform bg-gray-300 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-300"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("svg", {
   "class": "w-6 h-6 text-white",
@@ -24918,27 +25007,27 @@ var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "block px-4 py-2 text-xs text-gray-400"
 }, "Actions Available", -1
 /* HOISTED */
 );
 
-var _hoisted_27 = {
+var _hoisted_28 = {
   key: 0
 };
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Edit Offer ");
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Edit Offer ");
 
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel Offer ");
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel Offer ");
 
-var _hoisted_30 = {
+var _hoisted_31 = {
   key: 1
 };
 
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Accept Offer ");
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Accept Offer ");
 
-var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Reject Offer ");
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Reject Offer ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
@@ -24974,21 +25063,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [$data.isPending ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_3, " Pending ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getCategory($props.offer.category)), 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [$options.isRejected() ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_3, " Rejected ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.isPending && !$options.isRejected() ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_4, " Pending ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getCategory($props.offer.category)), 1
   /* TEXT */
-  ), $options.isExpired($props.offer.dateExpiree) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_5, "Expired")) : $options.isExpiree($props.offer.dateExpiree) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_6, "Expiree")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.offer.prod_name), 1
+  ), $options.isExpired($props.offer.dateExpiree) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_6, "Expired")) : $options.isExpiree($props.offer.dateExpiree) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_7, "Expiree")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.offer.prod_name), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_8, "Quantity: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.offer.prod_qty) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getQuantityType($props.offer.qty_type)), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_9, "Quantity: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.offer.prod_qty) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getQuantityType($props.offer.qty_type)), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_9, "Date Produced: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDate($props.offer.date_produced)), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_10, "Date Produced: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDate($props.offer.date_produced)), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_10, "Date Expiree: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDate($props.offer.date_expiree)), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_11, "Date Expiree: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatDate($props.offer.date_expiree)), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_11, "Estimated Price: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.numberWithCommas($props.offer.est_price)) + " pesos ", 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_12, "Estimated Price: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.numberWithCommas($props.offer.est_price)) + " pesos ", 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_12, "Location: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.city), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_13, "Location: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.city), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [$props.offerror ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [$props.offerror ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
     "class": "object-cover h-5 w-5 rounded-full",
     src: $options.getProfilePhoto(this.offeree.profile_photo_path, this.offeree.name),
     alt: this.offeree.name
@@ -25008,9 +25097,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])]), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getTimeAgo($props.offer.created_at)), 1
+  , ["href"])]), _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getTimeAgo($props.offer.created_at)), 1
   /* TEXT */
-  )])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+  )])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
     "class": "object-cover h-10 w-10 rounded-full",
     src: $options.getProfilePhoto(this.user.profile_photo_path, this.user.name),
     alt: $data.user.name
@@ -25030,32 +25119,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])]), _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getTimeAgo($props.offer.created_at)), 1
+  , ["href"])]), _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getTimeAgo($props.offer.created_at)), 1
   /* TEXT */
   )])]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown, {
     align: "right",
     width: "48"
   }, {
     trigger: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_25];
+      return [_hoisted_26];
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_26, _this.offerror ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_27, _this.offerror ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+        disabled: $options.isRejected(),
         as: "button",
         onClick: _cache[1] || (_cache[1] = function ($event) {
           return $props.showEditOffer($props.offer, $data.offerImages);
-        })
-      }, {
-        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_28];
-        }),
-        _: 1
-        /* STABLE */
-
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
-        as: "button",
-        onClick: _cache[2] || (_cache[2] = function ($event) {
-          return $props.showCancelOffer($props.offer.id);
         })
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -25064,21 +25142,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
-        onClick: _cache[3] || (_cache[3] = function ($event) {
-          return $options.acceptOffer($props.offer.id);
-        }),
-        as: "button"
+      }, 8
+      /* PROPS */
+      , ["disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+        disabled: $options.isRejected(),
+        as: "button",
+        onClick: _cache[2] || (_cache[2] = function ($event) {
+          return $props.showCancelOffer($props.offer.id);
+        })
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_31];
+          return [_hoisted_30];
         }),
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
-        onClick: _cache[4] || (_cache[4] = function ($event) {
-          return $options.rejectOffer($props.offer.id);
+      }, 8
+      /* PROPS */
+      , ["disabled"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+        disabled: $options.isRejected(),
+        onClick: _cache[3] || (_cache[3] = function ($event) {
+          return $options.acceptOffer($props.offer.id);
         }),
         as: "button"
       }, {
@@ -25088,7 +25172,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })]))])];
+      }, 8
+      /* PROPS */
+      , ["disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dropdown_link, {
+        disabled: $options.isRejected(),
+        onClick: _cache[4] || (_cache[4] = function ($event) {
+          return $props.showRejectOfferModal($props.offer.id);
+        }),
+        as: "button"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_33];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["disabled"])]))])];
     }),
     _: 1
     /* STABLE */
@@ -25595,6 +25696,87 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RejectOfferModal.vue?vue&type=template&id=64aa50fb":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RejectOfferModal.vue?vue&type=template&id=64aa50fb ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, "Reject Offer", -1
+/* HOISTED */
+);
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "Are you sure you want to reject this offer? You can't undo this. The offerror will be notified.", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ");
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Confirm ");
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_secondary_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("secondary-button");
+
+  var _component_danger_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("danger-button");
+
+  var _component_confirmation_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("confirmation-modal");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_confirmation_modal, {
+    show: $props.show
+  }, {
+    title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_2];
+    }),
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_secondary_button, {
+        onClick: $props.close
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_3];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_danger_button, {
+        "class": ["ml-2", {
+          'opacity-25': $data.form.processing
+        }],
+        onClick: $options.removeFromCart,
+        disabled: $data.form.processing
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_4];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["onClick", "class", "disabled"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["show"]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RemoveCartModal.vue?vue&type=template&id=8bfa6964":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RemoveCartModal.vue?vue&type=template&id=8bfa6964 ***!
@@ -25753,7 +25935,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_jet_dialog_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-dialog-modal");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dialog_modal, {
+  var _component_reject_offer_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("reject-offer-modal");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_dialog_modal, {
     show: $props.showingOffersModal,
     onClose: $props.closeOffersModal
   }, {
@@ -25766,10 +25950,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Show all offers received "), $data.postOffers.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.postOffers, function (postOffer) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_offer_card, {
           key: postOffer.id,
-          offer: postOffer
+          offer: postOffer,
+          showRejectOfferModal: $options.showRejectOfferModal
         }, null, 8
         /* PROPS */
-        , ["offer"]);
+        , ["offer", "showRejectOfferModal"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -25798,7 +25983,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["show", "onClose"]);
+  , ["show", "onClose"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Reject Offer Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_reject_offer_modal, {
+    show: $data.showingRejectOfferModal,
+    close: $options.closeRejectOfferModal,
+    offerID: $data.rejectOfferData
+  }, null, 8
+  /* PROPS */
+  , ["show", "close", "offerID"])], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),
@@ -26992,15 +27185,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  key: 0,
-  type: "submit",
-  "class": "block w-full px-4 py-2 text-sm leading-5 text-gray-700 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition"
-};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_inertia_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("inertia-link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [$props.as == 'button' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("button", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")])) : $props.as == 'a' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("a", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [$props.as == 'button' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("button", {
+    key: 0,
+    type: "submit",
+    disabled: $props.disabled,
+    "class": $options.buttonClasses
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")], 10
+  /* CLASS, PROPS */
+  , ["disabled"])) : $props.as == 'a' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("a", {
     key: 1,
     href: $props.href,
     "class": "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition"
@@ -29619,6 +29814,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_show_offers_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("show-offers-modal");
 
+  var _component_reject_offer_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("reject-offer-modal");
+
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_app_layout, null, {
@@ -29656,6 +29853,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           preferredItem: post.preferred_prod,
           status: post.status,
           userID: post.user_id,
+          showRejectOfferModal: $options.showRejectOfferModal,
           prodName: post.prod_name,
           qty: post.prod_qty,
           qtyType: post.qty_type,
@@ -29668,7 +29866,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           addToCart: $options.addToCart
         }, null, 8
         /* PROPS */
-        , ["id", "title", "description", "showEditPostModal", "price", "views", "preferredItem", "status", "userID", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showOffersModal", "addToCart"]);
+        , ["id", "title", "description", "showEditPostModal", "price", "views", "preferredItem", "status", "userID", "showRejectOfferModal", "prodName", "qty", "qtyType", "dateProduced", "showDeletePostModal", "dateExpiree", "category", "datePosted", "showOffersModal", "addToCart"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
@@ -29697,7 +29895,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         post: $data.showingOffersData
       }, null, 8
       /* PROPS */
-      , ["showingOffersModal", "closeOffersModal", "post"])])];
+      , ["showingOffersModal", "closeOffersModal", "post"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Reject Offer Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_reject_offer_modal, {
+        show: $data.showingRejectOfferModal,
+        close: $options.closeRejectOfferModal,
+        offerID: _ctx.rejectOfferData
+      }, null, 8
+      /* PROPS */
+      , ["show", "close", "offerID"])])];
     }),
     _: 1
     /* STABLE */
@@ -74254,6 +74458,32 @@ _PostCard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__fil
 
 /***/ }),
 
+/***/ "./resources/js/Components/RejectOfferModal.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/Components/RejectOfferModal.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _RejectOfferModal_vue_vue_type_template_id_64aa50fb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RejectOfferModal.vue?vue&type=template&id=64aa50fb */ "./resources/js/Components/RejectOfferModal.vue?vue&type=template&id=64aa50fb");
+/* harmony import */ var _RejectOfferModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RejectOfferModal.vue?vue&type=script&lang=js */ "./resources/js/Components/RejectOfferModal.vue?vue&type=script&lang=js");
+
+
+
+_RejectOfferModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _RejectOfferModal_vue_vue_type_template_id_64aa50fb__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_RejectOfferModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/Components/RejectOfferModal.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_RejectOfferModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
 /***/ "./resources/js/Components/RemoveCartModal.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/Components/RemoveCartModal.vue ***!
@@ -75918,6 +76148,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/RejectOfferModal.vue?vue&type=script&lang=js":
+/*!******************************************************************************!*\
+  !*** ./resources/js/Components/RejectOfferModal.vue?vue&type=script&lang=js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RejectOfferModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__.default)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RejectOfferModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./RejectOfferModal.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RejectOfferModal.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Components/RemoveCartModal.vue?vue&type=script&lang=js":
 /*!*****************************************************************************!*\
   !*** ./resources/js/Components/RemoveCartModal.vue?vue&type=script&lang=js ***!
@@ -76954,6 +77200,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PostCard_vue_vue_type_template_id_9f8a85ca__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PostCard_vue_vue_type_template_id_9f8a85ca__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PostCard.vue?vue&type=template&id=9f8a85ca */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/PostCard.vue?vue&type=template&id=9f8a85ca");
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/RejectOfferModal.vue?vue&type=template&id=64aa50fb":
+/*!************************************************************************************!*\
+  !*** ./resources/js/Components/RejectOfferModal.vue?vue&type=template&id=64aa50fb ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RejectOfferModal_vue_vue_type_template_id_64aa50fb__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RejectOfferModal_vue_vue_type_template_id_64aa50fb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./RejectOfferModal.vue?vue&type=template&id=64aa50fb */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/RejectOfferModal.vue?vue&type=template&id=64aa50fb");
 
 
 /***/ }),

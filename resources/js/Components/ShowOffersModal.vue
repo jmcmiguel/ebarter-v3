@@ -1,4 +1,5 @@
 <template>
+
     <jet-dialog-modal :show="showingOffersModal" @close="closeOffersModal">
         <template #title>
             {{ postOffers.length ? postOffers.length : 'No'}} Offers Received from post '{{post.title}}'
@@ -13,7 +14,7 @@
 
                 <div class="container mx-auto">
                     <div class="flex flex-wrap -mx-4">
-                        <offer-card v-for="postOffer in postOffers" :key="postOffer.id" :offer="postOffer" />
+                        <offer-card v-for="postOffer in postOffers" :key="postOffer.id" :offer="postOffer" :showRejectOfferModal="showRejectOfferModal" />
                     </div>
                 </div>
             </div>
@@ -34,6 +35,10 @@
                 </jet-button>
             </template>
     </jet-dialog-modal>
+
+    <!-- Reject Offer Modal -->
+    <reject-offer-modal :show="showingRejectOfferModal" :close="closeRejectOfferModal" :offerID="rejectOfferData"/>
+
 </template>
 
 <script>
@@ -41,19 +46,25 @@
     import JetButton from '@/Jetstream/Button'
     import OfferServices from '@/Services/Offer'
     import OfferCard from '@/Components/OfferCard'
+    import RejectOfferModal from '@/Components/RejectOfferModal'
 
     export default {
 
         components:{
             JetDialogModal,
             JetButton,
-            OfferCard
+            OfferCard,
+            RejectOfferModal
         },
 
         props: ['showingOffersModal', 'closeOffersModal', 'post'],
         
         data() {
             return {
+
+                showingRejectOfferModal: false,
+
+                rejectOfferData: null,
 
                 postOffers: [],
 
@@ -78,6 +89,17 @@
         },
 
         methods:{
+
+            showRejectOfferModal(offerID){
+                this.rejectOfferData = offerID
+                console.log(offerID)
+                this.showingRejectOfferModal = true
+            },
+
+            closeRejectOfferModal(){
+                this.showingRejectOfferModal = false
+                this.closeOffersModal()
+            }
 
         },
 

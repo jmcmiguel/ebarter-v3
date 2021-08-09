@@ -154,4 +154,27 @@ class OfferController extends Controller
         return redirect()->back()
                     ->with('message', 'Offer Deleted Successfully.');
     }
+
+    /**
+     * Reject an Offer
+     *
+     * @return Response
+     */
+    public function rejectOffer($offerID, Request $request){
+
+        Validator::make($request->all(), [
+            'offerID' => ['required'],
+        ]);
+
+        $offer = Offer::findOrFail($offerID);
+        $offer->status = 'rejected';
+        $offer->save();
+
+        $request->session()->flash('flash.bannerId', uniqid());
+        $request->session()->flash('flash.banner', "Offer Rejected");
+        $request->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->back()
+                    ->with('message', 'Offer Rejected Successfully.');
+    }
 }
