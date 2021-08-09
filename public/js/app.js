@@ -18939,7 +18939,6 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_8___default()((filepond_plu
     }
   },
   beforeUpdate: function beforeUpdate() {
-    console.log(this.postID);
     this.form.post_id = this.postID;
   },
   beforeUnmount: function beforeUnmount() {
@@ -20966,7 +20965,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     showMakeOfferModal: function showMakeOfferModal(postID) {
       this.makeOfferData = postID;
-      console.log(postID);
       this.showingMakeOfferModal = true;
     },
     closeMakeOfferModal: function closeMakeOfferModal() {
@@ -25491,7 +25489,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _this.userID !== _this.authUser.id && _this.offerExists === false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_jet_dropdown_link, {
         key: 1,
         onClick: _cache[4] || (_cache[4] = function ($event) {
-          return _ctx.showOffer($props.id);
+          return $props.showMakeOfferModal($props.id);
         }),
         as: "button"
       }, {

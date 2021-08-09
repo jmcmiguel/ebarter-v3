@@ -243,7 +243,6 @@
         },
 
         beforeUpdate(){
-            console.log(this.postID)
             this.form.post_id = this.postID
         },
 

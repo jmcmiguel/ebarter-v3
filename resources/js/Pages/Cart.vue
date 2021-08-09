@@ -78,7 +78,6 @@
 
             showMakeOfferModal(postID) {
                 this.makeOfferData = postID
-                console.log(postID)
                 this.showingMakeOfferModal = true
             },
 
