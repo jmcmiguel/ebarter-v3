@@ -19694,7 +19694,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Dropdown: _Jetstream_Dropdown__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -19708,6 +19707,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     isPriceFilterActive: function isPriceFilterActive(url) {
       if (url === route().params.price) return true;
+      return false;
+    },
+    isHideOwnPostFilterActive: function isHideOwnPostFilterActive(url) {
+      if (url === route().params.hideOwnPost) return true;
       return false;
     },
     clearFilter: function clearFilter() {
@@ -26152,10 +26155,29 @@ var _hoisted_35 = {
 var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" > 5,000");
 
 var _hoisted_37 = {
+  "class": "w-28 mr-10"
+};
+
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h3", {
+  "class": "pb-2 border-b mb-3 text-md text-gray-900 font-semibold"
+}, "Hide Own Post", -1
+/* HOISTED */
+);
+
+var _hoisted_39 = {
+  "class": "flex flex-col"
+};
+var _hoisted_40 = {
+  "class": "flex py-2 "
+};
+
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Hide");
+
+var _hoisted_42 = {
   "class": "flex mt-5"
 };
 
-var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Clear Filter");
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Clear Filter");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_jet_nav_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-nav-link");
@@ -26397,12 +26419,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }, 8
       /* PROPS */
-      , ["href", "active"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
+      , ["href", "active"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_37, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
+        href: _ctx.route('dashboard', {
+          category: _ctx.route().params.category,
+          location: _ctx.route().params.location,
+          price: _ctx.route().params.price,
+          price2: _ctx.route().params.price2,
+          hideOwnPost: 'yes'
+        }),
+        active: $options.isHideOwnPostFilterActive(true),
+        "class": "flex-1"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_41];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["href", "active"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
         href: $options.clearFilter(),
         "class": "text-gray-700 font-normal text-sm hover:underline"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_38];
+          return [_hoisted_43];
         }),
         _: 1
         /* STABLE */

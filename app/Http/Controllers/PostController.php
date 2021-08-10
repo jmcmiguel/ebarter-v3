@@ -216,4 +216,31 @@ class PostController extends Controller
         return response()->json($user);
 
     }
+
+    /**
+     * Sorts the post
+     *
+     * @return Inertia
+     */
+    public function sortPosts ($category = 'all', Request $request){
+        // Check existence of params
+        $location = isset($request->query()['location']) ? $request->query()['location'] : null;
+        $price = isset($request->query()['price']) ? $request->query()['price'] : null; 
+        $price2 = isset($request->query()['price2']) ? $request->query()['price2'] : null; 
+        $hideOwnPost = isset($request->query()['hideOwnPost']) ? $request->query()['hideOwnPost'] : null;
+
+        $allUsers = Post::with(['user'])->orderBy('updated_at', 'desc')->get();
+
+        $queryHolder = $allUsers
+                        ->filterLocation($location)
+                        ->filterPrice($price, $price2)
+                        ->filterHideOwnPost($hideOwnPost)
+                        ->filterCategory($category);
+                        
+        $posts = $queryHolder->isEmpty() 
+                ? Post::where('id', '<', 0)->paginate(12)
+                : $queryHolder->customPaginate(12)->withQueryString();
+
+        return Inertia::render('Dashboard', ['posts' => $posts]);
+    }
 }

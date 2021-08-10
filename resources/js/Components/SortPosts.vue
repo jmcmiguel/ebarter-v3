@@ -121,6 +121,20 @@
 									</div>
 								</div>
 							</div>
+							<div class="w-28 mr-10">
+								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Hide Own Post</h3>
+								<div class="flex flex-col">
+									<div class="flex py-2 ">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: route().params.price,
+											price2: route().params.price2,
+											hideOwnPost: 'yes'
+										})" :active="isHideOwnPostFilterActive(true)" class="flex-1">Hide</jet-nav-link>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="flex mt-5">
 							<inertia-link :href="clearFilter()" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</inertia-link>
@@ -135,7 +149,6 @@
     import Dropdown from '@/Jetstream/Dropdown'
     import DropdownLink from '@/Jetstream/DropdownLink'
 	import JetNavLink from '@/Jetstream/NavLink'
-import { registerRuntimeCompiler } from '@vue/runtime-core'
 
     export default {
 
@@ -155,6 +168,12 @@ import { registerRuntimeCompiler } from '@vue/runtime-core'
 
 			isPriceFilterActive(url){
 				if(url === route().params.price) return true
+
+				return false
+			},
+
+			isHideOwnPostFilterActive(url){
+				if(url === route().params.hideOwnPost) return true
 
 				return false
 			},
