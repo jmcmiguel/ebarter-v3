@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Offer;
 use App\Models\OfferImage;
+use Inertia\Inertia;
 
 class OfferController extends Controller
 {
@@ -177,4 +178,34 @@ class OfferController extends Controller
         return redirect()->back()
                     ->with('message', 'Offer Rejected Successfully.');
     }
+
+    /**
+     * Determine if an offer for a specific post
+     * Already exists
+     * 
+     * @return JSON
+     */
+    public function offerExists($postID,$userID, Request $request){
+        $alreadyExists = Offer::where([
+            ['post_id', '=', $postID],
+            ['user_id', '=', $userID],
+        ])->first();
+
+        if($alreadyExists){    
+            return response()->json(['exists' => true]);
+        }else{
+            return response()->json(['exists' => false]);
+        }
+    }
+
+    /**
+     * Show the offers page
+     * 
+     * @return Inertia
+     */
+    public function showOffers(){
+        $offersMade = Offer::where('user_id', Auth::user()->id)->paginate(12);
+        return Inertia::render('OffersMade', ['offersMade' => $offersMade]);
+    }
+    
 }

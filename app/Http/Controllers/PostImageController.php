@@ -66,4 +66,15 @@ class PostImageController extends Controller
     public function destroy(Request $request)
     {
     }
+    
+    /**
+     * Get all images of a post
+     *
+     * @return JSON
+     */
+    public function getPostImage($postID)
+    {
+        $postImages = PostImage::where('post_id', $postID)->get();
+        return response()->json($postImages);
+    }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -10,14 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\MessageController;
-use App\Models\User;
-use App\Models\PostImage;
-use App\Models\Post;
-use App\Models\Cart;
-use App\Models\Offer;
-use App\Models\OfferImage;
-use App\Models\Conversation;
-use App\Models\Message;
+use App\Http\Controllers\OfferImagesController;
+use App\Http\Controllers\ConversationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,130 +32,47 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{category?}', 
-            [PostController::class, 'sortPosts'])->name('dashboard');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id?}', function ($id) {
-
-    // If user does not exists, return error
-    $user = User::findOrFail($id);
-
-    $posts = Post::where('user_id', $id)->orderBy('updated_at','desc')->paginate(12);
-    
-    return Inertia::render('Profile', [
-        'posts' => $posts,
-        'id' => $id,
-    ]);
-    
-})->name('userProfile');
-
-
 Route::group(['middleware' => 'auth'], function() {
+    
+    // Post Controller Routes
     Route::resource('post', PostController::class);
-    Route::resource('cart', CartController::class);
-    Route::resource('offer', OfferController::class );
-    Route::resource('message', MessageController::class);
-    Route::post('postImg/process', [PostImageController::class, 'store']);
-    Route::post('postImg/revert', [PostImageController::class, 'revert']);
     Route::get('getPostAuthor/{postID}', [PostController::class, 'extractUser']);
-    Route::get('postExistsInConversation/{postID}', function($postID){
-        $existInConversation = Conversation::where('post_id', $postID)->get();
-        return $existInConversation->isEmpty() ? false : true;
-    });
-    Route::put('rejectOffer/{offerID}', [OfferController::class, 'rejectOffer'])
-        ->name('rejectOffer');
-
-    Route::get('user/{id}', function($id) {
-        $user = User::find($id);
-        $filtered = $user->only(['name','city', 'profile_photo_path', 'id', 'contact_number', 'email','bio']);
-        return response()->json($filtered);
-    });
-
-    Route::get('currentUser', function(){
-        return response()->json(Auth::user());
-    });
-
-    Route::get('postImg/{postID}', function($postID) {
-        $postImages = PostImage::where('post_id', $postID)->get();
-        return response()->json($postImages);
-    });
-
-    Route::get('postOffers/{postID}', function($postID) {
-        $postOffers = Offer::where('post_id', $postID)->get();
-        return response()->json($postOffers);
-    });
-
-    Route::get('offerImages/{offerID}', function($offerID) {
-        $offerImages = OfferImage::where('offer_id', $offerID)->get();
-        return response()->json($offerImages);
-    });
-
-    Route::post('offerExists/post/{postID}/user/{userID}', function($postID,$userID, Request $request) {
-        
-        $alreadyExists = Offer::where([
-            ['post_id', '=', $postID],
-            ['user_id', '=', $userID],
-        ])->first();
-
-        if($alreadyExists){    
-            return response()->json(['exists' => true]);
-        }else{
-            return response()->json(['exists' => false]);
-        }
-        
-    });
-
+    Route::get('postExistsInConversation/{postID}', [PostController::class, 'postExistsInConversation']);
+    Route::get('postOffers/{postID}', [PostController::class, 'getPostOffers']);
     Route::get('getAuthUserPosts', [PostController::class, 'getAuthUserPosts']);
-
     Route::get('getUserPosts/{userID}', [PostController::class, 'getUserPosts']);
 
-    Route::get('messages/{convoID}', function ($convoID){
-        $messages = Message::where('convo_id', $convoID)->get();
-        return response()->json($messages);
-    });
+    // Post Image Controller Routes
+    Route::post('postImg/process', [PostImageController::class, 'store']);
+    Route::post('postImg/revert', [PostImageController::class, 'revert']);
+    Route::get('postImg/{postID}', [PostImageController::class, 'getPostImage']);
+    
+    // Cart Controller Routes
+    Route::resource('cart', CartController::class);
 
-    Route::get('lastMessage/{convoID}', function ($convoID){
-        $messages = Message::where('convo_id', $convoID)->orderBy('created_at','desc')->first();
-        return response()->json($messages);
-    });
+    // Offer Controller Routes
+    Route::resource('offer', OfferController::class);
+    Route::put('rejectOffer/{offerID}', [OfferController::class, 'rejectOffer'])->name('rejectOffer');
+    Route::post('offerExists/post/{postID}/user/{userID}', [OfferController::class, 'offerExists']);
+
+    // Message Controller Routes
+    Route::resource('message', MessageController::class);
+    Route::get('messages/{convoID}', [MessageController::class, 'getMessages']);
+    Route::get('lastMessage/{convoID}', [MessageController::class, 'getLastMessage']);
+   
+    // User Controller Routes 
+    Route::get('user/{id}', [UserController::class, 'getUser']);
+    Route::get('currentUser', [UserController::class, 'getCurrentUser']);
+ 
+    // Offer Images Controller
+    Route::get('offerImages/{offerID}', [OfferImagesController::class, 'getOfferImage']);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/messages', function () {
-
-
-    $conversations = Conversation::with(['message'])
-                ->where('sender_user_id', Auth::user()->id)
-                ->orWhere('receiver_user_id', Auth::user()->id)
-                ->get();
-
-    return Inertia::render('Messages', [
-        'conversations' => $conversations,
-    ]);
-})->name('messages');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/cart', function () {
-
-    // Get the content of the user's cart
-    $cart = Cart::where('user_id', Auth::user()->id)->get();
-
-    $postIds = [];
-    
-    // Store all the post id's in postIds Array
-    foreach($cart as $cartItem) {
-        array_push($postIds, $cartItem->post_id);
-    }
-
-    // Get all posts containg the gathered postIds
-    $posts = Post::whereIn('id', $postIds)->paginate(12);
-
-    return Inertia::render('Cart', [
-        'posts' => $posts
-    ]);
-})->name('cart');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/offersMade', function () {
-
-    $offersMade = Offer::where('user_id', Auth::user()->id)->paginate(12);
-
-    return Inertia::render('OffersMade', ['offersMade' => $offersMade]);
-})->name('offersMade');
+// Inertia Pages Route
+Route::group(['auth:sanctum', 'verified'], function() {
+    Route::get('/dashboard/{category?}', [PostController::class, 'sortPosts'])->name('dashboard');
+    Route::get('/profile/{id?}', [UserController::class, 'getProfile'])->name('userProfile');
+    Route::get('/messages', [ConversationController::class, 'showConversations'])->name('messages');
+    Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
+    Route::get('/offersMade', [OfferController::class, 'showOffers'])->name('offersMade');
+});

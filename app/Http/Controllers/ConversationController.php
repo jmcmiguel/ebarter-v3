@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Conversation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ConversationController extends Controller
 {
@@ -81,5 +83,22 @@ class ConversationController extends Controller
     public function destroy(Conversation $conversation)
     {
         //
+    }
+    
+    /**
+     * Display messages page of controller
+     *
+     * @return Inertia
+     */
+    public function showConversations()
+    {
+        $conversations = Conversation::with(['message'])
+        ->where('sender_user_id', Auth::user()->id)
+        ->orWhere('receiver_user_id', Auth::user()->id)
+        ->get();
+
+        return Inertia::render('Messages', [
+        'conversations' => $conversations,
+        ]);
     }
 }

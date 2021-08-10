@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\PostImage;
+use App\Models\Conversation;
+use App\Models\Offer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -230,7 +232,7 @@ class PostController extends Controller
         $hideOwnPost = isset($request->query()['hideOwnPost']) ? $request->query()['hideOwnPost'] : null;
 
         $allUsers = Post::with(['user'])->orderBy('updated_at', 'desc')->get();
-
+        
         $queryHolder = $allUsers
                         ->filterLocation($location)
                         ->filterPrice($price, $price2)
@@ -242,5 +244,26 @@ class PostController extends Controller
                 : $queryHolder->customPaginate(12)->withQueryString();
 
         return Inertia::render('Dashboard', ['posts' => $posts]);
+    }
+
+    /**
+     * Check if a post exists in a conversation
+     * Used to determine the status of a post
+     * 
+     * @return Boolean
+     */
+    public function postExistsInConversation($postID){
+        $existInConversation = Conversation::where('post_id', $postID)->get();
+        return $existInConversation->isEmpty() ? false : true;
+    }
+    
+    /**
+     * Get all offers of a post
+     * 
+     * @return JSON
+     */
+    public function getPostOffers($postID){
+        $postOffers = Offer::where('post_id', $postID)->get();
+        return response()->json($postOffers);
     }
 }

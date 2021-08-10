@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cart;
+use App\Models\Post;
+use Inertia\Inertia;
 
 class CartController extends Controller
 {
@@ -114,5 +116,30 @@ class CartController extends Controller
 
         return redirect()->back()
                     ->with('message', 'Cart Item Deleted Successfully.');
+    }
+
+    /**
+     * Display the cart of current user
+     *
+     * @return Inertia
+     */
+    public function showCart()
+    {
+        // Get the content of the user's cart
+        $cart = Cart::where('user_id', Auth::user()->id)->get();
+
+        $postIds = [];
+        
+        // Store all the post id's in postIds Array
+        foreach($cart as $cartItem) {
+            array_push($postIds, $cartItem->post_id);
+        }
+
+        // Get all posts containg the gathered postIds
+        $posts = Post::whereIn('id', $postIds)->paginate(12);
+        
+        return Inertia::render('Cart', [
+            'posts' => $posts
+        ]);
     }
 }

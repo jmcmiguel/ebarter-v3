@@ -98,4 +98,28 @@ class MessageController extends Controller
     {
         //
     }
+    
+    /**
+     * Get messages from a conversation
+     *
+     * @param INT $convoID
+     * @return JSON
+     */
+    public function getMessages($convoID)
+    {
+        $messages = Message::where('convo_id', $convoID)->get();
+        return response()->json($messages);
+    }
+
+    /**
+     * Get last message from a conversation
+     *
+     * @param INT $convoID
+     * @return JSON
+     */
+    public function getLastMessage($convoID)
+    {
+        $messages = Message::where('convo_id', $convoID)->orderBy('created_at','desc')->first();
+        return response()->json($messages);
+    }
 }
