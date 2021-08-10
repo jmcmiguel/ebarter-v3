@@ -24,6 +24,7 @@ class CreateOffersTable extends Migration
             $table->date('date_produced')->nullable();
             $table->date('date_expiree')->nullable();
             $table->string('category')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

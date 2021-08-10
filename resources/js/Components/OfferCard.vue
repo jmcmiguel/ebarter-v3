@@ -158,7 +158,6 @@
         methods:{
 
             isRejected(){
-                console.log(this.offer)
                 return this.offer.status === 'rejected' ? true :false
             },
 

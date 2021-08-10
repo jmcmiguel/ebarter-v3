@@ -152,6 +152,7 @@
         deletePostData: null,
         showingOffersData: null,
         showingRejectOfferModal: false,
+        rejectOfferData: null,
       }
     },
 
