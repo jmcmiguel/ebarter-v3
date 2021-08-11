@@ -18159,6 +18159,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     isRouteActive: function isRouteActive(url) {
+      if (url === 'all' && route().params.category === undefined) return true;
       if (url === route().params.category) return true;
       return false;
     }

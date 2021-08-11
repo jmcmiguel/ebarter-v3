@@ -82,7 +82,8 @@
         
         methods: {
             isRouteActive(url) {
-
+                if(url === 'all' && route().params.category === undefined) return true
+                
                 if(url === route().params.category) return true
 
                 return false
