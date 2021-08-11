@@ -22458,8 +22458,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_jet_nav_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-nav-link");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-    href: _ctx.route('dashboard'),
-    active: $options.isRouteActive()
+    href: _ctx.route('dashboard', {
+      category: 'all',
+      location: _ctx.route().params.location,
+      hideOwnPost: _ctx.route().params.hideOwnPost,
+      price: _ctx.route().params.price,
+      price2: _ctx.route().params.price2
+    }),
+    active: $options.isRouteActive('all')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_2];
@@ -22473,7 +22479,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: _ctx.route('dashboard', {
       category: 'categ-1',
       location: _ctx.route().params.location,
-      price: _ctx.route().params.price
+      hideOwnPost: _ctx.route().params.hideOwnPost,
+      price: _ctx.route().params.price,
+      price2: _ctx.route().params.price2
     }),
     active: $options.isRouteActive('categ-1')
   }, {
@@ -22489,7 +22497,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: _ctx.route('dashboard', {
       category: 'categ-2',
       location: _ctx.route().params.location,
-      price: _ctx.route().params.price
+      hideOwnPost: _ctx.route().params.hideOwnPost,
+      price: _ctx.route().params.price,
+      price2: _ctx.route().params.price2
     }),
     active: $options.isRouteActive('categ-2')
   }, {
@@ -22505,7 +22515,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: _ctx.route('dashboard', {
       category: 'categ-3',
       location: _ctx.route().params.location,
-      price: _ctx.route().params.price
+      hideOwnPost: _ctx.route().params.hideOwnPost,
+      price: _ctx.route().params.price,
+      price2: _ctx.route().params.price2
     }),
     active: $options.isRouteActive('categ-3')
   }, {
@@ -22521,7 +22533,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: _ctx.route('dashboard', {
       category: 'categ-4',
       location: _ctx.route().params.location,
-      price: _ctx.route().params.price
+      price: _ctx.route().params.price,
+      hideOwnPost: _ctx.route().params.hideOwnPost
     }),
     active: $options.isRouteActive('categ-4')
   }, {
@@ -22537,7 +22550,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: _ctx.route('dashboard', {
       category: 'categ-5',
       location: _ctx.route().params.location,
-      price: _ctx.route().params.price
+      price: _ctx.route().params.price,
+      price2: _ctx.route().params.price2,
+      hideOwnPost: _ctx.route().params.hideOwnPost
     }),
     active: $options.isRouteActive('categ-5')
   }, {
@@ -22553,7 +22568,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: _ctx.route('dashboard', {
       category: 'categ-6',
       location: _ctx.route().params.location,
-      price: _ctx.route().params.price
+      price: _ctx.route().params.price,
+      price2: _ctx.route().params.price2,
+      hideOwnPost: _ctx.route().params.hideOwnPost
     }),
     active: $options.isRouteActive('categ-6')
   }, {
@@ -26339,7 +26356,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         href: _ctx.route('dashboard', {
           category: _ctx.route().params.category,
           location: _ctx.route().params.location,
-          price: 100
+          price: 100,
+          hideOwnPost: _ctx.route().params.hideOwnPost
         }),
         active: $options.isPriceFilterActive('100'),
         "class": "flex-1"
@@ -26357,7 +26375,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           category: _ctx.route().params.category,
           location: _ctx.route().params.location,
           price: 500,
-          price2: 100
+          price2: 100,
+          hideOwnPost: _ctx.route().params.hideOwnPost
         }),
         active: $options.isPriceFilterActive('500'),
         "class": "flex-1"
@@ -26375,7 +26394,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           category: _ctx.route().params.category,
           location: _ctx.route().params.location,
           price: 1000,
-          price2: 500
+          price2: 500,
+          hideOwnPost: _ctx.route().params.hideOwnPost
         }),
         active: $options.isPriceFilterActive('1000'),
         "class": "flex-1"
@@ -26393,7 +26413,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           category: _ctx.route().params.category,
           location: _ctx.route().params.location,
           price: 2000,
-          price2: 1000
+          price2: 1000,
+          hideOwnPost: _ctx.route().params.hideOwnPost
         }),
         active: $options.isPriceFilterActive('2000'),
         "class": "flex-1"
@@ -26411,7 +26432,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           category: _ctx.route().params.category,
           location: _ctx.route().params.location,
           price: 5000,
-          price2: 2000
+          price2: 2000,
+          hideOwnPost: _ctx.route().params.hideOwnPost
         }),
         active: $options.isPriceFilterActive('5000'),
         "class": "flex-1"
@@ -26428,7 +26450,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         href: _ctx.route('dashboard', {
           category: _ctx.route().params.category,
           location: _ctx.route().params.location,
-          price: 5001
+          price: 5001,
+          hideOwnPost: _ctx.route().params.hideOwnPost
         }),
         active: $options.isPriceFilterActive('5001'),
         "class": "flex-1"
@@ -26449,7 +26472,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           price2: _ctx.route().params.price2,
           hideOwnPost: 'yes'
         }),
-        active: $options.isHideOwnPostFilterActive(true),
+        active: $options.isHideOwnPostFilterActive('yes'),
         "class": "flex-1"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {

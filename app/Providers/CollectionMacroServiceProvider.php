@@ -66,7 +66,11 @@ class CollectionMacroServiceProvider extends ServiceProvider
         // Filter Category Macro
         Collection::macro('filterCategory', function ($category) {
 
-            if($category == 'all' ) return $this->collect();
+            if($category == 'all' ){
+                return $this->filter(function ($post) use($category){
+                    return $post->category != null;
+                });
+            }
 
             return $this->filter(function ($post) use($category){
                 return $post->category === $category;
