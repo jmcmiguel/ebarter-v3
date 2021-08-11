@@ -23,14 +23,18 @@ use App\Http\Controllers\ConversationController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('welcome');
+
+// Unprotected Routes
+Route::group([], function() {
+    Route::get('/', function () {
+        return Inertia::render('Welcome', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+        ]);
+    })->name('welcome');
+});
 
 Route::group(['middleware' => 'auth'], function() {
     
@@ -68,8 +72,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('offerImages/{offerID}', [OfferImagesController::class, 'getOfferImage']);
 });
 
-// Inertia Pages Route
-Route::group(['auth:sanctum', 'verified'], function() {
+// Protected Routes
+Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/dashboard/{category?}', [PostController::class, 'sortPosts'])->name('dashboard');
     Route::get('/profile/{id?}', [UserController::class, 'getProfile'])->name('userProfile');
     Route::get('/messages', [ConversationController::class, 'showConversations'])->name('messages');

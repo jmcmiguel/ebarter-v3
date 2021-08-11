@@ -220,7 +220,7 @@ class PostController extends Controller
     }
 
     /**
-     * Sorts the post
+     * Sorts the post and displays the dashboard page
      *
      * @return Inertia
      */
