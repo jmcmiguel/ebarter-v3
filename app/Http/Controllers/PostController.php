@@ -224,8 +224,9 @@ class PostController extends Controller
      *
      * @return Inertia
      */
-    public function sortPosts ($category = 'all', Request $request){
+    public function sortPosts (Request $request){
         // Check existence of params
+        $category = isset($request->query()['category']) ? $request->query()['category'] : 'all';
         $location = isset($request->query()['location']) ? $request->query()['location'] : null;
         $price = isset($request->query()['price']) ? $request->query()['price'] : null; 
         $price2 = isset($request->query()['price2']) ? $request->query()['price2'] : null; 

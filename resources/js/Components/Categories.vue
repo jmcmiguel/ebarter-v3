@@ -4,27 +4,51 @@
         All
         </jet-nav-link>
         
-        <jet-nav-link :href="route('dashboard','categ-1')" :active="isRouteActive('categ-1')">
+        <jet-nav-link :href="route('dashboard',{
+                        category: 'categ-1',
+                        location: route().params.location,
+                        price: route().params.price,
+                    })" :active="isRouteActive('categ-1')">
         Crops
         </jet-nav-link>
 
-        <jet-nav-link :href="route('dashboard', 'categ-2')" :active="isRouteActive('categ-2')">
+        <jet-nav-link :href="route('dashboard',{
+                        category: 'categ-2',
+                        location: route().params.location,
+                        price: route().params.price,
+                    })" :active="isRouteActive('categ-2')">
         Livestocks
         </jet-nav-link>
 
-        <jet-nav-link :href="route('dashboard', 'categ-3')" :active="isRouteActive('categ-3')">
+        <jet-nav-link :href="route('dashboard',{
+                        category: 'categ-3',
+                        location: route().params.location,
+                        price: route().params.price,
+                    })" :active="isRouteActive('categ-3')">
         Dairy
         </jet-nav-link>
 
-        <jet-nav-link :href="route('dashboard', 'categ-4')" :active="isRouteActive('categ-4')">
+        <jet-nav-link :href="route('dashboard',{
+                        category: 'categ-4',
+                        location: route().params.location,
+                        price: route().params.price,
+                    })" :active="isRouteActive('categ-4')">
         Fish-Farming
         </jet-nav-link>
 
-        <jet-nav-link :href="route('dashboard', 'categ-5')" :active="isRouteActive('categ-5')">
+        <jet-nav-link :href="route('dashboard',{
+                        category: 'categ-5',
+                        location: route().params.location,
+                        price: route().params.price,
+                    })" :active="isRouteActive('categ-5')">
         Machineries
         </jet-nav-link>
 
-        <jet-nav-link :href="route('dashboard', 'categ-6')" :active="isRouteActive('categ-6')">
+        <jet-nav-link :href="route('dashboard',{
+                        category: 'categ-6',
+                        location: route().params.location,
+                        price: route().params.price,
+                    })" :active="isRouteActive('categ-6')">
         Others
         </jet-nav-link>
     </div>

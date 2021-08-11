@@ -22470,7 +22470,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-    href: _ctx.route('dashboard', 'categ-1'),
+    href: _ctx.route('dashboard', {
+      category: 'categ-1',
+      location: _ctx.route().params.location,
+      price: _ctx.route().params.price
+    }),
     active: $options.isRouteActive('categ-1')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22482,7 +22486,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-    href: _ctx.route('dashboard', 'categ-2'),
+    href: _ctx.route('dashboard', {
+      category: 'categ-2',
+      location: _ctx.route().params.location,
+      price: _ctx.route().params.price
+    }),
     active: $options.isRouteActive('categ-2')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22494,7 +22502,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-    href: _ctx.route('dashboard', 'categ-3'),
+    href: _ctx.route('dashboard', {
+      category: 'categ-3',
+      location: _ctx.route().params.location,
+      price: _ctx.route().params.price
+    }),
     active: $options.isRouteActive('categ-3')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22506,7 +22518,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-    href: _ctx.route('dashboard', 'categ-4'),
+    href: _ctx.route('dashboard', {
+      category: 'categ-4',
+      location: _ctx.route().params.location,
+      price: _ctx.route().params.price
+    }),
     active: $options.isRouteActive('categ-4')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22518,7 +22534,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-    href: _ctx.route('dashboard', 'categ-5'),
+    href: _ctx.route('dashboard', {
+      category: 'categ-5',
+      location: _ctx.route().params.location,
+      price: _ctx.route().params.price
+    }),
     active: $options.isRouteActive('categ-5')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22530,7 +22550,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8
   /* PROPS */
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_nav_link, {
-    href: _ctx.route('dashboard', 'categ-6'),
+    href: _ctx.route('dashboard', {
+      category: 'categ-6',
+      location: _ctx.route().params.location,
+      price: _ctx.route().params.price
+    }),
     active: $options.isRouteActive('categ-6')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {

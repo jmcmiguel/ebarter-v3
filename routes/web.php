@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 // Protected Routes
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
-    Route::get('/dashboard/{category?}', [PostController::class, 'sortPosts'])->name('dashboard');
+    Route::get('/dashboard', [PostController::class, 'sortPosts'])->name('dashboard');
     Route::get('/profile/{id?}', [UserController::class, 'getProfile'])->name('userProfile');
     Route::get('/messages', [ConversationController::class, 'showConversations'])->name('messages');
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
