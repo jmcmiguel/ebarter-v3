@@ -195,7 +195,11 @@
                         </svg>
                     </span>
 
-                    <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Search for a product...">
+                    <jet-input type="text" class="mt-1 block w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Search for a product..."
+                                        id="searchKeywordResponsive"
+                                        ref="searchKeywordResponsive"
+                                        v-model="form.searchKeyword"
+                                        @keyup.enter="search" />
                 </div>
 
                 <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
@@ -326,7 +330,7 @@
             search() {
                 this.form.get(route('dashboard'), {
                     preserveScroll: false,
-                    onSuccess: () => console.log('i worked'),
+                    onSuccess: () => this.form.reset(),
                     onError: (error) => console.log(error),
                     onFinish: () => this.form.reset(),
                 })
