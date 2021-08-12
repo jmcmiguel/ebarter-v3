@@ -21,7 +21,12 @@
                                 </svg>
                             </span>
 
-                            <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Search">
+                             <jet-input type="text" class="mt-1 block w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Search for a product..."
+                                        id="searchKeyword"
+                                        ref="searchKeyword"
+                                        v-model="form.searchKeyword"
+                                        @keyup.enter="search" />
+
                         </div>
                     </div>
                     
@@ -190,7 +195,7 @@
                         </svg>
                     </span>
 
-                    <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Search">
+                    <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Search for a product...">
                 </div>
 
                 <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
@@ -294,7 +299,7 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import JetNavLink from '@/Jetstream/NavLink'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
-    import UserServices from '@/Services/User'
+    import JetInput from '@/Jetstream/Input'
 
     export default{
         components:{
@@ -303,16 +308,29 @@
             JetDropdownLink,
             JetNavLink,
             JetResponsiveNavLink,
+            JetInput,
         },
 
         data() {
             return {
                 authUser: {},
                 showingNavigationDropdown: false,
+                form: this.$inertia.form({
+                    searchKeyword: null,
+                }),
             }
         },
         
         methods:{
+
+            search() {
+                this.form.get(route('dashboard'), {
+                    preserveScroll: false,
+                    onSuccess: () => console.log('i worked'),
+                    onError: (error) => console.log(error),
+                    onFinish: () => this.form.reset(),
+                })
+            },
 
             getProfilePhoto(user){
                 if(user.profile_photo_path){

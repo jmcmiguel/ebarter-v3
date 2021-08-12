@@ -9,6 +9,9 @@
         <!-- Sort Posts -->
         <div>
             <div class="container mx-auto">
+                <div v-if="route().params.searchKeyword" class="flex flex-wrap mt-10">
+                    <p>Showing results for {{ route().params.searchKeyword }}</p>
+                </div>
                 <div class="flex flex-wrap">
                     <sort-posts />
                 </div>

@@ -76,6 +76,17 @@ class CollectionMacroServiceProvider extends ServiceProvider
                 return $post->category === $category;
             });
         });
+        
+        // Search Keyword Macro
+        Collection::macro('searchKeyword', function ($searchKeyword) {
+
+            if(!$searchKeyword) return $this->collect();
+
+            return $this->filter(function ($post) use($searchKeyword){
+                return stripos($post->prod_name, $searchKeyword) !== false ||
+                        stripos($post->title, $searchKeyword) !== false;
+            });
+        });
 
         // Custom Pagination Macro
         Collection::macro('customPaginate', function($perPage, $total = null, $page = null, $pageName = 'page') {

@@ -225,6 +225,9 @@ class PostController extends Controller
      * @return Inertia
      */
     public function sortPosts (Request $request){
+        // Check existence of search params
+        $search = isset($request->query()['searchKeyword']) ? $request->query()['searchKeyword'] : null;
+
         // Check existence of params
         $category = isset($request->query()['category']) ? $request->query()['category'] : 'all';
         $location = isset($request->query()['location']) ? $request->query()['location'] : null;
@@ -238,7 +241,8 @@ class PostController extends Controller
                         ->filterLocation($location)
                         ->filterPrice($price, $price2)
                         ->filterHideOwnPost($hideOwnPost)
-                        ->filterCategory($category);
+                        ->filterCategory($category)
+                        ->searchKeyword($search);
                         
         $posts = $queryHolder->isEmpty() 
                 ? Post::where('id', '<', 0)->paginate(12)

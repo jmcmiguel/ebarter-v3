@@ -95,24 +95,24 @@
                                 </jet-dropdown-link>
                             </div>
 
-                            <div>
+                            <div v-if="userID !== authUser.id" >
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
-                                <jet-dropdown-link v-if="this.userID !== this.authUser.id && this.offerExists === true" :href="route('offersMade')">
+                                <jet-dropdown-link v-if="this.offerExists === true" :href="route('offersMade')">
                                     Offer already sent
                                 </jet-dropdown-link>
-                                <jet-dropdown-link v-if="this.userID !== this.authUser.id" :disabled="this.offerExists" @click="showMakeOfferModal(id)" as="button">
+                                <jet-dropdown-link :disabled="this.offerExists" @click="showMakeOfferModal(id)" as="button">
                                     Make offer  
                                 </jet-dropdown-link>                                
                                 <jet-dropdown-link v-if="route().current('cart')" @click="removeFromCart(id)" as="button">
                                     Remove from cart
                                 </jet-dropdown-link>
-                                <jet-dropdown-link v-if="this.userID !== this.authUser.id && !route().current('cart')" @click="addToCart(id)" as="button">
+                                <jet-dropdown-link v-if="!route().current('cart')" @click="addToCart(id)" as="button">
                                     Add To Cart
                                 </jet-dropdown-link>
-                                <jet-dropdown-link v-if="userID !== authUser.id" as="button">
+                                <jet-dropdown-link as="button">
                                     Give Ratings
                                 </jet-dropdown-link>
-                                <jet-dropdown-link as="button">
+                                <jet-dropdown-link  as="button">
                                     Report Post
                                 </jet-dropdown-link>
                             </div>
