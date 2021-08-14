@@ -25,17 +25,20 @@
                             </template>
                             
                             <template #content>
-                                <dropdown-link :href="route('dashboard')">
+                                <dropdown-link v-if="$page.props.user" :href="route('dashboard')">
                                     Home
                                 </dropdown-link>
+
+                                <template v-else>
+                                    <dropdown-link :href="route('login')">
+                                        Login
+                                    </dropdown-link>
+                                    
+                                    <dropdown-link :href="route('register')">
+                                        Register
+                                    </dropdown-link>
+                                </template>
                                 
-                                <dropdown-link :href="route('login')">
-                                    Login
-                                </dropdown-link>
-                                
-                                <dropdown-link :href="route('register')">
-                                    Register
-                                </dropdown-link>
                                 
                             </template>
 
