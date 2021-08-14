@@ -229,7 +229,7 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <jet-responsive-nav-link :href="route('userProfile', $page.props.user.id)" :active="route().current('userProfile')">
+                    <jet-responsive-nav-link :href="route('userProfile', $page.props.user.id)" :active="route().current('userProfile',$page.props.user.id)">
                         Profile
                     </jet-responsive-nav-link>
 
