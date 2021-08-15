@@ -9,7 +9,8 @@
         <div class="p-6">
             <div>
                 <span v-if="isRejected()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Rejected </span>
-                <span v-if="isPending && !isRejected()" class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
+                <span v-if="isEdited()" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Edited </span>
+                <span v-if="isPending && !isRejected()" class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
                 <span class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(offer.category) }} </span>
                 <span v-if="isExpired(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
                 <span v-else-if="isExpiree(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expiree</span>
@@ -156,6 +157,12 @@
         },
 
         methods:{
+
+            isEdited(){
+                return dayjs(new Date(this.offer.updated_at)).isAfter(new Date(this.offer.created_at)) 
+                        ? true
+                        : false
+            },
 
             isRejected(){
                 return this.offer.status === 'rejected' ? true :false
