@@ -26,12 +26,14 @@
                     <span class="text-sm font-semibold">Preferred Item: </span>&nbsp;<span class="font-bold"> {{ preferredItem }} </span>
                 </div>
                 
-                <inertia-link :href="route('userProfile', user.id)" class="mt-3 flex items-center text-xs text-gray-700">
-                    <span> <img class="h-6 w-6 mr-2 rounded-full object-cover" :src="getProfilePhoto()" :alt="$page.props.user.name" /> </span>
-                    <span>{{ user.id === authUser.id ? 'You' : user.name }} </span> &nbsp; · &nbsp;
+                <div class="mt-3 flex items-center text-xs text-gray-700">
+                    <inertia-link :href="route('userProfile', user.id)" class="flex items-center">
+                        <span> <img class="h-6 w-6 mr-2 rounded-full object-cover" :src="getProfilePhoto()" :alt="$page.props.user.name" /> </span>
+                        <span>{{ user.id === authUser.id ? 'You' : user.name }} </span> &nbsp; · &nbsp;
+                    </inertia-link>
                     <span> {{ getTimeAgo(datePosted) }} </span>
-                </inertia-link>
-
+                    <span v-if="isEdited()">&nbsp; · &nbsp; edited</span>
+                </div>
             </div>
 
             <div class="p-4 border-t border-b text-xs text-gray-700">
@@ -148,7 +150,7 @@
             JetDropdownLink,
         },
 
-        props: ['title', 'description', 'price', 'views', 'preferredItem',
+        props: ['title', 'description', 'price', 'views', 'preferredItem', 'updated_at', 'created_at',
                 'status', 'userID', 'prodName', 'qty', 'qtyType', 'showMakeOfferModal',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'showOffersModal',
                 'id', 'addToCart', 'showEditPostModal', 'showDeletePostModal', 'removeFromCart'],
@@ -163,6 +165,12 @@
         },
 
         methods: {
+
+            isEdited(){
+                return dayjs(new Date(this.updated_at)).isAfter(new Date(this.created_at)) 
+                        ? true
+                        : false
+            },
 
             showEditModal(){
 
