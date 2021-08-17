@@ -45,8 +45,8 @@
 
             <input ref="msg_content" v-model="form.msg_content" @keyup.enter="sendMessage"  type="text" class="w-full py-2 pr-4 text-gray-700 bg-white border border-gray-300 rounded-xl focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Type message here...">
             
-            <button class="outline-none focus:outline-none" type="submit" @click="sendMessage" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                <svg class="text-gray-400 h-7 w-7 origin-center transform rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <button class="outline-none focus:outline-none" type="submit" @click="sendMessage" :class="{ 'opacity-25': form.processing }" :disabled="form.processing || isTextboxEmpty()">
+                <svg :class="isTextboxEmpty() ? 'text-gray-400 cursor-default' : 'text-green-600'" class="h-7 w-7 origin-center transform rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
             </button>
@@ -89,6 +89,10 @@ export default {
     },
 
     methods:{
+        
+        isTextboxEmpty(){
+            return this.form.msg_content === '' ? true : false
+        },
 
         getUserID(){
             return this.$page.props.authUser.id === this.convo.convo.sender_user_id ?

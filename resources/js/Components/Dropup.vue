@@ -16,8 +16,8 @@
             leave-from-class="transform opacity-100 scale-100"
             leave-to-class="transform opacity-0 scale-95">
             <div v-show="open"
-                class="absolute bottom-10 origin-top-right left-0 z-50 mt-2 rounded-md shadow-lg"
-                :class="[widthClass, alignmentClasses]"
+                class="absolute bottom-10 origin-top-right z-50 mt-2 rounded-md shadow-lg"
+                :class="[widthClass, alignmentClasses, popupPosition]"
                 style="display: none;">
 
                 <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
@@ -41,6 +41,9 @@ export default {
         },
         contentClasses: {
             default: () => ['py-1', 'bg-white']
+        },
+        popupPosition:{
+            default: 'left-0'
         }
     },
 

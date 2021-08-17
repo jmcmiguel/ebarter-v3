@@ -74,7 +74,7 @@
                 
                 <div class="relative p-4">
 
-                    <jet-dropdown align="right" width="48">
+                    <dropup align="right" width="48" popupPosition="right-0">
                         <template #trigger>
                             <button class="relative z-10 block p-2 transition-colors duration-200 transform bg-gray-300 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-300">
                                 <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,7 +119,7 @@
                                 </jet-dropdown-link>
                             </div>
                         </template>
-                    </jet-dropdown>
+                    </dropup>
           
                 </div>
             </div>
@@ -137,17 +137,17 @@
     var relativeTime = require('dayjs/plugin/relativeTime')
     var isBetween = require('dayjs/plugin/isBetween')
     dayjs.extend(isBetween)
-    import JetDropdown from '@/Jetstream/Dropdown'
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import OfferServices from '@/Services/Offer'
+    import Dropup from '@/Components/Dropup'
 
     export default {
 
         components: {
             VueperSlides, 
             VueperSlide,
-            JetDropdown,
             JetDropdownLink,
+            Dropup
         },
 
         props: ['title', 'description', 'price', 'views', 'preferredItem', 'updated_at', 'created_at',
