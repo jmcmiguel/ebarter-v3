@@ -2,10 +2,12 @@
 <div class="col-span-2 bg-white">
     <div class="w-full">
         <div class="flex items-center border-b border-gray-300 pl-3 py-3">
-            <img class="h-10 w-10 rounded-full object-cover"
-            :src="convo.photo"
-            alt="username" />
-            <span class="block ml-2 font-bold text-base text-gray-600">{{ convo.name }}</span>
+            <inertia-link class="flex items-center" :href="route('userProfile', getUserID())">
+                <img class="h-10 w-10 rounded-full object-cover"
+                :src="convo.photo"
+                alt="username" />
+                <span class="block ml-2 font-bold text-base text-gray-600">{{ convo.name }}</span>
+            </inertia-link>
             <span class="connected text-green-500 ml-2" >
                 <svg width="6" height="6">
                     <circle cx="3" cy="3" r="3" fill="currentColor"></circle>
@@ -87,6 +89,12 @@ export default {
     },
 
     methods:{
+
+        getUserID(){
+            return this.$page.props.authUser.id === this.convo.convo.sender_user_id ?
+                    this.convo.convo.receiver_user_id : this.convo.convo.sender_user_id
+        },
+
         showEmoji(emoji) {
             this.form.msg_content = this.form.msg_content + emoji.native;
         },
@@ -107,17 +115,16 @@ export default {
         this.chatDiv = document.getElementById('chat')
         this.chatDiv.scrollTop = chat.scrollHeight
 
+        console.log(this.convo)
     },
 
     beforeUpdate(){
         this.chatDiv.scrollTop = {}
         this.form.convo_id = this.convo.convo.id
-        
     },
 
     updated(){
         this.chatDiv.scrollTop = chat.scrollHeight
-
     }
 
 }
