@@ -1110,12 +1110,6 @@ select {
 	bottom: 0px;
 	left: 0px;
 }
-.-inset-0 {
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	left: 0px;
-}
 .inset-y-0 {
 	top: 0px;
 	bottom: 0px;
@@ -1135,9 +1129,6 @@ select {
 .right-10 {
 	right: 2.5rem;
 }
-.top-10 {
-	top: 2.5rem;
-}
 .bottom-0 {
 	bottom: 0px;
 }
@@ -1155,9 +1146,6 @@ select {
 }
 .z-20 {
 	z-index: 20;
-}
-.order-2 {
-	order: 2;
 }
 .order-1 {
 	order: 1;
@@ -1191,9 +1179,6 @@ select {
 }
 .-m-4 {
 	margin: -1rem;
-}
-.m-0 {
-	margin: 0px;
 }
 .mx-auto {
 	margin-left: auto;
@@ -1584,9 +1569,6 @@ select {
 .flex-wrap {
 	flex-wrap: wrap;
 }
-.items-start {
-	align-items: flex-start;
-}
 .items-center {
 	align-items: center;
 }
@@ -1644,11 +1626,6 @@ select {
 	margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(0px * var(--tw-space-y-reverse));
 }
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-	--tw-space-y-reverse: 0;
-	margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-	margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
 .overflow-auto {
 	overflow: auto;
 }
@@ -1701,9 +1678,6 @@ select {
 }
 .rounded-b-none {
 	border-bottom-right-radius: 0px;
-	border-bottom-left-radius: 0px;
-}
-.rounded-bl-none {
 	border-bottom-left-radius: 0px;
 }
 .border {
@@ -1813,13 +1787,13 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(5, 150, 105, var(--tw-bg-opacity));
 }
-.bg-yellow-100 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(254, 243, 199, var(--tw-bg-opacity));
-}
 .bg-green-100 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(209, 250, 229, var(--tw-bg-opacity));
+}
+.bg-yellow-100 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(254, 243, 199, var(--tw-bg-opacity));
 }
 .bg-gray-300 {
 	--tw-bg-opacity: 1;
@@ -2170,6 +2144,10 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(209, 213, 219, var(--tw-text-opacity));
 }
+.text-green-900 {
+	--tw-text-opacity: 1;
+	color: rgba(6, 78, 59, var(--tw-text-opacity));
+}
 .text-red-900 {
 	--tw-text-opacity: 1;
 	color: rgba(127, 29, 29, var(--tw-text-opacity));
@@ -2177,10 +2155,6 @@ select {
 .text-yellow-900 {
 	--tw-text-opacity: 1;
 	color: rgba(120, 53, 15, var(--tw-text-opacity));
-}
-.text-green-900 {
-	--tw-text-opacity: 1;
-	color: rgba(6, 78, 59, var(--tw-text-opacity));
 }
 .text-yellow-500 {
 	--tw-text-opacity: 1;

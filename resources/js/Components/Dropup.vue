@@ -16,7 +16,7 @@
             leave-from-class="transform opacity-100 scale-100"
             leave-to-class="transform opacity-0 scale-95">
             <div v-show="open"
-                class="absolute left-0 z-50 mt-2 rounded-md shadow-lg"
+                class="absolute bottom-10 origin-top-right left-0 z-50 mt-2 rounded-md shadow-lg"
                 :class="[widthClass, alignmentClasses]"
                 style="display: none;">
 
