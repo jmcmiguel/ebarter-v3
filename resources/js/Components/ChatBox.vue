@@ -26,11 +26,20 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
             </button>
-            <button class="outline-none focus:outline-none ml-1">
-                <svg class="text-gray-400 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                </svg>
-            </button>
+
+            <dropup style="margin-top:0.35rem;">
+                <template #trigger>
+                    <button class="outline-none focus:outline-none ml-1">
+                        <svg class="text-gray-400 h-6 w-6 feather feather-smile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                    </button>
+                </template>
+
+                <template #content>
+                    <picker :data="emojiIndex" @select="showEmoji" />
+                </template>
+            </dropup>
 
             <input ref="msg_content" v-model="form.msg_content" @keyup.enter="sendMessage"  type="text" class="w-full py-2 pr-4 text-gray-700 bg-white border border-gray-300 rounded-xl focus:border-green-500 focus:outline-none focus:ring-0" placeholder="Type message here...">
             
@@ -46,27 +55,42 @@
 
 <script>
 import ChatBubble from '@/Components/ChatBubble'
+import Dropup from '@/Components/Dropup'
+import data from "emoji-mart-vue-fast/data/all.json";
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast/src";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+
+let emojiIndex = new EmojiIndex(data);
+
 export default {
 
     props:['convo'],
 
     components:{
-        ChatBubble
+        ChatBubble,
+        Picker,
+        Dropup
     },
 
     data(){
         return{
             form: this.$inertia.form({
-                msg_content: null,
+                msg_content: '',
                 convo_id: this.convo.convo.id,
                 sender_id: this.$page.props.authUser.id,
             }),
 
-            chatDiv: null
+            chatDiv: null,
+
+            emojiIndex: emojiIndex,
         }
     },
 
     methods:{
+        showEmoji(emoji) {
+            this.form.msg_content = this.form.msg_content + emoji.native;
+        },
+
         sendMessage() {
             this.form.post(route('message.store'), {
                 preserveScroll: true,
@@ -82,15 +106,18 @@ export default {
     mounted(){
         this.chatDiv = document.getElementById('chat')
         this.chatDiv.scrollTop = chat.scrollHeight
+
     },
 
     beforeUpdate(){
         this.chatDiv.scrollTop = {}
         this.form.convo_id = this.convo.convo.id
+        
     },
 
     updated(){
         this.chatDiv.scrollTop = chat.scrollHeight
+
     }
 
 }
