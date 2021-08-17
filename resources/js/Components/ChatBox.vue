@@ -114,8 +114,6 @@ export default {
     mounted(){
         this.chatDiv = document.getElementById('chat')
         this.chatDiv.scrollTop = chat.scrollHeight
-
-        console.log(this.convo)
     },
 
     beforeUpdate(){
