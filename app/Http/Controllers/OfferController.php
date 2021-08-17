@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Offer;
+use App\Models\Post;
+use App\Models\Conversation;
 use App\Models\OfferImage;
+use App\Models\Message;
 use Inertia\Inertia;
 
 class OfferController extends Controller
@@ -206,6 +209,36 @@ class OfferController extends Controller
     public function showOffers(){
         $offersMade = Offer::where('user_id', Auth::user()->id)->paginate(12);
         return Inertia::render('OffersMade', ['offersMade' => $offersMade]);
+    }
+
+    /**
+     * Accept Offer
+     * 
+     * @return Inertia
+     */
+    public function acceptOffer($offerID, Request $request){
+
+        $offer = Offer::find($offerID);
+        $post = Post::find($offer->post_id);
+
+        Offer::where('id', $offerID)->update(['status' => 'negotiating']);
+
+        $newConvo = Conversation::create([
+            'sender_user_id' => $offer->user_id,
+            'receiver_user_id' => $post->user_id,
+            'post_id' => $offer->post_id,
+        ]);
+
+        Message::create([
+            'convo_id' => $newConvo->id,
+            'sender_id' => Auth::user()->id,
+            'post_id' => $offer->post_id,
+            'content' => "I'm interested in your offer, let's negotiate!",
+            'image_path' => null,
+            'is_read' => false
+        ]);
+
+        return response(200);
     }
     
 }

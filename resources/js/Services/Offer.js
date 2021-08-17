@@ -12,4 +12,14 @@ const getPostOffers = async (postID) => {
     return response.data;
 };
 
-export default { checkIfOfferAlreadyExists, getPostOffers };
+const acceptOffer = async (offerID) => {
+    try {
+        const request = axios.put(`/acceptOffer/${offerID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export default { checkIfOfferAlreadyExists, getPostOffers, acceptOffer };

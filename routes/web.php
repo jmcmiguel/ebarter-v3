@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('offer', OfferController::class);
     Route::put('rejectOffer/{offerID}', [OfferController::class, 'rejectOffer'])->name('rejectOffer');
     Route::post('offerExists/post/{postID}/user/{userID}', [OfferController::class, 'offerExists']);
+    Route::put('acceptOffer/{offerID}', [OfferController::class, 'acceptOffer']);
 
     // Message Controller Routes
     Route::resource('message', MessageController::class);
