@@ -17,7 +17,7 @@
         <div id="chat" class="w-full overflow-y-auto p-10 relative" style="height: calc(100vh - 14.5rem);" ref="toolbarChat">
             <ul>
                 <li class="clearfix2">
-                    <chat-bubble v-for="message in convo.convo.message" :key="message.id" :message="message"/>
+                    <chat-bubble v-for="message in convo.convo.message" :key="message.id" :message="message" :otherUserPhoto="convo.photo"/>
                 </li>
             </ul>
         </div>
