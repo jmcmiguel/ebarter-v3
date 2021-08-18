@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('message', MessageController::class);
     Route::get('messages/{convoID}', [MessageController::class, 'getMessages']);
     Route::get('lastMessage/{convoID}', [MessageController::class, 'getLastMessage']);
+    Route::post('msgImg/process', [MessageController::class, 'storeImage']);    
    
     // User Controller Routes 
     Route::get('user/{id}', [UserController::class, 'getUser']);

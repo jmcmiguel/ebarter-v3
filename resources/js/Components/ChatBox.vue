@@ -23,12 +23,14 @@
         </div>
 
         <div class="w-full py-3 px-3 flex items-center justify-between border-t border-gray-300">
-            <button class="outline-none focus:outline-none">
+            <!-- Image Upload Button -->
+            <button @click="openAddPhoto" class="outline-none focus:outline-none">
                 <svg class="text-gray-400 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
             </button>
 
+            <!-- Emoji Button -->
             <dropup style="margin-top:0.35rem;">
                 <template #trigger>
                     <button class="outline-none focus:outline-none ml-1">
@@ -51,6 +53,55 @@
                 </svg>
             </button>
         </div>
+
+        <!-- Add Photo Modal -->
+        <jet-dialog-modal :show="showingAddPhoto" @close="closeAddPhoto">
+            <template #title>
+                Add a photo
+            </template>
+            
+            <template #content>
+                <file-pond
+                    name="msgimg"
+                    ref="pond"
+                    label-idle="Drop files here or <span class='filepond--label-action'>Browse</span>"
+                    v-bind:allow-multiple="false"
+                    accepted-file-types="image/jpeg, image/png,"
+                    v-bind:server="{
+                        url: '/msgImg',
+                        timeout: 7000,
+                        process: {
+                            url: '/process',
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': this.$page.props.csrf_token
+                            },
+                            onload: (response) => {
+                                logFilePath(response)
+                            },
+                            withCredentials: false
+                        },
+                    }"
+                v-bind:files="msgimgFiles"
+                v-on:init="handleFilePondInit"
+                />
+                <jet-input type="hidden"
+                                id="msgimg_filepath"
+                                ref="msgimg_filepath"
+                                v-model="msgimgForm.msgimg_filepath" />
+            </template>
+
+            <template #footer>
+                <jet-secondary-button @click="closeAddPhoto">
+                    Cancel
+                </jet-secondary-button>
+
+                <jet-button class="ml-2" @click="createMsgImg" :class="{ 'opacity-25': msgimgForm.processing }" :disabled="msgimgForm.processing">
+                    Send
+                </jet-button>
+            </template>
+        </jet-dialog-modal>
+
     </div>
 </div>
 </template>
@@ -61,6 +112,21 @@ import Dropup from '@/Components/Dropup'
 import data from "emoji-mart-vue-fast/data/all.json";
 import { Picker, EmojiIndex } from "emoji-mart-vue-fast/src";
 import "emoji-mart-vue-fast/css/emoji-mart.css";
+import JetDialogModal from '@/Jetstream/DialogModal'
+import vueFilePond from "vue-filepond";
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import JetButton from '@/Jetstream/Button'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+import JetInput from '@/Jetstream/Input'
+
+// Create FilePond Component    
+const FilePond = vueFilePond(
+    FilePondPluginFileValidateType,
+    FilePondPluginImagePreview
+);
 
 let emojiIndex = new EmojiIndex(data);
 
@@ -71,7 +137,12 @@ export default {
     components:{
         ChatBubble,
         Picker,
-        Dropup
+        Dropup,
+        JetDialogModal,
+        JetButton,
+        JetSecondaryButton,
+        FilePond,
+        JetInput
     },
 
     data(){
@@ -85,10 +156,46 @@ export default {
             chatDiv: null,
 
             emojiIndex: emojiIndex,
+
+            showingAddPhoto: false,
+
+            msgimgFiles: null,
+
+            msgimgForm: this.$inertia.form({
+                convo_id: this.convo.convo.id,
+                sender_id: this.$page.props.authUser.id,
+                msg_content: '',
+                msgimg_filepath: null,
+            }),
         }
     },
 
     methods:{
+
+        createMsgImg() {
+            this.msgimgForm.post(route('message.store'), {
+                preserveScroll: true,
+                onSuccess: () => this.closeAddPhoto(),
+                onError: (e) => console.log(e),
+                onFinish: () => this.form.reset(),
+            })
+        },
+
+        logFilePath(data){
+            this.msgimgForm.msgimg_filepath = data
+        },
+
+        handleFilePondInit: function () {
+            // FilePond instance methods are available on `this.$refs.pond`
+        },
+
+        closeAddPhoto(){
+            this.showingAddPhoto = false
+        },
+
+        openAddPhoto(){
+            this.showingAddPhoto = true
+        },
         
         isTextboxEmpty(){
             return this.form.msg_content === '' ? true : false

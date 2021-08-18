@@ -7,8 +7,9 @@
             </div>
 
             <div class="bg-gray-100 rounded-md px-5 py-2 my-2 text-gray-700 relative" style="max-width: 300px;">
+                <img v-if="message.image_path" :src="`/storage/${message.image_path}`" class="p-1 rounded-2xl" />
                 <span class="block">{{ message.content }}</span>
-                <span class="block text-xs text-right">{{ getTimeAgo(message.created_at) }}</span>
+                <span :class="fromAuthUser ? 'text-right' : 'text-left'" class="block text-xs">{{ getTimeAgo(message.created_at) }}</span>
             </div>
         </div>
 

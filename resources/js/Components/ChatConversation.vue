@@ -51,7 +51,7 @@ export default {
         getContent(){
             if(this.isNull()) return ''
 
-            return this.lastMessage.content
+            return this.lastMessage.content === '' ? 'Sent a photo' : this.lastMessage.content
         },
 
         getName(){

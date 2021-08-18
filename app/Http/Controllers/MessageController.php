@@ -37,15 +37,16 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'msg_content' => ['required', 'string'],
+            'msg_content' => ['required_without:msgimg_filepath'],
+            'msgimg_filepath' => ['required_without:msg_content'],
         ])->validate();
 
         Message::create([
             'convo_id' => $request->convo_id,
             'sender_id' => $request->sender_id,
             'post_id' => $request->post_id,
-            'content' => $request->msg_content,
-            'image_path' => $request->image_path,
+            'content' => $request->msg_content ? $request->msg_content : '',
+            'image_path' => $request->msgimg_filepath,
             'is_read' => false
         ]);
 
@@ -121,5 +122,24 @@ class MessageController extends Controller
     {
         $messages = Message::where('convo_id', $convoID)->orderBy('created_at','desc')->first();
         return response()->json($messages);
+    }
+
+    /**
+     * Processes the storing of image upload
+     *
+     * @param INT $convoID
+     * @return JSON
+     */
+    public function storeImage(Request $request){
+        if($request->hasFile('msgimg')){
+            $file = $request->file('msgimg');
+            $filename = $file->getClientOriginalName();
+            $folder = uniqid() . '-' . now()->timestamp;
+            $file->storeAs('public/msgimg/' . $folder , $filename);
+            
+            return 'msgimg/' . $folder . '/' . $filename;
+        }
+        
+        return '';
     }
 }
