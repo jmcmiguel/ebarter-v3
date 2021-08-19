@@ -28,8 +28,11 @@ class OfferController extends Controller
      *
      * @return Response
      */
-    public function get($postID)
+    public function get($offerID)
     {
+        $offer = Offer::find($offerID);
+
+        return response()->json($offer);
     }
 
     /**
@@ -76,7 +79,7 @@ class OfferController extends Controller
         }
 
         $request->session()->flash('flash.bannerId', uniqid());
-        $request->session()->flash('flash.banner', 'Offer made succesfully!');
+        $request->session()->flash('flash.banner', 'Offer made succesfully! Check the offers made section.');
         $request->session()->flash('flash.bannerStyle', 'success');
 
         return redirect()->back()
@@ -233,7 +236,8 @@ class OfferController extends Controller
             'convo_id' => $newConvo->id,
             'sender_id' => Auth::user()->id,
             'post_id' => $offer->post_id,
-            'content' => "I'm interested in your offer, let's negotiate!",
+            'offer_id' => $offerID,
+            'content' => "I have accepted your offer, let's negotiate!",
             'image_path' => null,
             'is_read' => false
         ]);

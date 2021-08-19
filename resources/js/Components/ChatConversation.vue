@@ -50,8 +50,12 @@ export default {
 
         getContent(){
             if(this.isNull()) return ''
+            
+            if(this.lastMessage.post_id) return 'Accepted offer'
 
-            return this.lastMessage.content === '' ? 'Sent a photo' : this.lastMessage.content
+            if(this.lastMessage.image_path) return 'Sent a photo'
+
+            return this.lastMessage.content
         },
 
         getName(){

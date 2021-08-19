@@ -45,7 +45,7 @@ class MessageController extends Controller
             'convo_id' => $request->convo_id,
             'sender_id' => $request->sender_id,
             'post_id' => $request->post_id,
-            'content' => $request->msg_content ? $request->msg_content : '',
+            'content' => $request->msg_content,
             'image_path' => $request->msgimg_filepath,
             'is_read' => false
         ]);

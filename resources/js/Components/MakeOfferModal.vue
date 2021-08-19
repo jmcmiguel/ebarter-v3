@@ -229,6 +229,7 @@
             createOffer() {
                 this.form.post(route('offer.store'), {
                     preserveScroll: true,
+                    preserveState: false,
                     onSuccess: () => this.closeMakeOfferModal(),
                     onError: () => this.$refs.prod_name.focus(),
                     onFinish: () => this.form.reset(),

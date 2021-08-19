@@ -18,7 +18,8 @@ class CreateMessagesTable extends Migration
             $table->foreignId('convo_id');
             $table->foreignId('sender_id');
             $table->foreignId('post_id')->nullable();
-            $table->text('content');
+            $table->foreignId('offer_id')->nullable();
+            $table->text('content')->default('')->nullable();
             $table->text('image_path')->nullable();
             $table->boolean('is_read')->nullable();
             $table->timestamps();

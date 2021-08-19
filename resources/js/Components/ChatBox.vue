@@ -14,7 +14,7 @@
                 </svg>
             </span>
         </div>
-        <div id="chat" class="w-full overflow-y-auto p-10 relative" style="height: calc(100vh - 14.5rem);" ref="toolbarChat">
+        <div id="chat" class="w-full overflow-y-auto p-10 relative" style="height: calc(100vh - 14.5rem);">
             <ul>
                 <li class="clearfix2">
                     <chat-bubble v-for="message in convo.convo.message" :key="message.id" :message="message" :otherUserPhoto="convo.photo"/>
@@ -132,7 +132,7 @@ let emojiIndex = new EmojiIndex(data);
 
 export default {
 
-    props:['convo'],
+    props:['convo', 'reShowConvo'],
 
     components:{
         ChatBubble,
@@ -175,6 +175,7 @@ export default {
         createMsgImg() {
             this.msgimgForm.post(route('message.store'), {
                 preserveScroll: true,
+                preserveState: false,
                 onSuccess: () => this.closeAddPhoto(),
                 onError: (e) => console.log(e),
                 onFinish: () => this.form.reset(),
@@ -213,6 +214,7 @@ export default {
         sendMessage() {
             this.form.post(route('message.store'), {
                 preserveScroll: true,
+                preserveState: false,
                 onSuccess: () => {
                     this.form.reset()
                 },
@@ -223,8 +225,12 @@ export default {
     },
 
     mounted(){
-        this.chatDiv = document.getElementById('chat')
-        this.chatDiv.scrollTop = chat.scrollHeight
+        // Make sure that the DOM finished rendering
+        this.$nextTick(() => {
+            this.chatDiv = document.getElementById('chat')
+            this.chatDiv.scrollTop = chat.scrollHeight
+        })
+
     },
 
     beforeUpdate(){

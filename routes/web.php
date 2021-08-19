@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('postOffers/{postID}', [PostController::class, 'getPostOffers']);
     Route::get('getAuthUserPosts', [PostController::class, 'getAuthUserPosts']);
     Route::get('getUserPosts/{userID}', [PostController::class, 'getUserPosts']);
+    Route::get('getPost/{postID}', [PostController::class, 'get']);
 
     // Post Image Controller Routes
     Route::post('postImg/process', [PostImageController::class, 'store']);
@@ -56,6 +57,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('rejectOffer/{offerID}', [OfferController::class, 'rejectOffer'])->name('rejectOffer');
     Route::post('offerExists/post/{postID}/user/{userID}', [OfferController::class, 'offerExists']);
     Route::put('acceptOffer/{offerID}', [OfferController::class, 'acceptOffer']);
+    Route::get('getOffer/{offerID}', [OfferController::class, 'get']);
 
     // Message Controller Routes
     Route::resource('message', MessageController::class);

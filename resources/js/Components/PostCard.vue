@@ -99,9 +99,6 @@
 
                             <div v-if="userID !== authUser.id" >
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
-                                <jet-dropdown-link v-if="this.offerExists === true" :href="route('offersMade')">
-                                    Offer already sent
-                                </jet-dropdown-link>
                                 <jet-dropdown-link :disabled="this.offerExists" @click="showMakeOfferModal(id)" as="button">
                                     Make offer  
                                 </jet-dropdown-link>                                

@@ -10,7 +10,6 @@
             <div>
                 <span v-if="isNegotiating()" class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Negotiating </span>
                 <span v-if="isRejected()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Rejected </span>
-                <span v-if="isEdited()" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Edited </span>
                 <span v-if="isPending && !isRejected() && !isNegotiating()" class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
                 <span class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(offer.category) }} </span>
                 <span v-if="isExpired(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
@@ -43,6 +42,10 @@
                             ·
                             </span>
                             <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
+                            ·
+                            </span>
+                            <span v-if="isEdited()" class="mx-1 text-xs text-gray-600"> Edited </span>
                         </div>
                     </div>
                     <div v-else class="mt-4">
@@ -55,12 +58,16 @@
                             ·
                             </span>
                             <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ getTimeAgo(offer.created_at) }}</span>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
+                            ·
+                            </span>
+                            <span v-if="isEdited()" class="mx-1 text-xs text-gray-600"> Edited </span>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <jet-dropdown align="right" width="48">
+                    <dropup align="right" width="48" popupPosition="right-0">
                         <template #trigger>
                             <button class="relative z-10 mt-5 block p-2 transition-colors duration-200 transform bg-gray-300 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-300">
                                 <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -93,7 +100,7 @@
                                 
                             </div>
                         </template>
-                    </jet-dropdown>
+                    </dropup>
                 </div>
             </div>
         </div>
@@ -112,7 +119,7 @@
     import { VueperSlides, VueperSlide } from 'vueperslides'
     import 'vueperslides/dist/vueperslides.css'
     import OfferImageServices from '@/Services/OfferImage'
-    import JetDropdown from '@/Jetstream/Dropdown'
+    import Dropup from '@/Components/Dropup'
     import JetDropdownLink from '@/Jetstream/DropdownLink'
 
     export default {
@@ -123,7 +130,7 @@
         components: {
             VueperSlides, 
             VueperSlide,
-            JetDropdown,
+            Dropup,
             JetDropdownLink
         },
 

@@ -16,7 +16,8 @@ class Message extends Model
      */
     protected $fillable = [
         'sender_id', 'convo_id', 'post_id',
-        'content', 'image_path', 'is_read'
+        'content', 'image_path', 'is_read',
+        'offer_id'
     ];
 
      // Conversation and Message Relationship
