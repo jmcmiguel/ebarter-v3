@@ -225,6 +225,7 @@ class OfferController extends Controller
         $post = Post::find($offer->post_id);
 
         Offer::where('id', $offerID)->update(['status' => 'negotiating']);
+        Post::where('id', $post->id)->update(['status' => 'negotiating']);
 
         $newConvo = Conversation::create([
             'sender_user_id' => $offer->user_id,
