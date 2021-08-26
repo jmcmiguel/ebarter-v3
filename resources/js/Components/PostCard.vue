@@ -280,59 +280,44 @@
                         return 'Unknown'
                 }
 
+            },
+
+            async getUser(){
+                this.user = await UserServices.getUser(this.userID)
+            },
+
+            async checkIfOfferAlreadyExists(){
+                this.offerExists = await OfferServices.checkIfOfferAlreadyExists(this.id, this.authUser.id)
+            },
+
+            async getPostImages(){
+                const postImages = await PostImageServices.get(this.id)
+
+                if (postImages.length === 0) {
+                    this.images = [{
+                        id: 1,
+                        image: '/img/noimage.svg',
+                    }]
+                }else{
+                    this.images = postImages.map(image => {
+                        return {
+                            id: image.id,
+                            image: `/storage/${image.post_image_path}` 
+                        }
+                    })
+                }
             }
         },
 
         created(){
-            UserServices.getUser(this.userID)
-            .then(
-                userData => {
-                    this.user = userData
-                }
-            )
-            .catch(err => {
-                console.log(err.message)
-            })
+           
+            this.getUser()
 
-            UserServices.getAuthUser()
-            .then(
-                authUser => {
-                    this.authUser = authUser
+            this.authUser = this.$page.props.authUser
 
-                    // Check if current user already made offer to the post
-                    OfferServices.checkIfOfferAlreadyExists(this.id, authUser.id)
-                    .then(
-                        offer => {
-                            this.offerExists = offer.exists
-                        }
-                    ).catch( err => {
-                        console.log(err.message)
-                    })
+            this.checkIfOfferAlreadyExists()
 
-                }
-            ).catch(err => {
-                console.log(err.message)
-            })
-
-            PostImageServices.get(this.id)
-            .then(
-                postImages => {
-                    if (postImages.length === 0) {
-                        this.images = [{
-                            id: 1,
-                            image: '/img/noimage.svg',
-                        }]
-                    }else{
-                        this.images = postImages.map(image => {
-                            return {
-                                id: image.id,
-                                image: `/storage/${image.post_image_path}` 
-                            }
-                        })
-                    }
-
-                }
-            )
+            this.getPostImages()
         },
 }
 </script>

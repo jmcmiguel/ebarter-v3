@@ -274,65 +274,50 @@
                     return `https://ui-avatars.com/api/?name=${name}&color=059669&background=ECFDF5`
                 }
             },
+
+            async checkIfPostExists(){
+                this.isPending = !(await ConversationServices.checkIfPostExists(this.offer.post_id))
+            },
+
+            async getPostAuthor(){
+                this.offeree = await PostServices.getPostAuthor(this.offer.post_id)
+            },
+
+            async getUser(){
+                this.user = await UserServices.getUser(this.offer.user_id)
+            },
+
+            async getOfferImages(){
+                const offerImages = await OfferImageServices.getOfferImages(this.offer.id)
+
+                 if (offerImages.length === 0) {
+                    this.offerImages = [{
+                        id: 1,
+                        image: '/img/noimage.svg',
+                    }]
+                }else{
+                    this.offerImages = offerImages.map(image => {
+                        return {
+                            id: image.id,
+                            image: `/storage/${image.offer_image_path}` 
+                        }
+                    })
+                }
+            }
         },
 
         created(){
 
-            ConversationServices.checkIfPostExists(this.offer.post_id)
-            .then(
-                exists => {
-                    this.isPending = !exists
-                }
-            ).catch(
-                err => {
-                    console.log(err.message)
-                }
-            )
+            this.checkIfPostExists()            
 
             // If showing from offerror, display offeree info
-            if(this.offerror){
-                PostServices.getPostAuthor(this.offer.post_id)
-                .then(
-                    user => {
-                        this.offeree = user
-                    }
-                ).catch(err => {
-                    console.log(err.message)
-                })
-            }
+            if(this.offerror) this.getPostAuthor()
 
             // Fetch user data of offerror
-            UserServices.getUser(this.offer.user_id)
-            .then(
-                userData => {
-                    this.user = userData
-                }
-            )
-            .catch(err => {
-                console.log(err.message)
-            })
+            this.getUser()
 
             // Get Offer Images
-            OfferImageServices.getOfferImages(this.offer.id)
-            .then(
-                offerImages => {
-                    if (offerImages.length === 0) {
-                        this.offerImages = [{
-                            id: 1,
-                            image: '/img/noimage.svg',
-                        }]
-                    }else{
-                        this.offerImages = offerImages.map(image => {
-                            return {
-                                id: image.id,
-                                image: `/storage/${image.offer_image_path}` 
-                            }
-                        })
-                    }
-                }
-            ).catch(err =>{
-                console.log(err.message)
-            })
+            this.getOfferImages()
         }
         
     }

@@ -221,29 +221,12 @@
         }
       },
 
-      getUser() {
-
-        UserServices.getUser(this.id)
-        .then(
-          user => {
-            this.user = user
-          }
-        )
-        .catch(err =>{
-          console.log(err.message)
-        })
+      async getUser() {
+        this.user = await UserServices.getUser(this.id)
       },
 
-      getUserPosts() {
-        PostServices.getUserPosts(this.id)
-        .then(
-          userPosts => {
-            this.userPosts = userPosts
-          }
-        )
-        .catch(err => {
-          console.log(err.message)
-        })
+      async getUserPosts() {
+        this.userPosts = await PostServices.getUserPosts(this.id)
       },
     }
 

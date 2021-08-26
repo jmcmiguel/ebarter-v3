@@ -13,15 +13,23 @@ const getAuthUserPosts = async () => {
 };
 
 const getUserPosts = async (userID) => {
-    const request = axios.get(`/getUserPosts/${userID}`);
-    const response = await request;
-    return response.data;
+    try {
+        const request = axios.get(`/getUserPosts/${userID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const getPostAuthor = async (postID) => {
-    const request = axios.get(`/getPostAuthor/${postID}`);
-    const response = await request;
-    return response.data;
+    try {
+        const request = axios.get(`/getPostAuthor/${postID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const getPost = async (postID) => {

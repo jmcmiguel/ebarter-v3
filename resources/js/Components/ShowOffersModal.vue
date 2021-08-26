@@ -99,19 +99,16 @@
             closeRejectOfferModal(){
                 this.showingRejectOfferModal = false
                 this.closeOffersModal()
+            },
+
+            async getPostOffers(){
+                this.postOffers = await OfferServices.getPostOffers(this.post.id)
             }
 
         },
 
         beforeUpdate() {
-            OfferServices.getPostOffers(this.post.id)
-            .then(
-                postOffers => {
-                    this.postOffers = postOffers
-                }
-            ).catch(err => {
-                console.log(err.message)
-            })
+            this.getPostOffers()
         }
         
     }

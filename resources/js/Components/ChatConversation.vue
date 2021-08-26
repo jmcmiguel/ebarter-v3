@@ -92,27 +92,15 @@ export default {
         isNull(){
             return this.sender === null || this.receiver === null || this.lastMessage === null ? true : false
         },
+
+        async getUsers(){
+            this.sender = await UserServices.getUser(this.convo.sender_user_id)
+            this.receiver = await UserServices.getUser(this.convo.receiver_user_id)
+        }
     },
 
     created(){
-
-        // Get sender data
-        UserServices.getUser(this.convo.sender_user_id)
-        .then(user => {
-            this.sender = user
-        })
-        .catch(err => {
-            console.log(err.message)
-        })
-
-        // Get receiver data
-        UserServices.getUser(this.convo.receiver_user_id)
-        .then(user => {
-            this.receiver = user
-        })
-        .catch(err => {
-            console.log(err.message)
-        })
+        this.getUsers()
     },
 
 
