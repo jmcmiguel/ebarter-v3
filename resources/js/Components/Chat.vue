@@ -20,7 +20,7 @@
                 </ul>
             </div>
 
-            <chat-box v-if="convo" :convo="convo" :reShowConvo="reShowConvo"/>
+            <chat-box v-if="convo" :convo="convo" />
 
             <div v-else class="col-span-2 bg-white w-full">
                 <div class="flex justify-center mt-24">
@@ -59,10 +59,6 @@ export default {
     },
 
     methods:{
-        reShowConvo(convo){
-            this.convo = convo
-        },
-
         showConvo(convo, sender){
             this.convo = {
                 convo: convo,

@@ -1351,6 +1351,12 @@ select {
 .mb-20 {
 	margin-bottom: 5rem;
 }
+.ml-10 {
+	margin-left: 2.5rem;
+}
+.ml-8 {
+	margin-left: 2rem;
+}
 .block {
 	display: block;
 }
@@ -1423,6 +1429,12 @@ select {
 .h-screen {
 	height: 100vh;
 }
+.h-64 {
+	height: 16rem;
+}
+.max-h-10 {
+	max-height: 2.5rem;
+}
 .min-h-screen {
 	min-height: 100vh;
 }
@@ -1488,6 +1500,9 @@ select {
 }
 .w-screen {
 	width: 100vw;
+}
+.w-36 {
+	width: 9rem;
 }
 .min-w-0 {
 	min-width: 0px;

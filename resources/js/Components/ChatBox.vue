@@ -132,7 +132,7 @@ let emojiIndex = new EmojiIndex(data);
 
 export default {
 
-    props:['convo', 'reShowConvo'],
+    props:['convo'],
 
     components:{
         ChatBubble,
@@ -215,10 +215,8 @@ export default {
             this.form.post(route('message.store'), {
                 preserveScroll: true,
                 preserveState: false,
-                onSuccess: () => {
-                    this.form.reset()
-                },
-                onError: (e) => console.log('something wrong happend'),
+                onSuccess: () => this.form.reset(),
+                onError: (e) => console.log(e),
                 onFinish: () => this.form.reset(),
             })
         },
@@ -230,7 +228,6 @@ export default {
             this.chatDiv = document.getElementById('chat')
             this.chatDiv.scrollTop = chat.scrollHeight
         })
-
     },
 
     beforeUpdate(){

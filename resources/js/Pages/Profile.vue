@@ -16,8 +16,7 @@
                     <img
                       alt="..."
                       :src="getProfilePhoto()"
-                      class="shadow-xl rounded-full h-36 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
-                      style="max-width: 150px;"
+                      class="shadow-xl rounded-full object-cover h-36 w-36 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                     />
                   </div>
                 </div>
