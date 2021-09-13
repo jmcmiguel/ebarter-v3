@@ -60,18 +60,41 @@ export default {
     },
 
     methods:{
+        connectToBroadcast(convoID){
+
+                let vm = this
+    
+                window.Echo.private("chat." + convoID)
+                .listen('.message.new', e => {
+                    vm.getNewMessages()
+                })
+        },
+
+        disconnectToBroadcast(convoID){
+            window.Echo.leave("chat." + convoID)
+        },
+        
         showConvo(convo, sender){
+            this.disconnectToBroadcast(convo.id)
+            this.connectToBroadcast(convo.id)
+            
             this.convo = {
                 convo: convo,
                 name: sender.name,
                 photo: sender.profile_photo_path ? '/storage/' + sender.profile_photo_path : `https://ui-avatars.com/api/?name=${sender.name}&color=059669&background=ECFDF5`,
             }
+
         },
 
         async getNewMessages(){
             this.convo.convo = await ConvoServices.getConvo(this.convo.convo.id)
-        }
+        },
     },
+
+    watch:{
+        convo(val, oldVal){
+        }
+    }
     
 }
 </script>

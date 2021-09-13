@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Events\NewChatMessage;
 
 class MessageController extends Controller
 {
@@ -41,7 +42,7 @@ class MessageController extends Controller
             'msgimg_filepath' => ['required_without:msg_content'],
         ])->validate();
 
-        Message::create([
+        $newMessage = Message::create([
             'convo_id' => $request->convo_id,
             'sender_id' => $request->sender_id,
             'post_id' => $request->post_id,
@@ -49,6 +50,8 @@ class MessageController extends Controller
             'image_path' => $request->msgimg_filepath,
             'is_read' => false
         ]);
+
+        broadcast(new NewChatMessage($newMessage))->toOthers();
 
         return redirect()->back()
         ->with('message', 'message Created Successfully.');

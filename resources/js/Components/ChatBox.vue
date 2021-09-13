@@ -134,7 +134,6 @@ export default {
     },
 
     methods:{
-
         getNewMessages(){
             this.$emit('getnewmessages')
         },
