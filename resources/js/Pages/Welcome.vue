@@ -71,7 +71,10 @@
                 <h1 class="font-extrabold text-7xl text-center sm:text-8xl text-white leading-tight mt-4">
                     A Platform for Trading Agricultural Products
                 </h1>
-                <a :href="route('register')" class="block bg-green-600 hover:bg-green-900 rounded-md py-3 px-4 text-lg text-white font-bold uppercase mt-10">
+                <a v-if="$page.props.user" :href="route('register')" class="block bg-green-600 hover:bg-green-900 rounded-md py-3 px-4 text-lg text-white font-bold uppercase mt-10">
+                    Home Page
+                </a>
+                <a v-else :href="route('dashboard')" class="block bg-green-600 hover:bg-green-900 rounded-md py-3 px-4 text-lg text-white font-bold uppercase mt-10">
                     Register Now
                 </a>
             </div>
@@ -230,6 +233,6 @@
             Dropdown,
             DropdownLink
         },
-   
+
     }
 </script>
