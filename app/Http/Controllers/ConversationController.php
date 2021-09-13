@@ -101,4 +101,20 @@ class ConversationController extends Controller
         'conversations' => $conversations,
         ]);
     }
+    
+    /**
+     * Get a conversation
+     *
+     * @return JSON
+     */
+    public function getConversation($convoID)
+    {
+        $conversations = Conversation::with(['message'])
+        ->where('id', $convoID)
+        ->orWhere('sender_user_id', Auth::user()->id)
+        ->orWhere('receiver_user_id', Auth::user()->id)
+        ->get();
+
+        return response()->json($conversations[0]);
+    }
 }

@@ -20,7 +20,7 @@
                 </ul>
             </div>
 
-            <chat-box v-if="convo" :convo="convo" />
+            <chat-box v-if="convo" :convo="convo" v-on:getnewmessages="getNewMessages()"/>
 
             <div v-else class="col-span-2 bg-white w-full">
                 <div class="flex justify-center mt-24">
@@ -42,6 +42,7 @@
 <script>
 import Conversation from '@/Components/ChatConversation'
 import ChatBox from '@/Components/ChatBox'
+import ConvoServices from '@services/Conversation'
 
 export default {
 
@@ -66,6 +67,10 @@ export default {
                 photo: sender.profile_photo_path ? '/storage/' + sender.profile_photo_path : `https://ui-avatars.com/api/?name=${sender.name}&color=059669&background=ECFDF5`,
             }
         },
+
+        async getNewMessages(){
+            this.convo.convo = await ConvoServices.getConvo(this.convo.convo.id)
+        }
     },
     
 }
