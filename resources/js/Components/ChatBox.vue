@@ -141,8 +141,11 @@ export default {
         createMsgImg() {
             this.msgimgForm.post(route('message.store'), {
                 preserveScroll: true,
-                preserveState: false,
-                onSuccess: () => this.closeAddPhoto(),
+                preserveState: true,
+                onSuccess: () => {
+                    this.closeAddPhoto()
+                    this.$emit('getnewmessages')
+                },
                 onError: (e) => console.log(e),
                 onFinish: () => this.form.reset(),
             })

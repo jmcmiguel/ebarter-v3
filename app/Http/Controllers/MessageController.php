@@ -51,7 +51,7 @@ class MessageController extends Controller
             'is_read' => false
         ]);
 
-        broadcast(new NewChatMessage($newMessage))->toOthers();
+        broadcast(new NewChatMessage($newMessage))->toOthers() ;
 
         return redirect()->back()
         ->with('message', 'message Created Successfully.');
@@ -142,6 +142,8 @@ class MessageController extends Controller
             
             return 'msgimg/' . $folder . '/' . $filename;
         }
+
+        broadcast(new NewChatMessage($newMessage))->toOthers();
         
         return '';
     }
