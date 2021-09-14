@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-3 min-w-full border rounded" style="min-height: 80vh;">
+    <div class="grid grid-cols-3 min-w-full border rounded" style="height: calc(100vh - 11rem);">
             <div class="col-span-1 bg-white border-r border-gray-300">
                 <div class="my-3 mx-3 ">
                     <div class="relative text-gray-600 focus-within:text-gray-400">
@@ -13,7 +13,7 @@
                         </div>
                 </div>
 
-                <ul class="overflow-auto" style="height: calc(100vh - 14.5rem);">
+                <ul class="overflow-auto" style="height: calc(100vh - 11rem);">
                     <li>
                         <conversation v-for="convo in convos" :key="convo.id" :convo="convo" :showConvo="showConvo"/>
                     </li>
@@ -30,11 +30,11 @@
                         </svg>
                     </div>
                 </div>
-                    <div class="space-y-0.5">
-                        <h1 class="text-center font-semibold text-xl mt-5">Your Messages</h1>
-                        <p class="text-center text-gray-600 min-w-46">Send private photos and messages to other traders</p>
-                        <p class="text-center text-xs text-gray-600 min-w-46 mt-24">No messages here yet!</p>
-                    </div>
+                <div class="space-y-0.5">
+                    <h1 class="text-center font-semibold text-xl mt-5">Your Messages</h1>
+                    <p class="text-center text-gray-600 min-w-46">Send private photos and messages to other traders</p>
+                    <p class="text-center text-xs text-gray-600 min-w-46 mt-24">No messages here yet!</p>
+                </div>
             </div>
         </div>
 </template>
