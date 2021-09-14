@@ -15,7 +15,7 @@
 
                 <ul class="overflow-auto" style="height: calc(100vh - 14.5rem);">
                     <li>
-                        <conversation v-for="convo in conversations" :key="convo.id" :convo="convo" :showConvo="showConvo"/>
+                        <conversation v-for="convo in convos" :key="convo.id" :convo="convo" :showConvo="showConvo"/>
                     </li>
                 </ul>
             </div>
@@ -55,6 +55,7 @@ export default {
 
     data(){
         return{
+            convos: this.conversations,
             convo: null,
         }
     },
@@ -66,7 +67,7 @@ export default {
     
                 window.Echo.private("chat." + convoID)
                 .listen('.message.new', e => {
-                    vm.getNewMessages()
+                    vm.getNewConversations()
                 })
         },
 
@@ -75,9 +76,6 @@ export default {
         },
         
         showConvo(convo, sender){
-            this.disconnectToBroadcast(convo.id)
-            this.connectToBroadcast(convo.id)
-            
             this.convo = {
                 convo: convo,
                 name: sender.name,
@@ -86,14 +84,24 @@ export default {
 
         },
 
-        async getNewMessages(){
-            this.convo.convo = await ConvoServices.getConvo(this.convo.convo.id)
-        },
+        async getNewConversations(){
+            this.convos = [] // workaround to vuejs only mutating list to array.push
+            this.convos.push(... await ConvoServices.getConvos())
+
+            this.convo.convo = this.convos.find(convo => convo.id === this.convo.convo.id)
+        }
     },
 
-    watch:{
-        convo(val, oldVal){
-        }
+    mounted(){
+        this.convos.map(convo => {
+            this.connectToBroadcast(convo.id)
+        })
+    },
+
+    unmounted(){
+        this.convos.map(convo => {
+            this.disconnectToBroadcast(convo.id)
+        })
     }
     
 }

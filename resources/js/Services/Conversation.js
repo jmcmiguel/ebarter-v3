@@ -20,4 +20,14 @@ const getConvo = async (convoID) => {
     }
 };
 
-export default { checkIfPostExists, getConvo };
+const getConvos = async () => {
+    try {
+        const request = axios.get(`/conversations`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export default { checkIfPostExists, getConvo, getConvos };

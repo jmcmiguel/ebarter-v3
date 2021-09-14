@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function() {
     
     // Conversation Controller Routes
     Route::get('conversation/{convoID}', [ConversationController::class, 'getConversation']);
+    Route::get('conversations', [ConversationController::class, 'getConversations']);
    
     // User Controller Routes 
     Route::get('user/{id}', [UserController::class, 'getUser']);
