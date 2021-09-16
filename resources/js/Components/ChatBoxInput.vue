@@ -64,11 +64,7 @@ export default {
         sendMessage() {
             this.form.post(route('message.store'), {
                 preserveScroll: true,
-                preserveState: true,
-                onSuccess: () => {
-                    this.form.reset()
-                    this.$emit('messagesent')
-                },
+                onSuccess: () => this.form.reset(),
                 onError: (e) => console.log(e),
                 onFinish: () => this.form.reset(),
             })

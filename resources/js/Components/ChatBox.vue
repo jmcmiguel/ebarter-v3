@@ -23,7 +23,7 @@
         </div>
 
         <!-- Chat Input Buttons -->
-        <chat-box-input :openAddPhoto="openAddPhoto" :convo="convo" :form="form" v-on:messagesent="getNewMessages()"/>
+        <chat-box-input :openAddPhoto="openAddPhoto" :convo="convo" :form="form"/>
 
         <!-- Add Photo Modal -->
         <jet-dialog-modal :show="showingAddPhoto" @close="closeAddPhoto">
@@ -134,18 +134,10 @@ export default {
     },
 
     methods:{
-        getNewMessages(){
-            this.$emit('getnewmessages')
-        },
-
         createMsgImg() {
             this.msgimgForm.post(route('message.store'), {
                 preserveScroll: true,
-                preserveState: true,
-                onSuccess: () => {
-                    this.closeAddPhoto()
-                    this.$emit('getnewmessages')
-                },
+                onSuccess: () => this.closeAddPhoto(),
                 onError: (e) => console.log(e),
                 onFinish: () => this.form.reset(),
             })

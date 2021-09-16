@@ -20,7 +20,7 @@
                 </ul>
             </div>
 
-            <chat-box v-if="convo" :convo="convo" v-on:getnewmessages="getNewMessages()"/>
+            <chat-box v-if="convo" :convo="convo"/>
 
             <div v-else class="col-span-2 bg-white w-full">
                 <div class="flex justify-center mt-24">
