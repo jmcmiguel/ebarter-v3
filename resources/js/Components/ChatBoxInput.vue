@@ -73,6 +73,10 @@ export default {
         showEmoji(emoji) {
             this.form.msg_content = this.form.msg_content + emoji.native;
         },
+    },
+
+    mounted(){
+        this.$refs.msg_content.focus()
     }
     
 }
