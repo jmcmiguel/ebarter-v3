@@ -1,5 +1,5 @@
 <template>
-    <a v-if="lastMessage" @click="showConvo(convo, getSender())" class="hover:bg-gray-100 border-b border-gray-300 px-3 py-2 cursor-pointer flex items-center text-sm focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+    <a v-if="matchesSearch(search, getName())" @click="showConvo(convo, getSender())" class="hover:bg-gray-100 border-b border-gray-300 px-3 py-2 cursor-pointer flex items-center text-sm focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
         <img class="h-10 w-10 rounded-full object-cover"
         :src="getProfilePhoto()"
         alt="username" />
@@ -11,6 +11,10 @@
             <span class="block ml-2 text-sm text-gray-600">{{ getContent() }}</span>
         </div>
     </a>
+
+    <a v-else>
+        <p class="block ml-2 font-semibold text-base text-gray-600 text-center"> No results </p>
+    </a>
 </template>
 
 <script>
@@ -19,7 +23,7 @@ import DateHelpers from '@utils/date-helpers'
 
 export default {
 
-    props: ['convo', 'showConvo'],
+    props: ['convo', 'showConvo', 'search'],
 
     data(){
         return{
@@ -31,6 +35,18 @@ export default {
     },
 
     methods:{
+
+        matchesSearch(search, name){
+
+            if(search === '' || name === '') return true
+
+            console.log('matches search work',search, name)
+            console.log(name.toLowerCase().indexOf(search.toLowerCase()) > -1)
+
+            if(name.toLowerCase().indexOf(search.toLowerCase()) > -1) return true && this.lastMessage
+
+            return false
+        },
 
         getSender(){
             if(this.isNull()) return ''
@@ -102,6 +118,10 @@ export default {
     created(){
         this.getUsers()
     },
+
+    beforeUpdate(){ 
+        console.log(this.search)
+    }
 
 
 }
