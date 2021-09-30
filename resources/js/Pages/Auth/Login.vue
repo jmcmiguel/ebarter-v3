@@ -43,7 +43,7 @@
 
                     </div>
 
-                    <div class="flex items-center justify-between mt-6">
+                    <div class="flex items-center justify-between mt-10 mb-6">
                         <span class="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
 
                         <inertia-link :href="route('register')" class="text-xs text-gray-600 uppercase hover:underline">or sign up</inertia-link>

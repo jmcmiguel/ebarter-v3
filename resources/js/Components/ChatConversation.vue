@@ -1,5 +1,5 @@
 <template>
-    <a v-if="matchesSearch(search, getName())" @click="showConvo(convo, getSender())" class="hover:bg-gray-100 border-b border-gray-300 px-3 py-2 cursor-pointer flex items-center text-sm focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+    <a v-if="matchesSearch(search, getName())" @click="showConvo(convo, getSender())" class="w-full hover:bg-gray-100 border-b border-gray-300 px-3 py-2 cursor-pointer flex items-center text-sm focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
         <img class="h-10 w-10 rounded-full object-cover"
         :src="getProfilePhoto()"
         alt="username" />
@@ -10,10 +10,6 @@
             </div>
             <span class="block ml-2 text-sm text-gray-600">{{ getContent() }}</span>
         </div>
-    </a>
-
-    <a v-else>
-        <p class="block ml-2 font-semibold text-base text-gray-600 text-center"> No results </p>
     </a>
 </template>
 
@@ -38,13 +34,15 @@ export default {
 
         matchesSearch(search, name){
 
-            if(search === '' || name === '') return true
+            // if matches
+            this.$emit('messages-search-matches')
 
-            console.log('matches search work',search, name)
-            console.log(name.toLowerCase().indexOf(search.toLowerCase()) > -1)
+            if(search === '' || name === '') return true
 
             if(name.toLowerCase().indexOf(search.toLowerCase()) > -1) return true && this.lastMessage
 
+            // If no matches
+            this.$emit('messages-no-search-matches')
             return false
         },
 
@@ -67,6 +65,12 @@ export default {
         getContent(){
             if(this.isNull()) return ''
             
+            if(this.lastMessage.content === 'J0bZVYAygIsovtriXs23uXejc6bU85BjWQuTM8aeEptFCEeDlWmB5Uh41LoqhNaBQAV8EGkP6aRkcW8YE5ed2J8ygrk78yyM6xSxzRBzIwCVvXZHEDSnj96d0sAhLlzqaSMmPUsL4QIyqQbO0BxHqCCo65iNXzsWpP7KvTmq4LMtMPnY3YLA4a6EYixkgBEddE0XY3po2MjnpUgODprZkzJNgS3l9A4KOQnabCEjw2mCuIYKPZrCAB1VGTLYnj8H') return 'Started Barter'
+            
+            if(this.lastMessage.content === 'Y44OpG1tkc6XXe1eJD0U6zkjpz2WSg5EQwUqCzktqNFLQyZZnnjMcHo1NuWIg3TgXZ8y6FASjOZX97NR5NJ4IslpmFeao6ZK3fDJISMyQ1wdcJjdnIqSudjbwSxEa6H6W0sHli5Dr1eLASnhfNUuqLd0qfrXtQCaJsuNMcsXQIqMHSNY8SruMpj4gCANUmbiHMezuYcSF4Ir3WHzgkbK7vmbeTkMrT8lGoE4v8roHvH5TAK1UAQoODgK8fGzeJk3') return 'Deleted Post'
+
+            if(this.lastMessage.content === 'lCKgxW4lj8cUGg2nnqGziCsw7pp9uJo4xHFOIS9THC0r5OOdhZZvTL8HJNzUXUv7qajYPqcw9VY4HrEjox0NcR13jp8dSXpaUYsh8yxEAtvCxQ6HGbNKTRe2kvJBT16XBTIjtIcM669bPbuxs27VvMtThBkZfznEgRcZvP3sZH5Eq1g9VbPsBVSb4kdaAGA41vC6xmfW7YZFM8MWY0QrjnzoMiwSrAf0hCE5XlErHZpCH9IRI913yDx7m5S1PBjO') return 'Barter Done'
+
             if(this.lastMessage.post_id) return 'Accepted offer'
 
             if(this.lastMessage.image_path) return 'Sent a photo'
@@ -118,11 +122,5 @@ export default {
     created(){
         this.getUsers()
     },
-
-    beforeUpdate(){ 
-        console.log(this.search)
-    }
-
-
 }
 </script>

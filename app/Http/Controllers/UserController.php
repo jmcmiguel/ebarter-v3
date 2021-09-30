@@ -71,4 +71,16 @@ class UserController extends Controller
     public function getCurrentUser(){
         return response()->json(Auth::user());
     }
+
+    /**
+     * Get name of a user
+     * 
+     * @return String
+     */
+    public function getName($id){
+
+        $user = User::findOrFail($id);
+
+        return $user->name;
+    }
 }

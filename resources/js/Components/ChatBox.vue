@@ -1,18 +1,40 @@
 <template>
 <div class="col-span-2 bg-white">
     <div class="w-full">
-        <div class="flex items-center border-b border-gray-300 pl-3 py-3">
-            <inertia-link class="flex items-center" :href="route('userProfile', getUserID())">
-                <img class="h-10 w-10 rounded-full object-cover"
-                :src="convo.photo"
-                alt="username" />
-                <span class="block ml-2 font-bold text-base text-gray-600">{{ convo.name }}</span>
-            </inertia-link>
-            <span class="connected text-green-500 ml-2" >
-                <svg width="6" height="6">
-                    <circle cx="3" cy="3" r="3" fill="currentColor"></circle>
-                </svg>
-            </span>
+        <div class="flex justify-between border-b border-gray-300 pl-3 py-3">
+
+            <div>
+                <inertia-link class="flex items-center" :href="route('userProfile', getUserID())">
+                    <img class="h-10 w-10 rounded-full object-cover"
+                    :src="convo.photo"
+                    alt="username" />
+                    <span class="block ml-2 font-bold text-base text-gray-600">{{ convo.name }}</span>
+                </inertia-link>
+            </div>
+            
+            <!-- Barter Dropdown -->
+            <div class="mr-5">
+                <dropdown>
+                    <template #trigger>
+                        <button class="relative z-10 block p-2 transition-colors duration-200 transform bg-gray-300 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-300">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                            </svg>
+                        </button>
+                    </template>
+
+                    <template #content>
+                        <div class="block px-4 py-2 text-xs text-gray-400">Barter</div>
+                        <jet-dropdown-link :disabled="!postExists || barterDone" v-if="!hasStartedBarter" @click="startBarter()" as="button">
+                            Start Barter
+                        </jet-dropdown-link>
+                        <jet-dropdown-link :disabled="!postExists || barterDone" v-if="hasStartedBarter" @click="showFeedbackModal()" as="button">
+                            Mark Barter as Done
+                        </jet-dropdown-link>
+                    </template>
+                </dropdown>
+            </div>
+
         </div>
         <div id="chat" class="w-full overflow-y-auto p-10 relative" style="height: calc(100vh - 14.5rem);">
             <ul>
@@ -22,8 +44,10 @@
             </ul>
         </div>
 
+        <feedback-modal :showingModal="showingFeedbackModal" :closeModal="closeFeedbackModal" :convoDetails="convoDetails" />
+
         <!-- Chat Input Buttons -->
-        <chat-box-input :openAddPhoto="openAddPhoto" :convo="convo" :form="form"/>
+        <chat-box-input v-if="postExists && !barterDone" :openAddPhoto="openAddPhoto" :convo="convo" :form="form"/>
 
         <!-- Add Photo Modal -->
         <jet-dialog-modal :show="showingAddPhoto" @close="closeAddPhoto">
@@ -89,6 +113,11 @@ import JetButton from '@/Jetstream/Button'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import JetInput from '@/Jetstream/Input'
 import ChatBoxInput from '@/Components/ChatBoxInput'
+import Dropdown from '@/Jetstream/Dropdown'
+import JetDropdownLink from '@/Jetstream/DropdownLink'
+import BarterServices from '@services/Barter'
+import FeedbackModal from '@/Components/FeedbackModal'
+import PostServices from '@services/Post'
 
 // Create FilePond Component    
 const FilePond = vueFilePond(
@@ -107,7 +136,10 @@ export default {
         JetSecondaryButton,
         FilePond,
         JetInput,
-        ChatBoxInput
+        ChatBoxInput,
+        Dropdown,
+        JetDropdownLink,
+        FeedbackModal
     },
 
     data(){
@@ -130,10 +162,67 @@ export default {
                 msg_content: '',
                 msgimg_filepath: null,
             }),
+
+            showingFeedbackModal: false,
+
+            convoDetails: {
+                convoID: this.convo.convo.id,
+                post: this.convo.convo.post_id,
+                receiver: this.convo.convo.receiver_user_id,
+                sender: this.convo.convo.sender_user_id,
+            },
+
+            hasStartedBarter: null,
+
+            postExists:null,
+
+            barterDone: null,
         }
     },
 
     methods:{
+
+        async checkIfBarterDone(){
+            this.barterDone = await BarterServices.checkIfBarterDone(this.convo.convo.id)
+        },
+
+        showFeedbackModal(){
+            this.showingFeedbackModal = true
+        },
+
+        closeFeedbackModal(){
+            this.showingFeedbackModal = false
+            this.getBarterStatus()
+            this.checkIfPostExists()
+            this.checkIfBarterDone()
+        },
+
+        async getBarterStatus(){
+            this.hasStartedBarter = await BarterServices.checkIfBarterExists(this.convo.convo.id)
+        },
+
+        async checkIfPostExists(){
+            this.postExists =  await PostServices.exists(this.convo.convo.post_id)
+        },
+
+        startBarter(){
+
+            let startBarterForm = this.$inertia.form({
+                convo_id: this.convo.convo.id,
+                post_id: this.convo.convo.post_id
+            })
+
+            startBarterForm.post('/startBarter', {
+                onSuccess: () => {
+                    this.getBarterStatus()
+                    this.checkIfPostExists()
+                },
+                onError: () => console.log('error'),
+                onFinish: () => startBarterForm.reset(),
+            })
+
+        },
+
         createMsgImg() {
             this.msgimgForm.post(route('message.store'), {
                 preserveScroll: true,
@@ -171,6 +260,10 @@ export default {
             this.chatDiv = document.getElementById('chat')
             this.chatDiv.scrollTop = chat.scrollHeight
         })
+
+        this.getBarterStatus()
+        this.checkIfPostExists()
+        this.checkIfBarterDone()
     },
 
     beforeUpdate(){
@@ -180,6 +273,10 @@ export default {
 
     updated(){
         this.chatDiv.scrollTop = chat.scrollHeight
+        this.getBarterStatus()
+        this.checkIfPostExists()
+        this.checkIfBarterDone()
+        
     }
 
 }

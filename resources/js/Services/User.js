@@ -22,4 +22,14 @@ const getEncryptedUserId = async (userID) => {
     return response.data;
 };
 
-export default { getUser, getAuthUser, getEncryptedUserId };
+const getName = async (userID) => {
+    try {
+        const request = axios.get(`/name/${userID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export default { getUser, getAuthUser, getEncryptedUserId, getName };

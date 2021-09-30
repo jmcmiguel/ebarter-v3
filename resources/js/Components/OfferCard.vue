@@ -8,9 +8,11 @@
 
         <div class="p-6">
             <div>
+                <span v-if="isPostDeleted()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Post Deleted </span>
+                <span v-if="isSold()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Sold </span>
                 <span v-if="isNegotiating()" class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Negotiating </span>
                 <span v-if="isRejected()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Rejected </span>
-                <span v-if="isPending && !isRejected() && !isNegotiating()" class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
+                <span v-if="isPending && !isRejected() && !isNegotiating() && !isSold()" class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
                 <span class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(offer.category) }} </span>
                 <span v-if="isExpired(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
                 <span v-else-if="isExpiree(offer.dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expiree</span>
@@ -35,8 +37,13 @@
                             <div class="flex items-center">
 
                             <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">You made an offer to &nbsp; </span>
-                                <img class="object-cover h-5 w-5 rounded-full" :src="getProfilePhoto(this.offeree.profile_photo_path, this.offeree.name)" :alt="this.offeree.name">
-                                <inertia-link :href="route('userProfile', this.offeree.id)" class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ this.offeree.name }}</inertia-link>
+                                <div v-if="isPostDeleted()">
+                                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">a deleted post &nbsp; </span>
+                                </div>
+                                <div v-else class="flex justify-center">
+                                    <img class="object-cover h-5 w-5 rounded-full" :src="getProfilePhoto(this.offeree.profile_photo_path, this.offeree.name)" :alt="this.offeree.name">
+                                    <inertia-link :href="route('userProfile', this.offeree.id)" class="mx-1 text-xs text-gray-600 dark:text-gray-300">{{ this.offeree.name }}</inertia-link>
+                                </div>
                             </div>
                             <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
                             ·
@@ -81,19 +88,19 @@
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
                                 
                                 <div v-if="this.offerror">
-                                    <jet-dropdown-link :disabled="isRejected() || isNegotiating()" as="button" @click="showEditOffer(offer, offerImages)">
+                                    <jet-dropdown-link :disabled="isPostDeleted() || isSold() || isRejected() || isNegotiating()" as="button" @click="showEditOffer(offer, offerImages)">
                                         Edit Offer
                                     </jet-dropdown-link>
-                                    <jet-dropdown-link :disabled="isRejected() || isNegotiating()" as="button" @click="showCancelOffer(offer.id)">
+                                    <jet-dropdown-link :disabled="isPostDeleted() || isSold() || isRejected() || isNegotiating()" as="button" @click="showCancelOffer(offer.id)">
                                         Cancel Offer
                                     </jet-dropdown-link>
                                 </div>
 
                                 <div v-else>
-                                    <jet-dropdown-link :disabled="isRejected()" @click="acceptOffer(offer.id)" as="button">
+                                    <jet-dropdown-link :disabled="isPostDeleted() || isSold() || isSold() || isRejected() || isNegotiating()" @click="acceptOffer(offer.id)" as="button">
                                         Accept Offer
                                     </jet-dropdown-link>
-                                    <jet-dropdown-link :disabled="isRejected()" @click="showRejectOfferModal(offer.id)" as="button">
+                                    <jet-dropdown-link :disabled="isPostDeleted() || isSold() || isSold() || isRejected() || isNegotiating()" @click="showRejectOfferModal(offer.id)" as="button">
                                         Reject Offer
                                     </jet-dropdown-link>
                                 </div>
@@ -166,6 +173,14 @@
         },
 
         methods:{
+
+            isPostDeleted(){
+                return this.offer.status === 'post deleted' ? true : false
+            },
+
+            isSold(){
+                return this.offer.status === 'sold' ? true : false
+            },
 
             isNegotiating(){
                 return this.offer.status === 'negotiating' ? true : false

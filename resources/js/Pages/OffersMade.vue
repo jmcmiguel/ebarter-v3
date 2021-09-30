@@ -16,10 +16,14 @@
         </div>
 
         <!-- Show if no offers made yet -->
-        <div v-else class="flex justify-center flex-col mt-20">
-            <img class="h-72" src="/img/void.svg" alt="">
+        <div v-else class="flex justify-center flex-col mt-10 pb-36">
+
             <div class="mx-auto">
-                no offer's made yet
+              <lottie-animation path="animations/empty-box-2.json" :loop="true" :autoPlay="true" :speed="1"  background="transparent" :width="300" :height="300" />
+            </div>
+
+            <div class="mx-auto">
+              <h2 class="font-semibold text-xl text-gray-800 leading-tight">No offers made yet</h2>
             </div>
         </div>
 
@@ -59,6 +63,7 @@
     import SecondaryButton from '@/Jetstream/SecondaryButton'
     import DangerButton from '@/Jetstream/DangerButton'
     import EditOfferModal from '@/Components/EditOfferModal'
+    import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
 
     export default {
 
@@ -71,7 +76,8 @@
             ConfirmationModal,
             SecondaryButton,
             DangerButton,
-            EditOfferModal
+            EditOfferModal,
+            LottieAnimation
         },
 
         data(){

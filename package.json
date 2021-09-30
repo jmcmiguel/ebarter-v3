@@ -34,8 +34,10 @@
         "filepond-plugin-file-validate-type": "^1.2.6",
         "filepond-plugin-image-preview": "^4.6.7",
         "laravel-echo": "^1.11.2",
+        "lottie-vuejs": "^0.4.0",
         "pusher-js": "^7.0.3",
         "vue-filepond": "^7.0.0",
+        "vue-star-rating": "^2.1.0",
         "vueperslides": "^3.3.2"
     }
 }

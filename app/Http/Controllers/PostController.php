@@ -8,10 +8,12 @@ use App\Models\User;
 use App\Models\PostImage;
 use App\Models\Conversation;
 use App\Models\Offer;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use App\Events\NewChatMessage;
 
 class PostController extends Controller
 {
@@ -194,6 +196,24 @@ class PostController extends Controller
     public function destroy($id, Request $request)
     {
 
+        $conversation = Conversation::where('post_id', $id)->first();
+        
+        Offer::where('post_id', $id)->update([
+            'status' => 'post deleted'
+        ]);
+
+        if($conversation->post_id){
+            $newMessage = Message::create([
+                'post_id' => $id,
+                'convo_id' => $conversation->id,
+                'sender_id' => Auth::user()->id,
+                'content' => 'Y44OpG1tkc6XXe1eJD0U6zkjpz2WSg5EQwUqCzktqNFLQyZZnnjMcHo1NuWIg3TgXZ8y6FASjOZX97NR5NJ4IslpmFeao6ZK3fDJISMyQ1wdcJjdnIqSudjbwSxEa6H6W0sHli5Dr1eLASnhfNUuqLd0qfrXtQCaJsuNMcsXQIqMHSNY8SruMpj4gCANUmbiHMezuYcSF4Ir3WHzgkbK7vmbeTkMrT8lGoE4v8roHvH5TAK1UAQoODgK8fGzeJk3',
+                'is_read' => false
+            ]);
+    
+            broadcast(new NewChatMessage($newMessage));
+        }
+
         Validator::make($request->all(), [
             'password' => ['required','current_password'],
         ])->validate();
@@ -234,6 +254,7 @@ class PostController extends Controller
         $price = isset($request->query()['price']) ? $request->query()['price'] : null; 
         $price2 = isset($request->query()['price2']) ? $request->query()['price2'] : null; 
         $hideOwnPost = isset($request->query()['hideOwnPost']) ? $request->query()['hideOwnPost'] : null;
+        $producedDate = isset($request->query()['producedDate']) ? $request->query()['producedDate'] : null;
 
         $allUsers = Post::with(['user'])->orderBy('updated_at', 'desc')->get();
         
@@ -271,4 +292,18 @@ class PostController extends Controller
         $postOffers = Offer::where('post_id', $postID)->get();
         return response()->json($postOffers);
     }
+
+    /**
+     * Check if a posts exists
+     * 
+     * @return Boolean
+     */
+    public function exists($postID){   
+        
+        $post = Post::find($postID);
+
+        return response()->json($post ? true : false);
+    }
+
+
 }

@@ -1,11 +1,12 @@
 <template>
   <app-layout>
-     <main class="profile-page">
-      <section class="relative block" style="height: 500px;">
+       
+      <section class="relative block" style="height: 50vh;">
         <div class="absolute top-0 w-full h-full bg-center bg-cover" style='background-image: url("/img/default-cover.jpg");'>
           <span id="blackOverlay" class="w-full h-full absolute opacity-25 bg-black"></span>
         </div>
       </section>
+
       <section class="relative py-16">
         <div class="container mx-auto px-4">
           <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
@@ -24,11 +25,11 @@
                 <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                   <div class="py-6 px-3 mt-32 sm:mt-0">
                     <button
-                      class="bg-green-500 active:bg-green-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                      class="bg-red-500 active:bg-red-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                       type="button"
                       style="transition: all 0.15s ease 0s;"
                     >
-                      Give Ratings!
+                      Report User
                     </button>
                   </div>
                 </div>
@@ -39,7 +40,7 @@
                       <span class="text-sm text-gray-500">Posts</span>
                     </div>
                     <div class="lg:mr-4 p-3 text-center">
-                      <span class="text-xl font-bold block uppercase tracking-wide text-gray-700">89</span>
+                      <span @click="openFeedbacksModal()" class="text-xl font-bold block uppercase tracking-wide text-gray-700 cursor-pointer">{{ feedbackCount }}</span>
                       <span class="text-sm text-gray-500">Ratings</span>
                     </div>
                   </div>
@@ -91,11 +92,16 @@
             </div>
             <pagination :links="posts.links" />
         </div>
+        
       <!-- Show if no posts found -->
-        <div v-else class="flex justify-center flex-col mt-10 mb-20">
-            <img class="h-72" src="/img/void.svg" alt="">
+        <div v-else class="flex justify-center flex-col mt-10 pb-36">
+
             <div class="mx-auto">
-            no posts found
+              <lottie-animation path="animations/empty-dessert.json" :loop="true" :autoPlay="true" :speed="1"  background="transparent" :width="300" :height="300" />
+            </div>
+
+            <div class="mx-auto -mt-10">
+              <h2 class="font-semibold text-xl text-gray-800 leading-tight">No posts found</h2>
             </div>
         </div>
 
@@ -111,7 +117,8 @@
       <!-- Reject Offer Modal -->
       <reject-offer-modal :show="showingRejectOfferModal" :close="closeRejectOfferModal" :offerID="rejectOfferData"/>
 
-    </main>
+      <!-- Show Feedbacks Modal -->
+      <show-feedbacks-modal :show="showingFeedbacksModal" :close="closeFeedbacksModal" :feedbacks="feedbacks"/>
 
   </app-layout>
 </template>
@@ -126,6 +133,9 @@
   import EditPostModal from '@/Components/EditPostModal'
   import DeletePostModal from '@/Components/DeletePostModal'
   import RejectOfferModal from '@/Components/RejectOfferModal'
+  import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
+  import FeedbackServices from '@services/Feedback'
+  import ShowFeedbacksModal from '@/Components/ShowFeedbacksModal'
 
   export default {
   
@@ -136,7 +146,9 @@
       ShowOffersModal,
       EditPostModal,
       DeletePostModal,
-      RejectOfferModal
+      RejectOfferModal,
+      LottieAnimation,
+      ShowFeedbacksModal
     },
 
     props: ['posts', 'id'],
@@ -153,15 +165,36 @@
         showingOffersData: null,
         showingRejectOfferModal: false,
         rejectOfferData: null,
+        feedbackCount: null,
+        showingFeedbacksModal: null,
+        feedbacks: null,
       }
     },
 
     created() {
       this.getUser()
       this.getUserPosts()
+      this.getUserFeedbacks()
+      this.getAllFeedbacks()
     }, 
 
     methods:{
+      async getAllFeedbacks(){
+        this.feedbacks = await FeedbackServices.getAllFeedback(this.id);
+      },
+      
+      closeFeedbacksModal(){
+        this.showingFeedbacksModal = false
+      },
+
+      openFeedbacksModal(){
+        this.showingFeedbacksModal = true
+      },
+      
+        async getUserFeedbacks(){
+          this.feedbackCount = await FeedbackServices.getUserFeedbacks(this.id);
+        },
+
         showRejectOfferModal(offerID){
             this.rejectOfferData = offerID
             console.log(offerID)
@@ -228,7 +261,6 @@
       async getUserPosts() {
         this.userPosts = await PostServices.getUserPosts(this.id)
       },
-    }
-
+    },
   }
 </script>

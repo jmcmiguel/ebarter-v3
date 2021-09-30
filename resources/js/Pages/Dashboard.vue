@@ -22,19 +22,24 @@
         <div v-if="posts.data.length" class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
-                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showMakeOfferModal="showMakeOfferModal" :created_at="post.created_at" :updated_at="post.updated_at"
+                    <post-card v-on:show-feedbacks="showFeedbacks" v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showMakeOfferModal="showMakeOfferModal" :created_at="post.created_at" :updated_at="post.updated_at"
                                 :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" :showOffersModal="showOffersModal"
-                                :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal" 
+                                :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showEditPostModal="showEditPostModal" :addToCart="addToCart" />
                 </div>
             </div>
             <pagination :links="posts.links" />
         </div>
 
+        <!-- No search results found -->
         <div v-else class="flex justify-center flex-col mt-20">
-            <img class="h-72" src="/img/void.svg" alt="">
+
             <div class="mx-auto">
-            no results found
+                <lottie-animation path="animations/empty-dessert.json" :loop="true" :autoPlay="true" :speed="1"  background="transparent" :width="300" :height="300" />
+            </div>
+            <div class="mx-auto">
+                <h2 v-if="route().params.searchKeyword" class="font-semibold text-xl text-gray-800 leading-tight">No results found for {{ route().params.searchKeyword }}</h2>
+                <h2 v-else class="font-semibold text-xl text-gray-800 leading-tight">No results found</h2>
             </div>
         </div>
 
@@ -60,7 +65,10 @@
         <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" :postID="makeOfferData" />
 
         <!-- Show Offers Modal -->
-      <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" :post="showingOffersData" />
+        <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" :post="showingOffersData" />
+
+        <!-- Show Feedbacks Modal -->
+        <show-feedbacks-modal :show="showingFeedbacksModal" :close="closeFeedbacksModal" :feedbacks="feedbacks"/>
 
     </app-layout>
 </template>
@@ -77,6 +85,8 @@
     import MakeOfferModal from '@/Components/MakeOfferModal'
     import ShowOffersModal from '@/Components/ShowOffersModal'
     import SortPosts from '@/Components/SortPosts'
+    import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
+    import ShowFeedbacksModal from '@/Components/ShowFeedbacksModal'
 
     export default {
 
@@ -92,6 +102,8 @@
             MakeOfferModal,
             ShowOffersModal,
             SortPosts,
+            LottieAnimation,
+            ShowFeedbacksModal
         },
 
         props: ['posts'],
@@ -107,6 +119,8 @@
                 makeOfferData: null,
                 showingOffersModal: false,
                 showingOffersData: null,
+                showingFeedbacksModal: null,
+                feedbacks: null,
             }
         },
 
@@ -119,6 +133,15 @@
         },
 
         methods: {
+
+            showFeedbacks(feedbacks){
+                this.feedbacks = feedbacks
+                this.showingFeedbacksModal = true
+            },
+
+            closeFeedbacksModal(){
+                this.showingFeedbacksModal = false
+            },
 
             showOffersModal(postID, postTitle) {
                 this.showingOffersData = {id: postID, title: postTitle}

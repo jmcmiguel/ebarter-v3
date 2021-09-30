@@ -13,6 +13,7 @@
                                 id="password"
                                 ref="password"
                                 v-model="form.password"
+                                @keyup.enter="deletePost"
                                 required />
                     <jet-input-error :message="form.errors.password" class="mt-2" />
                 </div>
@@ -24,7 +25,7 @@
                     Cancel
                 </jet-secondary-button>
 
-                <jet-danger-button class="ml-2" @click="createPost" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <jet-danger-button class="ml-2" @click="deletePost" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Delete
                 </jet-danger-button>
             </template>
@@ -63,7 +64,7 @@
 
         methods:{
             
-            createPost() {
+            deletePost() {
                 this.form.delete(route('post.destroy', this.postData.id), {
                     preserveScroll: true,
                     onSuccess: () => this.closeDeletePostModal(),
@@ -74,6 +75,9 @@
         },
 
         beforeUpdate() {
+            setTimeout(() => {
+                if(this.$refs.password) this.$refs.password.focus()
+            }, 250)
             this.form.reset()
         }
         

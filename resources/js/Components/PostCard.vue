@@ -9,14 +9,22 @@
             </vueper-slides>
             
             <div class="p-4">
-                <span class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ status }} </span>
+                <span v-if="status === 'sold'" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ status }} </span>
                 
-                <inertia-link :href="route('dashboard', category)">
+                <span v-else class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ status }} </span>
+                
+                <inertia-link :href="route('dashboard',{
+                        category: category,
+                        location: route().params.location,
+                        price: route().params.price,
+                        price2: route().params.price2,
+                        hideOwnPost: route().params.hideOwnPost,
+                    })">
                     <span class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ getCategory(category) }} </span>
                 </inertia-link>
                 
-                <span v-if="isExpired(dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
-                <span v-else-if="isExpiree(dateExpiree)" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expiree</span>
+                <span v-if="isExpired(dateExpiree) && status !== 'sold'" class="inline-block px-2 mx-1 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expired</span>
+                <span v-else-if="isExpiree(dateExpiree) && status !== 'sold'" class="inline-block px-2 mx-1 py-1 leading-none bg-yellow-100 text-yellow-900 rounded-full font-semibold uppercase tracking-wide text-xs">Expiree</span>
                 
                 <h2 class="mt-2 mb-2 text-xl font-bold"> {{ title }} </h2>
                 
@@ -29,7 +37,7 @@
                 <div class="mt-3 flex items-center text-xs text-gray-700">
                     <inertia-link :href="route('userProfile', user.id)" class="flex items-center">
                         <span> <img class="h-6 w-6 mr-2 rounded-full object-cover" :src="getProfilePhoto()" :alt="$page.props.user.name" /> </span>
-                        <span>{{ user.id === authUser.id ? 'You' : user.name }} </span> &nbsp; · &nbsp;
+                        <span class="overflow-ellipsis overflow-hidden">{{ user.id === authUser.id ? 'You' : user.name }} </span> &nbsp; · &nbsp;
                     </inertia-link>
                     <span> {{ getTimeAgo(datePosted) }} </span>
                     <span v-if="isEdited()">&nbsp; · &nbsp; edited</span>
@@ -70,7 +78,20 @@
 
             <div class="flex justify-between">
             
-                <div class="p-4 flex items-center text-sm text-gray-600"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current text-yellow-500"><path d="M8.128 19.825a1.586 1.586 0 0 1-1.643-.117 1.543 1.543 0 0 1-.53-.662 1.515 1.515 0 0 1-.096-.837l.736-4.247-3.13-3a1.514 1.514 0 0 1-.39-1.569c.09-.271.254-.513.475-.698.22-.185.49-.306.776-.35L8.66 7.73l1.925-3.862c.128-.26.328-.48.577-.633a1.584 1.584 0 0 1 1.662 0c.25.153.45.373.577.633l1.925 3.847 4.334.615c.29.042.562.162.785.348.224.186.39.43.48.704a1.514 1.514 0 0 1-.404 1.58l-3.13 3 .736 4.247c.047.282.014.572-.096.837-.111.265-.294.494-.53.662a1.582 1.582 0 0 1-1.643.117l-3.865-2-3.865 2z"></path></svg><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current text-yellow-500"><path d="M8.128 19.825a1.586 1.586 0 0 1-1.643-.117 1.543 1.543 0 0 1-.53-.662 1.515 1.515 0 0 1-.096-.837l.736-4.247-3.13-3a1.514 1.514 0 0 1-.39-1.569c.09-.271.254-.513.475-.698.22-.185.49-.306.776-.35L8.66 7.73l1.925-3.862c.128-.26.328-.48.577-.633a1.584 1.584 0 0 1 1.662 0c.25.153.45.373.577.633l1.925 3.847 4.334.615c.29.042.562.162.785.348.224.186.39.43.48.704a1.514 1.514 0 0 1-.404 1.58l-3.13 3 .736 4.247c.047.282.014.572-.096.837-.111.265-.294.494-.53.662a1.582 1.582 0 0 1-1.643.117l-3.865-2-3.865 2z"></path></svg><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current text-yellow-500"><path d="M8.128 19.825a1.586 1.586 0 0 1-1.643-.117 1.543 1.543 0 0 1-.53-.662 1.515 1.515 0 0 1-.096-.837l.736-4.247-3.13-3a1.514 1.514 0 0 1-.39-1.569c.09-.271.254-.513.475-.698.22-.185.49-.306.776-.35L8.66 7.73l1.925-3.862c.128-.26.328-.48.577-.633a1.584 1.584 0 0 1 1.662 0c.25.153.45.373.577.633l1.925 3.847 4.334.615c.29.042.562.162.785.348.224.186.39.43.48.704a1.514 1.514 0 0 1-.404 1.58l-3.13 3 .736 4.247c.047.282.014.572-.096.837-.111.265-.294.494-.53.662a1.582 1.582 0 0 1-1.643.117l-3.865-2-3.865 2z"></path></svg><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current text-yellow-500"><path d="M8.128 19.825a1.586 1.586 0 0 1-1.643-.117 1.543 1.543 0 0 1-.53-.662 1.515 1.515 0 0 1-.096-.837l.736-4.247-3.13-3a1.514 1.514 0 0 1-.39-1.569c.09-.271.254-.513.475-.698.22-.185.49-.306.776-.35L8.66 7.73l1.925-3.862c.128-.26.328-.48.577-.633a1.584 1.584 0 0 1 1.662 0c.25.153.45.373.577.633l1.925 3.847 4.334.615c.29.042.562.162.785.348.224.186.39.43.48.704a1.514 1.514 0 0 1-.404 1.58l-3.13 3 .736 4.247c.047.282.014.572-.096.837-.111.265-.294.494-.53.662a1.582 1.582 0 0 1-1.643.117l-3.865-2-3.865 2z"></path></svg><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current text-gray-400"><path d="M8.128 19.825a1.586 1.586 0 0 1-1.643-.117 1.543 1.543 0 0 1-.53-.662 1.515 1.515 0 0 1-.096-.837l.736-4.247-3.13-3a1.514 1.514 0 0 1-.39-1.569c.09-.271.254-.513.475-.698.22-.185.49-.306.776-.35L8.66 7.73l1.925-3.862c.128-.26.328-.48.577-.633a1.584 1.584 0 0 1 1.662 0c.25.153.45.373.577.633l1.925 3.847 4.334.615c.29.042.562.162.785.348.224.186.39.43.48.704a1.514 1.514 0 0 1-.404 1.58l-3.13 3 .736 4.247c.047.282.014.572-.096.837-.111.265-.294.494-.53.662a1.582 1.582 0 0 1-1.643.117l-3.865-2-3.865 2z"></path></svg><span class="ml-2">69.69 Ratings</span></div>
+                <div class="p-4 flex items-center text-sm text-gray-600">
+
+                    <div class="flex flex-row mt-1">
+                        <svg v-for="(star,index) in feedback.length ? feedback[0].amount : 0" :key="index" xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
+                            <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path>
+                        </svg>
+
+                        <svg v-for="(star,index) in 5 - (feedback.length ? feedback[0].amount : 0)" :key="index" xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 1792 1792">
+                            <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path>
+                        </svg>
+                    </div>
+
+                    <span @click="this.$emit('show-feedbacks', feedback)" class="ml-2 cursor-pointer">{{ feedback.length ? feedback.length : 0 }} Ratings</span>
+                </div>
                 
                 <div class="relative p-4">
 
@@ -108,9 +129,6 @@
                                 <jet-dropdown-link v-if="!route().current('cart')" @click="addToCart(id)" as="button">
                                     Add To Cart
                                 </jet-dropdown-link>
-                                <jet-dropdown-link as="button">
-                                    Give Ratings
-                                </jet-dropdown-link>
                                 <jet-dropdown-link  as="button">
                                     Report Post
                                 </jet-dropdown-link>
@@ -137,6 +155,7 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import OfferServices from '@/Services/Offer'
     import Dropup from '@/Components/Dropup'
+    import FeedbackServices from '@services/Feedback'
 
     export default {
 
@@ -158,10 +177,15 @@
                 user: {},
                 images: [],
                 offerExists: null,
+                feedback: []
             }
         },
 
         methods: {
+
+            async getFeedback(){
+                this.feedback = await FeedbackServices.getFeedback(this.id)
+            },
 
             isEdited(){
                 return dayjs(new Date(this.updated_at)).isAfter(new Date(this.created_at)) 
@@ -318,6 +342,8 @@
             this.checkIfOfferAlreadyExists()
 
             this.getPostImages()
+
+            this.getFeedback()
         },
 }
 </script>

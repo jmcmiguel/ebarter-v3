@@ -42,10 +42,21 @@ const getPost = async (postID) => {
     }
 };
 
+const exists = async (postID) => {
+    try {
+        const request = axios.get(`/postExists/${postID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export default {
     getAll,
     getAuthUserPosts,
     getUserPosts,
     getPostAuthor,
     getPost,
+    exists,
 };

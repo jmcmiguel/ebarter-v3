@@ -21,10 +21,15 @@
         </div>
 
         <div v-else class="flex justify-center flex-col mt-20">
-            <img class="h-72" src="/img/void.svg" alt="">
+            
             <div class="mx-auto">
-            cart is empty
+                <lottie-animation path="animations/empty-cart.json" :loop="true" :autoPlay="true" :speed="1"  background="transparent" :width="300" :height="300" />
             </div>
+
+            <div class="mx-auto">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Cart is Empty</h2>
+            </div>
+
         </div>
 
         <!-- Make Offer Modal -->
@@ -42,6 +47,7 @@
     import Pagination from '@/Components/Pagination'
     import MakeOfferModal from '@/Components/MakeOfferModal'
     import RemoveCartModal from '@/Components/RemoveCartModal'
+    import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
 
     
     export default {
@@ -54,6 +60,7 @@
             Pagination,
             MakeOfferModal,
             RemoveCartModal,
+            LottieAnimation,
         },
 
         data(){
@@ -86,6 +93,5 @@
             },
 
         },
-        
     }
 </script>

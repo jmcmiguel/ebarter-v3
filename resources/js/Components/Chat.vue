@@ -14,9 +14,32 @@
                     </div>
                 </div>
 
+                <div v-if="isSearchResultsEmpty" class="flex justify-center flex-col">
+                    <div class="mx-auto">
+                        <lottie-animation path="animations/empty-search.json" :loop="true" :autoPlay="true" :speed="1"  background="transparent" :width="300" :height="300" />
+                    </div>
+
+                    <div class="mx-auto">
+                        <h2 class="text-center font-semibold text-xl text-gray-800 leading-tight">No search results</h2>
+                    </div>
+                </div>
+
                 <ul class="overflow-auto" style="height: calc(100vh - 11rem);">
                     <li>
-                        <conversation v-for="convo in convos" :key="convo.id" :convo="convo" :showConvo="showConvo" :search="search"/>
+                        <div v-if="convos.length">
+                            <conversation v-for="convo in convos" :key="convo.id" :convo="convo" :showConvo="showConvo" :search="search" v-on:messages-no-search-matches="displayEmptyResults()" v-on:messages-search-matches="displaySearchResults()"/>
+                        </div>
+
+                        <div v-else>
+                            <div class="mx-auto">
+                                <lottie-animation path="animations/empty-box.json" :loop="true" :autoPlay="true" :speed="1"  background="transparent" :width="300" :height="300" />
+                            </div>
+
+                            <div class="mx-auto">
+                                <h2 class="text-center font-semibold text-xl text-gray-800 leading-tight">Empty Inbox</h2>
+                            </div>
+                        </div>
+
                     </li>
                 </ul>
             </div>
@@ -45,6 +68,7 @@ import Conversation from '@/Components/ChatConversation'
 import ChatBox from '@/Components/ChatBox'
 import ConvoServices from '@services/Conversation'
 import Input from '@/Jetstream/Input'
+import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
 
 export default {
 
@@ -53,7 +77,8 @@ export default {
     components:{
         Conversation,
         ChatBox,
-        Input
+        Input,
+        LottieAnimation
     },
 
     data(){
@@ -61,10 +86,20 @@ export default {
             convos: this.conversations,
             convo: null,
             search: '',
+            isSearchResultsEmpty: false,
         }
     },
 
     methods:{
+
+        displaySearchResults(){
+            this.isSearchResultsEmpty = false
+        },
+
+        displayEmptyResults(){
+            this.isSearchResultsEmpty = true
+        },
+
         connectToBroadcast(convoID){
 
                 let vm = this
@@ -92,7 +127,7 @@ export default {
             this.convos = [] // workaround to vuejs only mutating list to array.push
             this.convos.push(... await ConvoServices.getConvos())
 
-            this.convo.convo = this.convos.find(convo => convo.id === this.convo.convo.id)
+            if(this.convo) this.convo.convo = this.convos.find(convo => convo.id === this.convo.convo.id)
         }
     },
 

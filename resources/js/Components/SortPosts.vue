@@ -15,7 +15,7 @@
         <template #content>
             <div class="container mx-auto">
                     <div class="flex flex-col  mx-4 px-8 py-6">
-						<div class="flex justify-center text-sm text-gray-700">
+						<div class="flex justify-center text-sm text-gray-700 sm:flex-row">
 							<div class="w-1/5 mr-10">
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Location</h3>
 								<div class="flex flex-col">
@@ -128,6 +128,41 @@
 								</div>
 							</div>
 							<div class="w-28 mr-10">
+								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Date Produced</h3>
+								<div class="flex flex-col">
+									<div class="flex py-2 ">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: route().params.price,
+											price2: route().params.price2,
+											hideOwnPost: route().params.hideOwnPost,
+											producedDate: 'month',
+										})" :active="isDateProducedFilterActive('month')" class="flex-1">A month ago</jet-nav-link>
+									</div>
+									<div class="flex py-2 ">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: route().params.price,
+											price2: route().params.price2,
+											hideOwnPost: route().params.hideOwnPost,
+											producedDate: 'week',
+										})" :active="isDateProducedFilterActive('week')" class="flex-1">A week ago</jet-nav-link>
+									</div>
+									<div class="flex py-2 ">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: route().params.price,
+											price2: route().params.price2,
+											hideOwnPost: route().params.hideOwnPost,
+											producedDate: 'today',
+										})" :active="isDateProducedFilterActive('today')" class="flex-1">Today</jet-nav-link>
+									</div>
+								</div>
+							</div>
+							<div class="w-28 mr-10">
 								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Hide Own Post</h3>
 								<div class="flex flex-col">
 									<div class="flex py-2 ">
@@ -165,6 +200,12 @@
         },
 
 		methods: {
+			isDateProducedFilterActive(url){
+				if(url === route().params.producedDate) return true
+
+				return false
+			},
+
             isLocationFilterActive(url) {
 
                 if(url === route().params.location) return true

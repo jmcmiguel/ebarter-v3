@@ -1,7 +1,7 @@
 <template>
     <jet-dialog-modal :show="showingPostModal" @close="closeAddPostModal">
         <template #title>
-            Create a post
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Create a post</h2>
         </template>
 
         <template #content>
@@ -163,14 +163,14 @@
         </template>
 
         <template #footer>
-                <jet-secondary-button @click="closeAddPostModal">
-                    Cancel
-                </jet-secondary-button>
+            <jet-secondary-button @click="closeAddPostModal">
+                Cancel
+            </jet-secondary-button>
 
-                <jet-button class="ml-2" @click="createPost" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Post
-                </jet-button>
-            </template>
+            <jet-button class="ml-2" @click="createPost" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                Post
+            </jet-button>
+        </template>
     </jet-dialog-modal>
 </template>
 
@@ -181,8 +181,8 @@
     import JetInputError from '@/Jetstream/InputError'
     import JetButton from '@/Jetstream/Button'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
-    import TextArea from '../Components/TextArea'
-    import Select from '../Components/Select'
+    import TextArea from '@/Components/TextArea'
+    import Select from '@/Components/Select'
     import JetLabel from '@/Jetstream/Label'
     import vueFilePond from "vue-filepond";
     import "filepond/dist/filepond.min.css";

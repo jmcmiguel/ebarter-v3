@@ -10,6 +10,8 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OfferImagesController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\BarterController;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('getAuthUserPosts', [PostController::class, 'getAuthUserPosts']);
     Route::get('getUserPosts/{userID}', [PostController::class, 'getUserPosts']);
     Route::get('getPost/{postID}', [PostController::class, 'get']);
+    Route::get('postExists/{postID}', [PostController::class, 'exists']);
 
     // Post Image Controller Routes
     Route::post('postImg/process', [PostImageController::class, 'store']);
@@ -72,9 +75,21 @@ Route::group(['middleware' => 'auth'], function() {
     // User Controller Routes 
     Route::get('user/{id}', [UserController::class, 'getUser']);
     Route::get('currentUser', [UserController::class, 'getCurrentUser']);
+    Route::get('name/{id}', [UserController::class, 'getName']);
  
     // Offer Images Controller
     Route::get('offerImages/{offerID}', [OfferImagesController::class, 'getOfferImage']);
+
+    // Barter Controller
+    Route::post('startBarter', [BarterController::class, 'startBarter']);
+    Route::get('barterExists/{convoID}', [BarterController::class, 'barterExists']);
+    Route::get('barterDone/{postID}', [BarterController::class, 'isDone']);
+
+    // Feedback Controller
+    Route::resource('feedback', FeedbackController::class);
+    Route::get('getFeedback/{postID}', [FeedbackController::class, 'getFeedback']);
+    Route::get('getUserFeedbacks/{userID}', [FeedbackController::class, 'getUserFeedbacks']);
+    Route::get('getAllFeedback/{userID}', [FeedbackController::class, 'getAllFeedback']);
 });
 
 // Protected Routes

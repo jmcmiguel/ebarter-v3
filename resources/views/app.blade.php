@@ -14,6 +14,10 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
+
+        <!-- Lottie Player -->
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        
     </head>
     <body class="font-sans antialiased">
         @inertia

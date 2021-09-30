@@ -198,9 +198,9 @@ class OfferController extends Controller
         ])->first();
 
         if($alreadyExists){    
-            return response()->json(['exists' => true]);
+            return response()->json(true);
         }else{
-            return response()->json(['exists' => false]);
+            return response()->json(false);
         }
     }
 
