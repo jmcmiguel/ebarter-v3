@@ -255,6 +255,7 @@ class PostController extends Controller
         $price2 = isset($request->query()['price2']) ? $request->query()['price2'] : null; 
         $hideOwnPost = isset($request->query()['hideOwnPost']) ? $request->query()['hideOwnPost'] : null;
         $producedDate = isset($request->query()['producedDate']) ? $request->query()['producedDate'] : null;
+        $expiredDate = isset($request->query()['expiredDate']) ? $request->query()['expiredDate'] : null;
 
         $allUsers = Post::with(['user'])->orderBy('updated_at', 'desc')->get();
         
@@ -262,6 +263,8 @@ class PostController extends Controller
                         ->filterLocation($location)
                         ->filterPrice($price, $price2)
                         ->filterHideOwnPost($hideOwnPost)
+                        ->filterProducedDate($producedDate)
+                        ->filterExpiredDate($expiredDate)
                         ->filterCategory($category)
                         ->searchKeyword($search);
                         

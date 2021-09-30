@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class CollectionMacroServiceProvider extends ServiceProvider
 {
@@ -74,6 +75,44 @@ class CollectionMacroServiceProvider extends ServiceProvider
 
             return $this->filter(function ($post) use($category){
                 return $post->category === $category;
+            });
+        });
+
+        // Filter by Produced Date Macro
+        Collection::macro('filterProducedDate', function ($producedDate){
+            if(!$producedDate) return $this->collect();
+
+            return $this->filter(function ($post) use($producedDate){
+                
+                $prodDate = Carbon::parse($post->date_produced);
+                $now = Carbon::now();
+
+                if($producedDate == 'month'){
+                    return $prodDate->isSameMonth($now);
+                }else if($producedDate == 'week'){
+                    return $prodDate->addWeek()->isNextWeek();
+                }else if($producedDate == 'today'){
+                    return $prodDate->isToday();
+                }
+            });
+        });
+
+        // Filter by Expired Date Macro 
+        Collection::macro('filterExpiredDate', function ($expiredDate){
+            if(!$expiredDate) return $this->collect();
+
+            return $this->filter(function ($post) use($expiredDate){
+                
+                $expDate = Carbon::parse($post->date_expiree);
+                $now = Carbon::now();
+
+                if($expiredDate == 'month'){
+                    return $expDate->isSameMonth($now);
+                }else if($expiredDate == 'week'){
+                    return $expDate->addWeek()->isNextWeek();
+                }else if($expiredDate == 'today'){
+                    return $expDate->isToday();
+                }
             });
         });
         
