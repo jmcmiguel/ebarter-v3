@@ -77,7 +77,7 @@ php artisan storage:link
 npm run hot
 ```
 
-8. Run the server
+8. Run the server and follow the the link this command will output
 
 ```
 php artisan serve
