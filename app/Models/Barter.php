@@ -18,4 +18,9 @@ class Barter extends Model
         'finished_at', 'post_id', 'convo_id'
     ];
 
+    // Barter and post relationship
+    public function post(){
+        return $this->belongsTo(Post::class);
+    }
+
 }

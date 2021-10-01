@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Conversation;
+use App\Models\Barter;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -82,5 +84,24 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         return $user->name;
+    }
+
+     /**
+     * Sorts the post and displays the dashboard page
+     *
+     * @return Inertia
+     */
+    public function getTransactionHistory (Request $request){
+
+        $barters = \DB::table('barters')
+        ->whereExists(function ($query) {
+            $query->select(\DB::raw(1))
+                    ->from('conversations')
+                    ->where('conversations.sender_user_id', Auth::user()->id)
+                    ->orWhere('conversations.receiver_user_id', Auth::user()->id);
+        })
+        ->get();
+        
+        return Inertia::render('TransactionHistory', ['barters' => $barters]);
     }
 }

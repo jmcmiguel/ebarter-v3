@@ -99,4 +99,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/messages', [ConversationController::class, 'showConversations'])->name('messages');
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
     Route::get('/offersMade', [OfferController::class, 'showOffers'])->name('offersMade');
+    Route::get('/getTransactionHistory', [UserController::class, 'getTransactionHistory'])->name('transactionHistory');
 });

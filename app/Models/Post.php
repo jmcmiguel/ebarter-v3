@@ -26,4 +26,9 @@ class Post extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    // Post and barter relationship
+    public function barter(){
+        return $this->hasOne(Barter::class);
+    }
 }

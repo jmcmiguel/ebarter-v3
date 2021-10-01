@@ -150,7 +150,7 @@
                                     Manage Trading
                                 </div>
 
-                                <jet-dropdown-link :href="route('profile.show')">
+                                <jet-dropdown-link :href="route('transactionHistory')">
                                     Transaction History 
                                 </jet-dropdown-link>
                                 
@@ -241,7 +241,7 @@
                         Account Settings
                     </jet-responsive-nav-link>
 
-                    <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('transaction')">
+                    <jet-responsive-nav-link :href="route('transactionHistory')" :active="route().current('transaction')">
                         Transaction History
                     </jet-responsive-nav-link>
 
