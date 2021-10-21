@@ -210,7 +210,7 @@ class OfferController extends Controller
      * @return Inertia
      */
     public function showOffers(){
-        $offersMade = Offer::where('user_id', Auth::user()->id)->paginate(12);
+        $offersMade = Offer::where('user_id', Auth::user()->id)->latest()->paginate(12);
         return Inertia::render('OffersMade', ['offersMade' => $offersMade]);
     }
 
@@ -244,6 +244,23 @@ class OfferController extends Controller
         ]);
 
         return response(200);
+    }
+
+    /**
+     * Gets an offer based on post id and current auth user id
+     * 
+     * @return JSON
+     */
+    public function getOfferOfAuthUser($postID, $otherUserID){
+
+        $offer = Offer::where('post_id', '=', $postID)
+                ->whereIn('user_id', [Auth::user()->id, $otherUserID])
+                ->get();
+
+        if($offer->isEmpty()) return response()->json();
+
+        return response()->json($offer[0]);
+
     }
     
 }

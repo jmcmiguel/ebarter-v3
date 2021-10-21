@@ -87,21 +87,34 @@ class UserController extends Controller
     }
 
      /**
-     * Sorts the post and displays the dashboard page
+     * Displays the transaction history
      *
      * @return Inertia
      */
     public function getTransactionHistory (Request $request){
 
-        $barters = \DB::table('barters')
+        // $users = Barter::where(function ($query) {
+        //     $query->select('type')
+        //         ->from('membership')
+        //         ->whereColumn('membership.user_id', 'users.id')
+        //         ->orderByDesc('membership.start_date')
+        //         ->limit(1);
+        // }, 'Pro')->get();
+
+        // $incomes = Income::where('amount', '<', function ($query) {
+        //     $query->selectRaw('avg(i.amount)')->from('incomes as i');
+        // })->get();
+
+        $offers = \DB::table('offers')
         ->whereExists(function ($query) {
             $query->select(\DB::raw(1))
-                    ->from('conversations')
-                    ->where('conversations.sender_user_id', Auth::user()->id)
-                    ->orWhere('conversations.receiver_user_id', Auth::user()->id);
+                    ->from('posts')
+                    ->where('posts.user_id', Auth::user()->id)
+                    ->orWhere('offers.user_id', Auth::user()->id);
         })
+        ->latest()
         ->get();
         
-        return Inertia::render('TransactionHistory', ['barters' => $barters]);
+        return Inertia::render('TransactionHistory', ['offers' => $offers]);
     }
 }

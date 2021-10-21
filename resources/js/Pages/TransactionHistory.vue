@@ -6,9 +6,9 @@
                 Transaction History
             </h2>
         </template>
-            <div class="container p-5 m-5">
-                <div v-if="barters.length" class="flex flex-col md:grid grid-cols-12 text-gray-50">
-                    <history-card v-for="barter in barters" :key="barter.id" :isComplete="getIsComplete(barter.finished_at)" :postID="barter.post_id" :date="getDate(barter.created_at)"  :color="getColor(barter)"/>
+            <div class="container p-5">
+                <div v-if="offers.length" class="flex flex-col md:grid grid-cols-12 text-gray-50">
+                    <history-card v-for="offer in offers" :key="offer.id" :ogOffer="offer" :postID="offer.post_id" :convoID="offer.convo_id" :date="getDate(offer.created_at)" :status="offer.status"/>
                 </div>
 
                 <div v-else class="flex flex-col md:grid grid-cols-12 text-gray-50">
@@ -32,7 +32,7 @@ import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
 
 export default {
 
-    props: ['barters'],
+    props: ['offers'],
 
     components:{
         AppLayout,
@@ -48,10 +48,6 @@ export default {
         getIsComplete(finishedAt){
             return finishedAt ? true : false
         },
-
-        getColor(barter){
-            return barter.finished_at ? 'green' : 'red'
-        },
-    },    
+    },
 }
 </script>

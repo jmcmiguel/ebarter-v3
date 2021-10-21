@@ -30,4 +30,14 @@ const getConvos = async () => {
     }
 };
 
-export default { checkIfPostExists, getConvo, getConvos };
+const getConvoFromPost = async (postID) => {
+    try {
+        const request = axios.get(`/getConvoFromPost/${postID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export default { checkIfPostExists, getConvo, getConvos, getConvoFromPost };

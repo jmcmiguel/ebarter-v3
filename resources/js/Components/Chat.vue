@@ -137,7 +137,7 @@ export default {
         })
     },
 
-    unmounted(){
+    beforeUnmount(){
         this.convos.map(convo => {
             this.disconnectToBroadcast(convo.id)
         })

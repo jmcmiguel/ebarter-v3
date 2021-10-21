@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('offerExists/post/{postID}/user/{userID}', [OfferController::class, 'offerExists']);
     Route::put('acceptOffer/{offerID}', [OfferController::class, 'acceptOffer']);
     Route::get('getOffer/{offerID}', [OfferController::class, 'get']);
+    Route::get('getOfferOfAuthUser/{postID}/{otherUserID}', [OfferController::class, 'getOfferOfAuthUser']);
 
     // Message Controller Routes
     Route::resource('message', MessageController::class);
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'auth'], function() {
     // Conversation Controller Routes
     Route::get('conversation/{convoID}', [ConversationController::class, 'getConversation']);
     Route::get('conversations', [ConversationController::class, 'getConversations']);
+    Route::get('getConvoFromPost/{postID}', [ConversationController::class, 'getConvoFromPost']);
    
     // User Controller Routes 
     Route::get('user/{id}', [UserController::class, 'getUser']);

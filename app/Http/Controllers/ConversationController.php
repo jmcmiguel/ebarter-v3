@@ -95,6 +95,7 @@ class ConversationController extends Controller
         $conversations = Conversation::with(['message'])
         ->where('sender_user_id', Auth::user()->id)
         ->orWhere('receiver_user_id', Auth::user()->id)
+        ->latest()
         ->get();
 
         return Inertia::render('Messages', [
@@ -119,6 +120,19 @@ class ConversationController extends Controller
     }
 
     /**
+     * Get convo from post
+     *
+     * @return JSON
+     */
+    public function getConvoFromPost($postID){
+
+        $conversation = Conversation::where('post_id', $postID)->get();
+
+        return response()->json($conversation[0]);
+
+    }
+
+    /**
      * Get all conversations
      *
      * @return JSON
@@ -132,4 +146,5 @@ class ConversationController extends Controller
 
         return response()->json($conversations);
     }
+
 }

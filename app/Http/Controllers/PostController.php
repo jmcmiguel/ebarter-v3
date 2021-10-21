@@ -256,8 +256,9 @@ class PostController extends Controller
         $hideOwnPost = isset($request->query()['hideOwnPost']) ? $request->query()['hideOwnPost'] : null;
         $producedDate = isset($request->query()['producedDate']) ? $request->query()['producedDate'] : null;
         $expiredDate = isset($request->query()['expiredDate']) ? $request->query()['expiredDate'] : null;
+        $status = isset($request->query()['status']) ? $request->query()['status'] : null;
 
-        $allUsers = Post::with(['user'])->orderBy('updated_at', 'desc')->get();
+        $allUsers = Post::with(['user'])->latest()->get();
         
         $queryHolder = $allUsers
                         ->filterLocation($location)
@@ -265,6 +266,7 @@ class PostController extends Controller
                         ->filterHideOwnPost($hideOwnPost)
                         ->filterProducedDate($producedDate)
                         ->filterExpiredDate($expiredDate)
+                        ->filterStatus($status)
                         ->filterCategory($category)
                         ->searchKeyword($search);
                         

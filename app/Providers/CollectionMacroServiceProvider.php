@@ -115,6 +115,15 @@ class CollectionMacroServiceProvider extends ServiceProvider
                 }
             });
         });
+
+          // Filter by Status Macro 
+          Collection::macro('filterStatus', function ($status){
+            if(!$status) return $this->collect();
+
+            return $this->filter(function ($post) use($status){
+                return $post->status === $status;
+            });
+        });
         
         // Search Keyword Macro
         Collection::macro('searchKeyword', function ($searchKeyword) {

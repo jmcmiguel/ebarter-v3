@@ -252,6 +252,47 @@
 									</div>
 								</div>
 							</div>
+							<div class="w-28 mr-10">
+								<h3 class="pb-2 border-b mb-3 text-md text-gray-900 font-semibold">Status</h3>
+								<div class="flex flex-col">
+									<div class="flex py-2 ">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: route().params.price,
+											price2: route().params.price2,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+											status: 'available',
+										})" :active="isStatusFilterActive('available')" class="flex-1">Available</jet-nav-link>
+									</div>
+									<div class="flex py-2 ">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: route().params.price,
+											price2: route().params.price2,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+											status: 'negotiating',
+										})" :active="isStatusFilterActive('negotiating')" class="flex-1">Negotiating</jet-nav-link>
+									</div>
+									<div class="flex py-2 ">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: route().params.location,
+											price: route().params.price,
+											price2: route().params.price2,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+											status: 'sold',
+										})" :active="isStatusFilterActive('sold')" class="flex-1">Sold</jet-nav-link>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="flex mt-5">
 							<inertia-link :href="clearFilter()" class="text-gray-700 font-normal text-sm hover:underline">Clear Filter</inertia-link>
@@ -276,6 +317,12 @@
         },
 
 		methods: {
+			isStatusFilterActive(url){
+				if(url === route().params.status) return true
+
+				return false
+			},
+
 			isDateExpiredFilterActive(url){
 				if(url === route().params.expiredDate) return true
 
