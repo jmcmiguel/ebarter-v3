@@ -42,7 +42,7 @@ export default {
 
     methods:{
         getDate(date){
-            return DateHelpers.getTimeAgo(date);
+            return DateHelpers.formatDate(date);
         },
 
         getIsComplete(finishedAt){

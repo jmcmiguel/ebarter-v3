@@ -129,7 +129,7 @@
                                 <jet-dropdown-link v-if="!route().current('cart')" @click="addToCart(id)" as="button">
                                     Add To Cart
                                 </jet-dropdown-link>
-                                <jet-dropdown-link  as="button">
+                                <jet-dropdown-link @click="showReportModal(id, userID)"  as="button">
                                     Report Post
                                 </jet-dropdown-link>
                             </div>
@@ -167,7 +167,7 @@
         },
 
         props: ['title', 'description', 'price', 'views', 'preferredItem', 'updated_at', 'created_at',
-                'status', 'userID', 'prodName', 'qty', 'qtyType', 'showMakeOfferModal',
+                'status', 'userID', 'prodName', 'qty', 'qtyType', 'showMakeOfferModal','showReportModal',
                 'dateProduced', 'dateExpiree', 'category', 'datePosted', 'showOffersModal',
                 'id', 'addToCart', 'showEditPostModal', 'showDeletePostModal', 'removeFromCart'],
 

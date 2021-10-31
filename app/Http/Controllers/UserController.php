@@ -112,7 +112,7 @@ class UserController extends Controller
                     ->where('posts.user_id', Auth::user()->id)
                     ->orWhere('offers.user_id', Auth::user()->id);
         })
-        ->latest()
+        ->orderBy('updated_at','desc')
         ->get();
         
         return Inertia::render('TransactionHistory', ['offers' => $offers]);

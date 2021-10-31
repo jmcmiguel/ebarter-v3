@@ -23,7 +23,7 @@
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
                     <post-card v-on:show-feedbacks="showFeedbacks" v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showMakeOfferModal="showMakeOfferModal" :created_at="post.created_at" :updated_at="post.updated_at"
-                                :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" :showOffersModal="showOffersModal"
+                                :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" :showOffersModal="showOffersModal" :showReportModal="showReportModal"
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showEditPostModal="showEditPostModal" :addToCart="addToCart" />
                 </div>
@@ -63,6 +63,9 @@
 
         <!-- Make Offer Modal -->
         <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" :postID="makeOfferData" />
+        
+        <!-- Report Modal -->
+        <report-modal :showingReportModal="showingReportModal" :closeReportModal="closeReportModal" :reportData="showingReportData"/>
 
         <!-- Show Offers Modal -->
         <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" :post="showingOffersData" />
@@ -87,6 +90,7 @@
     import SortPosts from '@/Components/SortPosts'
     import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
     import ShowFeedbacksModal from '@/Components/ShowFeedbacksModal'
+    import ReportModal from '@/Components/ReportModal'
 
     export default {
 
@@ -103,7 +107,8 @@
             ShowOffersModal,
             SortPosts,
             LottieAnimation,
-            ShowFeedbacksModal
+            ShowFeedbacksModal,
+            ReportModal
         },
 
         props: ['posts'],
@@ -121,6 +126,8 @@
                 showingOffersData: null,
                 showingFeedbacksModal: null,
                 feedbacks: null,
+                showingReportModal: false,
+                showingReportData: null,
             }
         },
 
@@ -133,6 +140,15 @@
         },
 
         methods: {
+
+            closeReportModal(){
+                this.showingReportModal = false
+            },
+
+            showReportModal(postID, userID){
+                this.showingReportData = {postID: postID, userID: userID}
+                this.showingReportModal = true
+            },
 
             showFeedbacks(feedbacks){
                 this.feedbacks = feedbacks

@@ -12,6 +12,8 @@ use App\Http\Controllers\OfferImagesController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\BarterController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ReportImageController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +49,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('getPost/{postID}', [PostController::class, 'get']);
     Route::get('postExists/{postID}', [PostController::class, 'exists']);
 
+    //Report Image Controller Routes
+    Route::post('reportImg/process', [ReportImageController::class, 'store']);
+    Route::post('reportImg/revert', [ReportImageController::class, 'revert']);
+
     // Post Image Controller Routes
     Route::post('postImg/process', [PostImageController::class, 'store']);
     Route::post('postImg/revert', [PostImageController::class, 'revert']);
     Route::get('postImg/{postID}', [PostImageController::class, 'getPostImage']);
+
+    // Report Controller Routes
+    Route::post('report/store', [ReportController::class, 'store']);
     
     // Cart Controller Routes
     Route::resource('cart', CartController::class);
