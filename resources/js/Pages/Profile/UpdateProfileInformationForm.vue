@@ -20,7 +20,7 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" v-show="! photoPreview">
-                    <img :src="user.profile_photo_url" :alt="user.name" class="rounded-full h-20 w-20 object-cover">
+                    <img :src="getProfilePhoto(user)" :alt="user.name" class="rounded-full h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->
@@ -136,6 +136,14 @@
         },
 
         methods: {
+            getProfilePhoto(user){
+                if(user.profile_photo_path){
+                    return '/storage/' + user.profile_photo_path
+                }else{
+                    return `https://ui-avatars.com/api/?name=${user.name}&color=059669&background=ECFDF5`
+                }
+            },
+
             updateProfileInformation() {
                 if (this.$refs.photo) {
                     this.form.photo = this.$refs.photo.files[0]
