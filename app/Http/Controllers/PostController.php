@@ -202,7 +202,7 @@ class PostController extends Controller
             'status' => 'post deleted'
         ]);
 
-        if($conversation->post_id){
+        if($conversation && $conversation->post_id){
             $newMessage = Message::create([
                 'post_id' => $id,
                 'convo_id' => $conversation->id,
