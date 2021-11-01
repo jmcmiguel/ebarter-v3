@@ -9,7 +9,7 @@
         <div class="p-6">
             <div>
                 <span v-if="isPostDeleted()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Post Deleted </span>
-                <span v-if="isSold()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Sold </span>
+                <span v-if="isSold()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Traded </span>
                 <span v-if="isNegotiating()" class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Negotiating </span>
                 <span v-if="isRejected()" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Rejected </span>
                 <span v-if="isPending && !isRejected() && !isNegotiating() && !isSold()" class="inline-block px-2 mx-1 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> Pending </span>
