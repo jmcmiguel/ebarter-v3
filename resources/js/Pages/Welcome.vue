@@ -1,7 +1,7 @@
 <template>
     <div class="bg-indigo-900 relative overflow-hidden h-screen">
     
-        <img src="/img/bg.svg" class="absolute h-full w-full object-cover"/>
+        <img src="/img/login-bg.jpg" class="absolute h-full w-full object-cover"/>
     
         <div class="inset-0 bg-black opacity-25 absolute">
         </div>
