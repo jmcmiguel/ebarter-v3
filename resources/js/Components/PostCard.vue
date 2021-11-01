@@ -9,7 +9,7 @@
             </vueper-slides>
             
             <div class="p-4">
-                <span v-if="status === 'sold'" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> traded </span>
+                <span v-if="status === 'sold'" class="inline-block px-2 py-1 leading-none bg-red-100 text-red-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ status }} </span>
                 
                 <span v-else class="inline-block px-2 py-1 leading-none bg-green-100 text-green-900 rounded-full font-semibold uppercase tracking-wide text-xs"> {{ status }} </span>
                 
