@@ -85,8 +85,8 @@
         <div v-if="posts.data.length" class="p-6">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-4">
-                    <post-card v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showEditPostModal="showEditPostModal"
-                                :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" :showRejectOfferModal="showRejectOfferModal"
+                    <post-card v-on:show-feedbacks="showFeedbacks" v-for="post in posts.data" :key="post.id" :id="post.id" :title="post.title" :description="post.description" :showEditPostModal="showEditPostModal" :showMakeOfferModal="showMakeOfferModal"
+                                :price="post.est_price" :views="post.views" :preferredItem="post.preferred_prod" :status="post.status" :userID="post.user_id" :showRejectOfferModal="showRejectOfferModal" :showReportModal="showReportModal"
                                 :prodName="post.prod_name" :qty="post.prod_qty" :qtyType="post.qty_type" :dateProduced="post.date_produced" :showDeletePostModal="showDeletePostModal"
                                 :dateExpiree="post.date_expiree" :category="post.category" :datePosted="post.created_at" :showOffersModal="showOffersModal" :addToCart="addToCart" />
                 </div>
@@ -112,6 +112,9 @@
       <!-- Delete Post Modal -->
       <delete-post-modal :postData="deletePostData" :showingDeletePostModal="showingDeleteModal" :closeDeletePostModal="closeDeletePostModal" />
 
+      <!-- Make Offer Modal -->
+      <make-offer-modal :showingMakeOfferModal="showingMakeOfferModal" :closeMakeOfferModal="closeMakeOfferModal" :postID="makeOfferData" />
+
       <!-- Show Offers Modal -->
       <show-offers-modal :showingOffersModal="showingOffersModal" :closeOffersModal="closeOffersModal" :post="showingOffersData" />
 
@@ -120,6 +123,9 @@
 
       <!-- Show Feedbacks Modal -->
       <show-feedbacks-modal :show="showingFeedbacksModal" :close="closeFeedbacksModal" :feedbacks="feedbacks"/>
+
+      <!-- Report Modal -->
+      <report-modal :showingReportModal="showingReportModal" :closeReportModal="closeReportModal" :reportData="showingReportData"/>
 
   </app-layout>
 </template>
@@ -137,6 +143,8 @@
   import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue'
   import FeedbackServices from '@services/Feedback'
   import ShowFeedbacksModal from '@/Components/ShowFeedbacksModal'
+  import MakeOfferModal from '@/Components/MakeOfferModal'
+  import ReportModal from '@/Components/ReportModal'
 
   export default {
   
@@ -149,7 +157,9 @@
       DeletePostModal,
       RejectOfferModal,
       LottieAnimation,
-      ShowFeedbacksModal
+      ShowFeedbacksModal,
+      MakeOfferModal,
+      ReportModal
     },
 
     props: ['posts', 'id'],
@@ -169,6 +179,10 @@
         feedbackCount: null,
         showingFeedbacksModal: null,
         feedbacks: null,
+        showingMakeOfferModal: null,
+        makeOfferData: null,
+        showingReportData: null,
+        showingReportModal: false,
       }
     },
 
@@ -182,6 +196,29 @@
     methods:{
       async getAllFeedbacks(){
         this.feedbacks = await FeedbackServices.getAllFeedback(this.id);
+      },
+
+      showReportModal(postID, userID){
+          this.showingReportData = {postID: postID, userID: userID}
+          this.showingReportModal = true
+      },
+
+      closeReportModal(){
+          this.showingReportModal = false
+      },
+
+      showFeedbacks(feedbacks){
+          this.feedbacks = feedbacks
+          this.showingFeedbacksModal = true
+      },
+
+      closeMakeOfferModal(){
+        this.showingMakeOfferModal = false
+      },
+
+      showMakeOfferModal(data){
+        this.makeOfferData = data
+        this.showingMakeOfferModal = true
       },
       
       closeFeedbacksModal(){

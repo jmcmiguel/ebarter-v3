@@ -83,7 +83,7 @@
                 </jet-secondary-button>
 
                 <jet-button class="ml-2" @click="createReport" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Offer
+                    Report
                 </jet-button>
             </template>
     </jet-dialog-modal>
