@@ -6,7 +6,7 @@
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
-                        <inertia-link :href="route('welcome')" class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+                        <inertia-link :href="route('dashboard')" class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
                             <img src="/img/logo1.png" alt="" class="w-10 h-10 text-white p-2 rounded-full">
                             <span class="text-gray-600 ml-3 text-xl">E-Barter</span>
                         </inertia-link>
