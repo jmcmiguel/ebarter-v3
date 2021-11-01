@@ -257,7 +257,7 @@ class PostController extends Controller
         $producedDate = isset($request->query()['producedDate']) ? $request->query()['producedDate'] : null;
         $expiredDate = isset($request->query()['expiredDate']) ? $request->query()['expiredDate'] : null;
         $status = isset($request->query()['status']) ? $request->query()['status'] : null;
-
+        
         $allUsers = Post::with(['user'])->latest()->get();
         
         $queryHolder = $allUsers

@@ -260,7 +260,10 @@
             createPost() {
                 this.form.post(route('post.store'), {
                     preserveScroll: true,
-                    onSuccess: () => this.closeAddPostModal(),
+                    onSuccess: () => {
+                        this.form.reset()
+                        this.closeAddPostModal()
+                    },
                     onError: () => this.$refs.post_title.focus(),
                     onFinish: () => this.form.reset(),
                 })
