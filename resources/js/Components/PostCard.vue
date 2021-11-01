@@ -68,11 +68,6 @@
                 <span class="flex items-center mb-1">
                     <span class="far fa-address-card fa-fw text-gray-900 mr-2">Location: </span> {{ user.city }}
                 </span>
-
-                <span class="flex items-center mt-5">
-                    <img src="/img/eye.svg" alt="views" class="mr-2 h-4 w-4" /> {{ views }} views
-                </span>
-
             </div>
 
 
