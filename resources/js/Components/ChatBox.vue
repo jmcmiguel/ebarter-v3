@@ -28,7 +28,7 @@
                         <jet-dropdown-link :disabled="!postExists || barterDone" v-if="!hasStartedBarter" @click="startBarter()" as="button">
                             Start Barter
                         </jet-dropdown-link>
-                        <jet-dropdown-link :disabled="!postExists || barterDone" v-if="hasStartedBarter" @click="showFeedbackModal()" as="button">
+                        <jet-dropdown-link :disabled="!postExists || barterDone || isPoster()" v-if="hasStartedBarter" @click="showFeedbackModal()" as="button">
                             Mark Barter as Done
                         </jet-dropdown-link>
                     </template>
@@ -43,7 +43,7 @@
                 </li>
             </ul>
         </div>
-
+        
         <feedback-modal :showingModal="showingFeedbackModal" :closeModal="closeFeedbackModal" :convoDetails="convoDetails" />
 
         <!-- Chat Input Buttons -->
@@ -168,8 +168,8 @@ export default {
             convoDetails: {
                 convoID: this.convo.convo.id,
                 post: this.convo.convo.post_id,
-                receiver: this.convo.convo.receiver_user_id,
-                sender: this.convo.convo.sender_user_id,
+                receiver: this.convo.convo.receiver_user_id, // this user is the one that posted
+                sender: this.convo.convo.sender_user_id, // this user sent the offer
             },
 
             hasStartedBarter: null,
@@ -184,6 +184,10 @@ export default {
 
         async checkIfBarterDone(){
             this.barterDone = await BarterServices.checkIfBarterDone(this.convo.convo.id)
+        },
+
+        isPoster() {
+            return this.convoDetails.receiver === this.$page.props.authUser.id ? true : false
         },
 
         showFeedbackModal(){
