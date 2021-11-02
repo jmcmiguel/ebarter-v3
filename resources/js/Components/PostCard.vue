@@ -102,7 +102,7 @@
                         <template #content>
                             <div v-if="user.id === authUser.id">
                                 <div class="block px-4 py-2 text-xs text-gray-400">Manage Post</div>
-                                <jet-dropdown-link @click="showEditModal()" as="button">
+                                <jet-dropdown-link :disabled="this.status === 'sold'" @click="showEditModal()" as="button">
                                     Edit Post
                                 </jet-dropdown-link>
                                 <jet-dropdown-link @click="showDeletePostModal(id, title)" as="button">
