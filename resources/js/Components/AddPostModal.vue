@@ -126,6 +126,9 @@
                         label-idle="Drop files here or <span class='filepond--label-action'>Browse</span>"
                         v-bind:allow-multiple="true"
                         accepted-file-types="image/jpeg, image/png,"
+                        :allowFileSizeValidation="true"
+                        maxFileSize="5MB"
+                        maxTotalFileSize="5MB"
                         v-bind:server="{
                             url: '/postImg',
                             timeout: 7000,
@@ -188,11 +191,13 @@
     import "filepond/dist/filepond.min.css";
     import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+    import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
     // Create FilePond Component    
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
+        FilePondPluginFileValidateSize,
         FilePondPluginImagePreview
     );
 

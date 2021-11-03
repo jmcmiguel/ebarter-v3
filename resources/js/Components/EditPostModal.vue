@@ -126,6 +126,9 @@
                         label-idle="Drop files here or <span class='filepond--label-action'>Browse</span>"
                         v-bind:allow-multiple="true"
                         accepted-file-types="image/jpeg, image/png,"
+                        :allowFileSizeValidation="true"
+                        maxFileSize="5MB"
+                        maxTotalFileSize="5MB"
                         v-bind:server="{
                             url: '/postImg',
                             timeout: 7000,
