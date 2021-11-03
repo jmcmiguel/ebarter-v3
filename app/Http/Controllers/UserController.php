@@ -96,14 +96,20 @@ class UserController extends Controller
     public function getTransactionHistory (Request $request){
 
         $offers = \DB::table('offers')
-                ->join('posts', 'offers.user_id', '=', 'posts.user_id')
+                ->leftJoin('posts', 'offers.user_id', '=', 'posts.user_id')
                 ->select('offers.*')
                 ->where(function ($query){
-                    $query->where('posts.user_id', '=', Auth::user()->id)
-                            ->orWhere('offers.user_id', '=', Auth::user()->id);
+                    $query->where('posts.user_id', '=', Auth::user()->id);
                 })
                 ->distinct()
                 ->get();
+
+        // $offers = Offer::where('user_id', 'IN', function ($query){
+            
+        // })
+
+        // $offers = Offer::where('user_id', Auth::user()->id)
+        //         ->get();
 
         // $offers = DB::table('offers')
         // ->whereExists(function ($query) {

@@ -289,7 +289,7 @@
 											expiredDate: route().params.expiredDate,
 											hideOwnPost: route().params.hideOwnPost,
 											status: 'sold',
-										})" :active="isStatusFilterActive('sold')" class="flex-1">Sold</jet-nav-link>
+										})" :active="isStatusFilterActive('sold')" class="flex-1">Traded</jet-nav-link>
 									</div>
 								</div>
 							</div>
