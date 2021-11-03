@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Offer;
 use App\Models\Conversation;
 use App\Models\Barter;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -93,27 +95,40 @@ class UserController extends Controller
      */
     public function getTransactionHistory (Request $request){
 
-        // $users = Barter::where(function ($query) {
-        //     $query->select('type')
-        //         ->from('membership')
-        //         ->whereColumn('membership.user_id', 'users.id')
-        //         ->orderByDesc('membership.start_date')
-        //         ->limit(1);
-        // }, 'Pro')->get();
-
-        // $incomes = Income::where('amount', '<', function ($query) {
-        //     $query->selectRaw('avg(i.amount)')->from('incomes as i');
-        // })->get();
-
         $offers = \DB::table('offers')
-        ->whereExists(function ($query) {
-            $query->select(\DB::raw(1))
-                    ->from('posts')
-                    ->where('posts.user_id', Auth::user()->id)
-                    ->orWhere('offers.user_id', Auth::user()->id);
-        })
-        ->orderBy('updated_at','desc')
-        ->get();
+                ->join('posts', 'offers.user_id', '=', 'posts.user_id')
+                ->select('offers.*')
+                ->where(function ($query){
+                    $query->where('posts.user_id', '=', Auth::user()->id)
+                            ->orWhere('offers.user_id', '=', Auth::user()->id);
+                })
+                ->distinct()
+                ->get();
+
+        // $offers = DB::table('offers')
+        // ->whereExists(function ($query) {
+        //     $query->select(DB::raw(1))
+        //             ->from('posts')
+        //             ->where('posts.user_id', Auth::user()->id);
+        // })
+        // ->get();
+
+        // $offers = Offer::with(['post'])
+        //         ->whereHas('post', function (Builder $query){
+        //             $query->where('user_id', Auth::user()->id);
+        //         })
+        //         ->where('user_id', Auth::user()->id)
+        //         ->get();
+
+        // $offers = \DB::table('offers')
+        // ->whereExists(function ($query) {
+        //     $query->select(\DB::raw(1))
+        //             ->from('posts')
+        //             ->where('posts.user_id', Auth::user()->id)
+        //             ->orWhere('offers.user_id', Auth::user()->id);
+        // })
+        // ->orderBy('updated_at','desc')
+        // ->get();
         
         return Inertia::render('TransactionHistory', ['offers' => $offers]);
     }

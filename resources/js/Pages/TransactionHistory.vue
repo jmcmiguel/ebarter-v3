@@ -6,12 +6,12 @@
                 Transaction History
             </h2>
         </template>
-            <div class="container p-5">
+            <div class="container p-5 min-w-full">
                 <div v-if="offers.length" class="flex flex-col md:grid grid-cols-12 text-gray-50">
                     <history-card v-for="offer in offers" :key="offer.id" :ogOffer="offer" :postID="offer.post_id" :convoID="offer.convo_id" :date="getDate(offer.created_at)" :status="offer.status"/>
                 </div>
 
-                <div v-else class="flex flex-col md:grid grid-cols-12 text-gray-50">
+                <div v-else class="flex flex-col text-gray-50">
                     <div class="mx-auto">
                         <lottie-animation path="animations/empty-box-2.json" :loop="true" :autoPlay="true" :speed="1"  background="transparent" :width="300" :height="300" />
                         </div>

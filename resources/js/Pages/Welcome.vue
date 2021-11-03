@@ -86,8 +86,8 @@
     <section class="text-gray-400 bg-gray-900 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-col text-center w-full mb-20">
-                <h1 class="text-2xl font-medium title-font mb-4 text-white tracking-widest">The Agri Barter Team</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">The team that brought you, the Agri-Barter Website.</p>
+                <h1 class="text-2xl font-medium title-font mb-4 text-white tracking-widest">The E-Barter Team</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">The team that brought you, the E-Barter Website.</p>
             </div>
 
             <div class="flex flex-wrap -m-4">
@@ -95,7 +95,7 @@
                     name="John Michael Miguel" 
                     title="Member"
                     description="Responsible for the entire project's system related things"
-                    photo="/img/jmcmiguel.jpeg"  />
+                    photo="/img/jmcmiguel.JPG"  />
                 <member-card 
                     name="Justine Marie Padilla" 
                     title="Team Leader"
@@ -110,7 +110,7 @@
                     name="Gamel Iloco" 
                     title="Member"
                     description="Responsible for the entire project's system related things"
-                    photo="/img/giiloco.jpg"  />
+                    photo="/img/giiloco.png"  />
             </div>
         </div>
         </section>
