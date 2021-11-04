@@ -234,5 +234,9 @@
             DropdownLink
         },
 
+        mounted(){
+            console.log("i stopped my subscription to forge cuz im broke, if you see this it still works")
+        }
+
     }
 </script>
