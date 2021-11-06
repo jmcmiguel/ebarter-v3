@@ -126,7 +126,7 @@
                         { text: 'Limay', value: 'limay' },
                         { text: 'Orion', value: 'orion' },
                         { text: 'Samal', value: 'samal' },
-                    ],
+                ],
             }
         },
 
