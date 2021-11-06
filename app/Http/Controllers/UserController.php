@@ -95,47 +95,18 @@ class UserController extends Controller
      */
     public function getTransactionHistory (Request $request){
 
-        $offers = \DB::table('offers')
-                ->leftJoin('posts', 'offers.user_id', '=', 'posts.user_id')
-                ->select('offers.*')
-                ->where(function ($query){
-                    $query->where('posts.user_id', '=', Auth::user()->id);
-                })
-                ->distinct()
+        $posts = Post::where('user_id', Auth::user()->id)
+                ->orderBy('updated_at', 'desc')
                 ->get();
 
-        // $offers = Offer::where('user_id', 'IN', function ($query){
-            
-        // })
+        $off = Offer::orderBy('updated_at', 'desc')
+                ->get();
 
-        // $offers = Offer::where('user_id', Auth::user()->id)
-        //         ->get();
+        $offers = $off->filter(function ($offer, $key) use($posts) {
+            return $offer->user_id == Auth::user()->id || $posts->contains('id', $offer->post_id);
+        });
 
-        // $offers = DB::table('offers')
-        // ->whereExists(function ($query) {
-        //     $query->select(DB::raw(1))
-        //             ->from('posts')
-        //             ->where('posts.user_id', Auth::user()->id);
-        // })
-        // ->get();
 
-        // $offers = Offer::with(['post'])
-        //         ->whereHas('post', function (Builder $query){
-        //             $query->where('user_id', Auth::user()->id);
-        //         })
-        //         ->where('user_id', Auth::user()->id)
-        //         ->get();
-
-        // $offers = \DB::table('offers')
-        // ->whereExists(function ($query) {
-        //     $query->select(\DB::raw(1))
-        //             ->from('posts')
-        //             ->where('posts.user_id', Auth::user()->id)
-        //             ->orWhere('offers.user_id', Auth::user()->id);
-        // })
-        // ->orderBy('updated_at','desc')
-        // ->get();
-        
         return Inertia::render('TransactionHistory', ['offers' => $offers]);
     }
 }
