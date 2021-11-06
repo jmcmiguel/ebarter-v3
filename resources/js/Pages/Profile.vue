@@ -33,7 +33,7 @@
               <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                 <div class="relative">
                   <img
-                    @click="showLighbox()"
+                    @click="showLighbox(0, [{ image: getProfilePhoto() }])"
                     alt="..."
                     :src="getProfilePhoto()"
                     class="
