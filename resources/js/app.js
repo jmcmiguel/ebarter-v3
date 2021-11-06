@@ -7,6 +7,7 @@ import {
     plugin as InertiaPlugin,
 } from "@inertiajs/inertia-vue3";
 import { InertiaProgress } from "@inertiajs/progress";
+import VueEasyLightbox from "vue-easy-lightbox";
 
 const el = document.getElementById("app");
 
@@ -19,6 +20,7 @@ createApp({
 })
     .mixin({ methods: { route } })
     .use(InertiaPlugin)
+    .use(VueEasyLightbox)
     .mount(el);
 
 InertiaProgress.init({ color: "#4B5563" });
