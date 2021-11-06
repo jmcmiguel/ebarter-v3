@@ -115,7 +115,7 @@
 
                             <div v-if="userID !== authUser.id" >
                                 <div class="block px-4 py-2 text-xs text-gray-400">Actions Available</div>
-                                <jet-dropdown-link :disabled="this.offerExists" @click="showMakeOfferModal(id)" as="button">
+                                <jet-dropdown-link :disabled="this.offerExists || this.status == 'sold'" @click="showMakeOfferModal(id)" as="button">
                                     Make offer  
                                 </jet-dropdown-link>                                
                                 <jet-dropdown-link v-if="route().current('cart')" @click="removeFromCart(id)" as="button">
