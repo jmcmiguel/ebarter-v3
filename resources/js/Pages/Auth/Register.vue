@@ -25,7 +25,17 @@
 
             <div class="mt-4">
                 <jet-label for="city" value="City" />
-                <jet-input id="city" type="text" class="block mt-1 w-full" v-model="form.city" required />
+                <select class="mt-1 block w-full border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+                                id="city"
+                                ref="city"
+                                v-model="form.city"
+                                required >
+
+                        <option disabled value="" selected>Select City</option>
+                        <option v-for="(option, index) in cityLists" v-bind:value="option.value" :key="index">
+                            {{option.text}}
+                        </option>
+                    </select>
             </div>
 
             <div class="mt-4">
@@ -77,6 +87,7 @@
     import JetCheckbox from "@/Jetstream/Checkbox";
     import JetLabel from '@/Jetstream/Label'
     import JetValidationErrors from '@/Jetstream/ValidationErrors'
+    import Select from '@/Components/Select'
 
     export default {
         components: {
@@ -86,7 +97,8 @@
             JetInput,
             JetCheckbox,
             JetLabel,
-            JetValidationErrors
+            JetValidationErrors,
+            Select
         },
 
         data() {
@@ -100,7 +112,21 @@
                     password: '',
                     password_confirmation: '',
                     terms: false,
-                })
+                }),
+                cityLists: [
+                        { text: 'Balanga', value: 'balanga' },
+                        { text: 'Pilar', value: 'pilar' },
+                        { text: 'Abucay', value: 'abucay' },
+                        { text: 'Bagac', value: 'bagac' },
+                        { text: 'Morong', value: 'morong' },
+                        { text: 'Dinalupihan', value: 'dinalupihan' },
+                        { text: 'Orani', value: 'orani' },
+                        { text: 'Hermosa', value: 'hermosa' },
+                        { text: 'Mariveles', value: 'mariveles' },
+                        { text: 'Limay', value: 'limay' },
+                        { text: 'Orion', value: 'orion' },
+                        { text: 'Samal', value: 'samal' },
+                    ],
             }
         },
 

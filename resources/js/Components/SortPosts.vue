@@ -89,6 +89,57 @@
 											hideOwnPost: route().params.hideOwnPost,
 										})" :active="isLocationFilterActive('orani')" class="flex-1">Orani</jet-nav-link>
 									</div>
+                                    <div class="flex py-2">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: 'hermosa',
+											price: route().params.price,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+										})" :active="isLocationFilterActive('hermosa')" class="flex-1">Hermosa</jet-nav-link>
+									</div>
+                                    <div class="flex py-2">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: 'mariveles',
+											price: route().params.price,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+										})" :active="isLocationFilterActive('mariveles')" class="flex-1">Mariveles</jet-nav-link>
+									</div>
+									<div class="flex py-2">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: 'limay',
+											price: route().params.price,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+										})" :active="isLocationFilterActive('limay')" class="flex-1">Limay</jet-nav-link>
+									</div>
+									<div class="flex py-2">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: 'orion',
+											price: route().params.price,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+										})" :active="isLocationFilterActive('orion')" class="flex-1">Orion</jet-nav-link>
+									</div>
+									<div class="flex py-2">
+										<jet-nav-link :href="route('dashboard',{
+											category: route().params.category,
+											location: 'samal',
+											price: route().params.price,
+											producedDate: route().params.producedDate,
+											expiredDate: route().params.expiredDate,
+											hideOwnPost: route().params.hideOwnPost,
+										})" :active="isLocationFilterActive('samal')" class="flex-1">Samal</jet-nav-link>
+									</div>
+									
 								</div>
 							</div>
 							<div class="w-28 mr-10">
