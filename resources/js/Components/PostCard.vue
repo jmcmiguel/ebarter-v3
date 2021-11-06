@@ -121,7 +121,7 @@
                                 <jet-dropdown-link v-if="route().current('cart')" @click="removeFromCart(id)" as="button">
                                     Remove from cart
                                 </jet-dropdown-link>
-                                <jet-dropdown-link v-if="!route().current('cart')" @click="addToCart(id)" as="button">
+                                <jet-dropdown-link :disabled="this.status == 'sold'" v-if="!route().current('cart')" @click="addToCart(id)" as="button">
                                     Add To Cart
                                 </jet-dropdown-link>
                                 <jet-dropdown-link @click="showReportModal(id, userID)"  as="button">

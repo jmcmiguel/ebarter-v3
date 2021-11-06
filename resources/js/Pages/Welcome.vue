@@ -94,22 +94,22 @@
                 <member-card 
                     name="John Michael Miguel" 
                     title="Member"
-                    description="Responsible for the entire project's system related things"
+                    description="Lead the software development phase, and responsible for the overall system development"
                     photo="/img/jmcmiguel.JPG"  />
                 <member-card 
                     name="Justine Marie Padilla" 
                     title="Team Leader"
-                    description="Responsible for the entire project's system related things"
+                    description="In-charge of team management and the overall system documentation."
                     photo="/img/jmrpadilla.jpg"  />
                 <member-card 
                     name="Elaisa Mae Magpantay" 
                     title="Member"
-                    description="Responsible for the entire project's system related things"
+                    description="Associate for research and documentation of the system."
                     photo="/img/emcmagpantay.jpg"  />
                 <member-card 
                     name="Gamel Iloco" 
                     title="Member"
-                    description="Responsible for the entire project's system related things"
+                    description="Leading the data gathering for the system requirements, as well as system testing."
                     photo="/img/giiloco.png"  />
             </div>
         </div>
