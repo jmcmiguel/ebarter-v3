@@ -98,14 +98,17 @@ class UserController extends Controller
         $posts = Post::where('user_id', Auth::user()->id)
                 ->orderBy('updated_at', 'desc')
                 ->get();
-
+        
         $off = Offer::orderBy('updated_at', 'desc')
                 ->get();
-
-        $offers = $off->filter(function ($offer, $key) use($posts) {
+        
+        $offerss = $off->filter(function ($offer, $key) use($posts) {
             return $offer->user_id == Auth::user()->id || $posts->contains('id', $offer->post_id);
         });
-
+        
+        $offers = $offerss->isEmpty() 
+                ? Offer::where('id', '<', 0)->paginate(12)
+                : $offerss->customPaginate(12)->withQueryString();
 
         return Inertia::render('TransactionHistory', ['offers' => $offers]);
     }
