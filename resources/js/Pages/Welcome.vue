@@ -125,7 +125,7 @@
         <h1
           class="
             font-extrabold
-            text-7xl text-center
+            text-6xl text-center
             sm:text-8xl
             text-white
             leading-tight
