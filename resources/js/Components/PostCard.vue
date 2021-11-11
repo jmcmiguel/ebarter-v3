@@ -43,13 +43,16 @@
             px-2
             py-1
             leading-none
-            bg-green-100
-            text-green-900
             rounded-full
             font-semibold
             uppercase
             tracking-wide
             text-xs
+          "
+          :class="
+            status == 'negotiating'
+              ? 'bg-yellow-100 text-yellow-900'
+              : 'bg-green-100 text-green-900'
           "
         >
           {{ status }}
