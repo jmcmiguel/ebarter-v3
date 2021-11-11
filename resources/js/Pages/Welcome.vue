@@ -5,7 +5,7 @@
       class="absolute h-full w-full object-cover"
     />
 
-    <div class="inset-0 bg-black opacity-25 absolute"></div>
+    <div class="inset-0 absolute"></div>
 
     <header class="absolute top-0 left-0 right-0 z-20">
       <nav class="container mx-auto px-6 md:px-12 py-4">
@@ -14,7 +14,7 @@
             <dropdown align="left" width="48">
               <template #trigger>
                 <div class="md:hidden">
-                  <button class="text-white focus:outline-none">
+                  <button class="text-gray-500 focus:outline-none">
                     <svg
                       class="h-12 w-12"
                       viewBox="0 0 24 24"
@@ -54,7 +54,21 @@
           <div class="hidden md:flex items-center">
             <div
               v-if="canLogin"
-              class="hidden fixed top-0 right-0 px-6 py-4 sm:block"
+              class="
+                hidden
+                fixed
+                top-0
+                right-0
+                px-6
+                py-4
+                w-1/2
+                text-right
+                bg-gradient-to-r
+                from-transparent
+                to-black
+                sm:block
+                opacity-50
+              "
             >
               <inertia-link
                 v-if="$page.props.user"
@@ -81,6 +95,7 @@
                     text-white
                     cursor-pointer
                     hover:text-gray-300
+                    mrws
                   "
                 >
                   Log in
@@ -96,6 +111,7 @@
                     text-white
                     cursor-pointer
                     hover:text-gray-300
+                    mrws
                   "
                 >
                   Register
@@ -111,28 +127,41 @@
       class="
         container
         mx-auto
-        px-6
-        md:px-12
         relative
         z-10
+        px-6
+        md:px-12
         flex
         items-center
         py-32
         xl:py-40
       "
     >
-      <div class="w-full flex flex-col items-center relative z-10">
+      <div
+        class="w-full flex flex-col sm:items-start items-center relative z-10"
+      >
+        <img src="/img/logo3.png" class="h-32" />
+
         <h1
           class="
             font-extrabold
-            text-6xl text-center
-            sm:text-8xl
-            text-white
+            text-5xl text-center
+            sm:text-left sm:text-6xl
             leading-tight
             mt-4
+            mrws
+            bg-gradient-to-br
+            from-green-450
+            to-green-900
+            text-transparent
+            bg-clip-text
           "
         >
-          A Platform for Trading Agricultural Products
+          A Platform for
+          <br />
+          Trading Agricultural
+          <br />
+          Products
         </h1>
         <a
           v-if="$page.props.user"
@@ -148,6 +177,7 @@
             font-bold
             uppercase
             mt-10
+            mrws
           "
         >
           Home Page
@@ -157,8 +187,8 @@
           :href="route('register')"
           class="
             block
-            bg-green-600
-            hover:bg-green-900
+            bg-brown-500
+            hover:bg-brown-900
             rounded-md
             py-3
             px-4
@@ -166,6 +196,7 @@
             font-bold
             uppercase
             mt-10
+            mrws
           "
         >
           Register Now
@@ -342,6 +373,12 @@
 </template>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@800&display=swap");
+
+.mrws {
+  font-family: "Merriweather Sans", sans-serif;
+}
+
 .bg-gray-100 {
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--tw-bg-opacity));
