@@ -8,6 +8,7 @@
         :touchable="false"
       >
         <vueper-slide
+          class="cursor-pointer"
           v-for="(image, index) in images"
           :key="image.id"
           :image="image.image"

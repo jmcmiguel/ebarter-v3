@@ -37,6 +37,7 @@
                     alt="..."
                     :src="getProfilePhoto()"
                     class="
+                      cursor-pointer
                       shadow-xl
                       rounded-full
                       object-cover
