@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-indigo-900 relative overflow-hidden h-screen">
+  <div class="relative overflow-hidden h-screen">
     <img
-      src="/img/landing_nologo.jpg"
+      src="/img/landing_nologo.webp"
       class="absolute h-full w-full object-cover"
     />
 
@@ -140,7 +140,7 @@
       <div
         class="w-full flex flex-col sm:items-start items-center relative z-10"
       >
-        <img src="/img/logo3.png" class="h-32" />
+        <img src="/img/logo3.webp" class="h-32" />
 
         <h1
           class="
@@ -231,25 +231,25 @@
           name="John Michael Miguel"
           title="Member"
           description="Lead the software development phase, and responsible for the overall system development"
-          photo="/img/jmcmiguel.JPG"
+          photo="/img/jmcmiguel.webp"
         />
         <member-card
           name="Justine Marie Padilla"
           title="Team Leader"
           description="In-charge of team management and the overall system documentation."
-          photo="/img/jmrpadilla.jpg"
+          photo="/img/jmrpadilla.webp"
         />
         <member-card
           name="Elaisa Mae Magpantay"
           title="Member"
           description="Associate for research and documentation of the system."
-          photo="/img/emcmagpantay.jpg"
+          photo="/img/emcmagpantay.webp"
         />
         <member-card
           name="Gamel Iloco"
           title="Member"
           description="Leading the data gathering for the system requirements, as well as system testing."
-          photo="/img/giiloco.png"
+          photo="/img/giiloco.webp"
         />
       </div>
     </div>
@@ -272,7 +272,7 @@
         "
       >
         <img
-          src="/img/logo1.png"
+          src="/img/logo1.webp"
           alt=""
           class="w-10 h-10 text-white p-2 rounded-full"
         />

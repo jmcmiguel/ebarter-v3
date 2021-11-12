@@ -19,7 +19,7 @@
               "
             >
               <img
-                src="/img/logo1.png"
+                src="/img/logo1.webp"
                 alt=""
                 class="w-10 h-10 text-white p-2 rounded-full"
               />
