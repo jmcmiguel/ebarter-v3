@@ -233,8 +233,6 @@ export default {
       }));
 
       this.lightboxIndex = index;
-      console.log(this.lightboxImgs);
-      console.log(this.lightboxIndex);
       this.showingLightbox = true;
     },
 

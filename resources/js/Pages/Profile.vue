@@ -235,6 +235,28 @@
       </div>
     </div>
 
+    <!-- Floating Action Button -->
+    <fab id="fab" @click="showAddPostModal">
+      <svg
+        viewBox="0 0 20 20"
+        enable-background="new 0 0 20 20"
+        class="w-6 h-6 inline-block"
+      >
+        <path
+          fill="#FFFFFF"
+          d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+                                    C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+                                    C15.952,9,16,9.447,16,10z"
+        />
+      </svg>
+    </fab>
+
+    <!-- Add Post Modal -->
+    <add-post-modal
+      :showingPostModal="showingPostModal"
+      :closeAddPostModal="closeAddPostModal"
+    />
+
     <!-- Edit Post Modal -->
     <edit-post-modal
       :postData="editPostData"
@@ -313,6 +335,8 @@ import ShowFeedbacksModal from "@/Components/ShowFeedbacksModal";
 import MakeOfferModal from "@/Components/MakeOfferModal";
 import ReportModal from "@/Components/ReportModal";
 import VueEasyLighbox from "vue-easy-lightbox";
+import Fab from "@/Components/Fab";
+import AddPostModal from "@/Components/AddPostModal";
 
 export default {
   components: {
@@ -328,6 +352,8 @@ export default {
     MakeOfferModal,
     ReportModal,
     VueEasyLighbox,
+    Fab,
+    AddPostModal,
   },
 
   props: ["posts", "id"],
@@ -354,6 +380,7 @@ export default {
       showingLightbox: false,
       lightboxIndex: 0,
       lightboxImgs: "",
+      showingPostModal: false,
     };
   },
 
@@ -362,9 +389,37 @@ export default {
     this.getUserPosts();
     this.getUserFeedbacks();
     this.getAllFeedbacks();
+    window.addEventListener("scroll", this.hideFabOnBottom);
+  },
+
+  unmounted() {
+    window.removeEventListener("scroll", this.hideFabOnBottom);
   },
 
   methods: {
+    showAddPostModal() {
+      this.showingPostModal = true;
+    },
+
+    closeAddPostModal() {
+      this.showingPostModal = false;
+    },
+
+    hideFabOnBottom(event) {
+      if (
+        window.innerHeight + window.scrollY >
+        document.body.clientHeight - 20
+      ) {
+        if (window.scrollY === 0) {
+          document.getElementById("fab").style.display = "unset";
+        } else {
+          document.getElementById("fab").style.display = "none";
+        }
+      } else {
+        document.getElementById("fab").style.display = "unset";
+      }
+    },
+
     showLighbox(index, imgs) {
       this.lightboxImgs = imgs.map((img) => ({
         title: "",
@@ -372,8 +427,6 @@ export default {
       }));
 
       this.lightboxIndex = index;
-      console.log(this.lightboxImgs);
-      console.log(this.lightboxIndex);
       this.showingLightbox = true;
     },
 
