@@ -6,7 +6,7 @@ use Laravel\Fortify\Features;
 return [
 
     /*
-    |--------------------------------------------------------------------------
+    |------------------------------------------------------------------------Before using the password reset feature, you should ensure that your Laravel application is config--
     | Fortify Guard
     |--------------------------------------------------------------------------
     |
@@ -134,7 +134,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([
