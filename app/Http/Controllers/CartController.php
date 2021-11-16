@@ -142,7 +142,7 @@ class CartController extends Controller
 
         $categories = Category::orderBy('id', 'asc')->get();
         $qtyType = QuantityType::orderBy('id', 'asc')->get();
-        
+
         return Inertia::render('Cart', [
             'posts' => $posts,
             'categories' => $categories,

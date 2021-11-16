@@ -10,6 +10,8 @@ use App\Models\Post;
 use App\Models\Conversation;
 use App\Models\OfferImage;
 use App\Models\Message;
+use App\Models\Category;
+use App\Models\QuantityType;
 use Inertia\Inertia;
 
 class OfferController extends Controller
@@ -211,7 +213,12 @@ class OfferController extends Controller
      */
     public function showOffers(){
         $offersMade = Offer::where('user_id', Auth::user()->id)->latest()->paginate(12);
-        return Inertia::render('OffersMade', ['offersMade' => $offersMade]);
+        $categories = Category::orderBy('id', 'asc')->get();
+        $qtyType = QuantityType::orderBy('id', 'asc')->get();
+
+        return Inertia::render('OffersMade', ['offersMade' => $offersMade,
+                                    'categories' => $categories,
+                                    'qtyTypes' => $qtyType]);
     }
 
     /**

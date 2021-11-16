@@ -33,6 +33,7 @@
             :datePosted="post.created_at"
             :removeFromCart="showRemoveCartModal"
             :categories="categories"
+            :qtyTypes="qtyTypes"
           />
         </div>
       </div>
