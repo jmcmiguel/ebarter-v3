@@ -7,9 +7,10 @@
       :touchable="false"
     >
       <vueper-slide
-        v-for="image in offerImages"
+        v-for="(image, index) in offerImages"
         :key="image.id"
         :image="image.image"
+        @click="showLighbox(index, offerImages)"
       >
       </vueper-slide>
     </vueper-slides>
@@ -395,6 +396,7 @@ export default {
     "showRejectOfferModal",
     "categories",
     "qtyTypes",
+    "showLighbox",
   ],
 
   components: {

@@ -20,6 +20,7 @@
             :showEditOffer="showEditOffer"
             :categories="categories"
             :qtyTypes="qtyTypes"
+            :showLighbox="showLighbox"
           />
         </div>
       </div>
@@ -82,6 +83,17 @@
       :categories="categories"
       :qtyTypes="qtyTypes"
     />
+
+    <!-- Post Images Lightbox -->
+    <vue-easy-lightbox
+      moveDisabled
+      scrollDisabled
+      :visible="showingLightbox"
+      :imgs="lightboxImgs"
+      :index="lightboxIndex"
+      @hide="hideLightbox"
+    >
+    </vue-easy-lightbox>
   </app-layout>
 </template>
 
@@ -94,6 +106,7 @@ import SecondaryButton from "@/Jetstream/SecondaryButton";
 import DangerButton from "@/Jetstream/DangerButton";
 import EditOfferModal from "@/Components/EditOfferModal";
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
+import VueEasyLighbox from "vue-easy-lightbox";
 
 export default {
   props: ["offersMade", "categories", "qtyTypes"],
@@ -107,6 +120,7 @@ export default {
     DangerButton,
     EditOfferModal,
     LottieAnimation,
+    VueEasyLighbox,
   },
 
   data() {
@@ -114,6 +128,9 @@ export default {
       showingCancelOffer: false,
       showingEditOffer: false,
       editOfferData: null,
+      showingLightbox: false,
+      lightboxIndex: 0,
+      lightboxImgs: "",
 
       form: this.$inertia.form({
         offerID: null,
@@ -122,6 +139,20 @@ export default {
   },
 
   methods: {
+    showLighbox(index, imgs) {
+      this.lightboxImgs = imgs.map((img) => ({
+        title: "",
+        src: img.image,
+      }));
+
+      this.lightboxIndex = index;
+      this.showingLightbox = true;
+    },
+
+    hideLightbox() {
+      this.showingLightbox = false;
+    },
+
     showEditOffer(offer, offerImages) {
       this.editOfferData = {
         offer: offer,
