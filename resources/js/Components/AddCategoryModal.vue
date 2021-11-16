@@ -76,7 +76,10 @@ export default {
 
   data() {
     return {
-      form: null,
+      form: this.$inertia.form({
+        category_name: null,
+        value: null,
+      }),
     };
   },
 
@@ -103,10 +106,7 @@ export default {
       result = parseInt(split[1]) + 1;
     }
 
-    this.form = this.$inertia.form({
-      category_name: null,
-      value: `categ-${result}`,
-    });
+    this.form.value = `categ-${result}`;
   },
 
   beforeUnmount() {
