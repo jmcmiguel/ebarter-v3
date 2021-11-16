@@ -397,6 +397,8 @@ export default {
     "showDeletePostModal",
     "removeFromCart",
     "showLighbox",
+    "categories",
+    "qtyTypes",
   ],
 
   data() {
@@ -488,52 +490,26 @@ export default {
     },
 
     getQuantityType(qtyType) {
-      switch (qtyType) {
-        case "categ-1":
-          return "Kilogram";
+      if (qtyType && this.qtyTypes) {
+        let results = this.qtyTypes.filter((qty) => qty.value === qtyType);
 
-        case "categ-2":
-          return "Liter";
-
-        case "categ-3":
-          return "Box";
-
-        case "categ-4":
-          return "Sack";
-
-        case "categ-5":
-          return "Truck";
-
-        case "categ-6":
-          return "Piece";
-
-        default:
-          return "Unknown";
+        if (results.length) return results[0].name;
+        else return "Unknown";
+      } else {
+        return "Unknown";
       }
     },
 
     getCategory(category) {
-      switch (category) {
-        case "categ-1":
-          return "Crops";
+      if (category && this.categories) {
+        let results = this.categories.filter(
+          (categ) => categ.value === category
+        );
 
-        case "categ-2":
-          return "Livestocks";
-
-        case "categ-3":
-          return "Dairy";
-
-        case "categ-4":
-          return "Fish Farming";
-
-        case "categ-5":
-          return "Machineries";
-
-        case "categ-6":
-          return "Others";
-
-        default:
-          return "Unknown";
+        if (results.length) return results[0].name;
+        else return "Unknown";
+      } else {
+        return "Unknown";
       }
     },
 

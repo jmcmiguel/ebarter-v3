@@ -9,6 +9,8 @@ use App\Models\PostImage;
 use App\Models\Conversation;
 use App\Models\Offer;
 use App\Models\Message;
+use App\Models\Category;
+use App\Models\QuantityType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -274,7 +276,12 @@ class PostController extends Controller
                 ? Post::where('id', '<', 0)->paginate(12)
                 : $queryHolder->customPaginate(12)->withQueryString();
 
-        return Inertia::render('Dashboard', ['posts' => $posts]);
+        $categories = Category::orderBy('id', 'asc')->get();
+        $qtyType = QuantityType::orderBy('id', 'asc')->get();
+
+        return Inertia::render('Dashboard', ['posts' => $posts, 
+                                             'categories' => $categories,
+                                             'qtyTypes' => $qtyType ]);
     }
 
     /**

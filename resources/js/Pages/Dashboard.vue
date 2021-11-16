@@ -2,7 +2,7 @@
   <app-layout>
     <!-- Categories -->
     <template #header>
-      <categories />
+      <categories :categories="categories" />
     </template>
 
     <!-- Sort Posts -->
@@ -49,6 +49,8 @@
             :showEditPostModal="showEditPostModal"
             :addToCart="addToCart"
             :showLighbox="showLighbox"
+            :categories="categories"
+            :qtyTypes="qtyTypes"
           />
         </div>
       </div>
@@ -56,7 +58,7 @@
     </div>
 
     <!-- No search results found -->
-    <div v-else class="flex justify-center flex-col mt-20">
+    <div v-else class="flex justify-center flex-col py-20">
       <div class="mx-auto">
         <lottie-animation
           path="animations/empty-dessert.json"
@@ -101,6 +103,8 @@
     <add-post-modal
       :showingPostModal="showingPostModal"
       :closeAddPostModal="closeAddPostModal"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Edit Post Modal -->
@@ -108,6 +112,8 @@
       :postData="editPostData"
       :showingEditModal="showingEditModal"
       :closeEditPostModal="closeEditPostModal"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Delete Post Modal -->
@@ -122,6 +128,8 @@
       :showingMakeOfferModal="showingMakeOfferModal"
       :closeMakeOfferModal="closeMakeOfferModal"
       :postID="makeOfferData"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Report Modal -->
@@ -194,7 +202,7 @@ export default {
     VueEasyLighbox,
   },
 
-  props: ["posts"],
+  props: ["posts", "categories", "qtyTypes"],
 
   data() {
     return {

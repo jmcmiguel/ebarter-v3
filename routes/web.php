@@ -14,6 +14,8 @@ use App\Http\Controllers\BarterController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ReportImageController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\QtyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +89,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('user/{id}', [UserController::class, 'getUser']);
     Route::get('currentUser', [UserController::class, 'getCurrentUser']);
     Route::get('name/{id}', [UserController::class, 'getName']);
+
+    // Admin Routes
+    Route::get('modifyTypes', [UserController::class, 'modifyTypes'])->name('modifyTypes');
  
     // Offer Images Controller
     Route::get('offerImages/{offerID}', [OfferImagesController::class, 'getOfferImage']);
@@ -101,6 +106,16 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('getFeedback/{postID}', [FeedbackController::class, 'getFeedback']);
     Route::get('getUserFeedbacks/{userID}', [FeedbackController::class, 'getUserFeedbacks']);
     Route::get('getAllFeedback/{userID}', [FeedbackController::class, 'getAllFeedback']);
+
+    // Category Controller
+    Route::put('category/edit', [CategoryController::class, 'edit']);
+    Route::delete('category/delete/{categoryID}', [CategoryController::class, 'delete']);
+    Route::post('category/add', [CategoryController::class, 'add']);
+
+    // Qty Controller
+    Route::put('qty/edit', [QtyController::class, 'edit']);
+    Route::post('qty/add', [QtyController::class, 'add']);
+    Route::delete('qty/delete/{qtyID}', [QtyController::class, 'delete']);
 });
 
 // Protected Routes

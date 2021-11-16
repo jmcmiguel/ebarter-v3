@@ -309,6 +309,28 @@
                 <!-- Divider -->
                 <div class="border-t border-gray-100"></div>
 
+                <!-- Admin Management -->
+                <div v-if="$page.props.user.access_level === 1">
+                  <div class="block px-4 py-2 text-xs text-gray-400">
+                    Admin Management
+                  </div>
+
+                  <jet-dropdown-link :href="route('modifyTypes')">
+                    Modify Types
+                  </jet-dropdown-link>
+
+                  <jet-dropdown-link :href="route('offersMade')">
+                    View Reports
+                  </jet-dropdown-link>
+
+                  <jet-dropdown-link :href="route('offersMade')">
+                    View Moderators
+                  </jet-dropdown-link>
+                </div>
+
+                <!-- Divider -->
+                <div class="border-t border-gray-100"></div>
+
                 <!-- Log out -->
                 <form @submit.prevent="logout">
                   <jet-dropdown-link as="button"> Log Out </jet-dropdown-link>
@@ -492,6 +514,27 @@
             :active="route().current('offersMade')"
           >
             Offers Made
+          </jet-responsive-nav-link>
+
+          <jet-responsive-nav-link
+            :href="route('modifyTypes')"
+            :active="route().current('modifyTypes')"
+          >
+            Modify Types
+          </jet-responsive-nav-link>
+
+          <jet-responsive-nav-link
+            :href="route('offersMade')"
+            :active="route().current('offersMade')"
+          >
+            View Reports
+          </jet-responsive-nav-link>
+
+          <jet-responsive-nav-link
+            :href="route('offersMade')"
+            :active="route().current('offersMade')"
+          >
+            View Moderators
           </jet-responsive-nav-link>
 
           <!-- Authentication -->

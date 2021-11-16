@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cart;
 use App\Models\Post;
+use App\Models\Category;
 use Inertia\Inertia;
 
 class CartController extends Controller
@@ -137,9 +138,12 @@ class CartController extends Controller
 
         // Get all posts containg the gathered postIds
         $posts = Post::whereIn('id', $postIds)->paginate(12);
+
+        $categories = Category::orderBy('id', 'asc')->get();
         
         return Inertia::render('Cart', [
-            'posts' => $posts
+            'posts' => $posts,
+            'categories' => $categories
         ]);
     }
 }

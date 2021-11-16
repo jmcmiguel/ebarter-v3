@@ -8,6 +8,8 @@ use App\Models\Post;
 use App\Models\Offer;
 use App\Models\Conversation;
 use App\Models\Barter;
+use App\Models\Category;
+use App\Models\QuantityType;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -60,10 +62,15 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $posts = Post::where('user_id', $id)->orderBy('updated_at','desc')->paginate(12);
-        
+
+        $categories = Category::orderBy('id', 'asc')->get();
+        $qtyType = QuantityType::orderBy('id', 'asc')->get();
+
         return Inertia::render('Profile', [
             'posts' => $posts,
             'id' => $id,
+            'categories' => $categories,
+            'qtyTypes' => $qtyType
         ]);
     }
 
@@ -111,5 +118,23 @@ class UserController extends Controller
                 : $offerss->customPaginate(12)->withQueryString();
 
         return Inertia::render('TransactionHistory', ['offers' => $offers]);
+    }
+
+    /**
+     * Displays The types 
+     * 
+     * @return Inertia
+     */
+    public function modifyTypes(){
+        if(Auth::user()->access_level && Auth::user()->access_level === 1){
+
+            $categories = Category::orderBy('id', 'asc')->get();
+            $qtyType = QuantityType::orderBy('id', 'asc')->get();
+
+            return Inertia::render('ModifyTypes',  ['categories' => $categories, 'qtyTypes' => $qtyType] );
+            
+        }else{
+            return abort(403);
+        }
     }
 }

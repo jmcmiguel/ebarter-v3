@@ -255,6 +255,8 @@
     <add-post-modal
       :showingPostModal="showingPostModal"
       :closeAddPostModal="closeAddPostModal"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Edit Post Modal -->
@@ -262,6 +264,8 @@
       :postData="editPostData"
       :showingEditModal="showingEditModal"
       :closeEditPostModal="closeEditPostModal"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Delete Post Modal -->
@@ -276,6 +280,8 @@
       :showingMakeOfferModal="showingMakeOfferModal"
       :closeMakeOfferModal="closeMakeOfferModal"
       :postID="makeOfferData"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Show Offers Modal -->
@@ -356,7 +362,7 @@ export default {
     AddPostModal,
   },
 
-  props: ["posts", "id"],
+  props: ["posts", "id", "categories", "qtyTypes"],
 
   data() {
     return {
