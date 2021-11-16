@@ -65,6 +65,7 @@
       :closeMakeOfferModal="closeMakeOfferModal"
       :postID="makeOfferData"
       :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Confirm Remove to Cart Modal -->
@@ -85,7 +86,7 @@ import RemoveCartModal from "@/Components/RemoveCartModal";
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 
 export default {
-  props: ["posts", "categories"],
+  props: ["posts", "categories", "qtyTypes"],
 
   components: {
     AppLayout,

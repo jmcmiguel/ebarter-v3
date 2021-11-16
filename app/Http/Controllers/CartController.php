@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Cart;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\QuantityType;
 use Inertia\Inertia;
 
 class CartController extends Controller
@@ -140,10 +141,12 @@ class CartController extends Controller
         $posts = Post::whereIn('id', $postIds)->paginate(12);
 
         $categories = Category::orderBy('id', 'asc')->get();
+        $qtyType = QuantityType::orderBy('id', 'asc')->get();
         
         return Inertia::render('Cart', [
             'posts' => $posts,
-            'categories' => $categories
+            'categories' => $categories,
+            'qtyTypes' => $qtyType
         ]);
     }
 }
