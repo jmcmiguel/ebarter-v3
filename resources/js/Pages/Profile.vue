@@ -208,6 +208,8 @@
             :showOffersModal="showOffersModal"
             :addToCart="addToCart"
             :showLighbox="showLighbox"
+            :categories="categories"
+            :qtyTypes="qtyTypes"
           />
         </div>
       </div>
