@@ -342,6 +342,10 @@ export default {
   },
 
   beforeUpdate() {
+    if (!this.postData) {
+      return {};
+    }
+
     this.form = this.$inertia.form({
       post_title: this.postData.title,
       post_desc: this.postData.description,
