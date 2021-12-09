@@ -17,7 +17,7 @@
       <h2
         class="text-4xl sm:text-5xl font-black tracking-wide text-center w-full"
       >
-        Services Offered
+        System Overview
       </h2>
       <p
         class="
@@ -33,9 +33,11 @@
           text-center
         "
       >
-        The main service we offer is providing a platform where users can barter
-        agricultural products with other users. But we have plenty of other
-        features too.
+        E-Barter is a web application that can enhance the process of exchanging
+        agricultural goods and supplies. It can help small to medium-scale
+        farmers, agricultural entrepreneurs and other agricultural-related
+        sectors promote their products and supplies and innovate their means of
+        finding potential consumers through online bartering.
       </p>
       <div class="mt-10 w-full"></div>
 

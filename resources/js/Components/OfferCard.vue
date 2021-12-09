@@ -415,23 +415,37 @@ export default {
       offerImages: [],
 
       isPending: false,
+    };
+  },
 
-      categoryOptions: this.categories
+  computed: {
+    categoryOptions() {
+      if (!this.categories) {
+        return {};
+      }
+
+      return this.categories
         .filter((category) => category.id !== 1)
         .map((category) => {
           return {
             text: category.name,
             value: category.value,
           };
-        }),
+        });
+    },
 
-      qtyOptions: this.qtyTypes.map((qtyType) => {
+    qtyOptions() {
+      if (!this.qtyTypes) {
+        return {};
+      }
+
+      return this.qtyTypes.map((qtyType) => {
         return {
           text: qtyType.name,
           value: qtyType.value,
         };
-      }),
-    };
+      });
+    },
   },
 
   methods: {

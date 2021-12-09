@@ -144,6 +144,7 @@
       :showingOffersModal="showingOffersModal"
       :closeOffersModal="closeOffersModal"
       :post="showingOffersData"
+      :showLighbox="showLighbox"
     />
 
     <!-- Show Feedbacks Modal -->

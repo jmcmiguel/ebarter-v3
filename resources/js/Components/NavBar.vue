@@ -319,13 +319,13 @@
                     Modify Types
                   </jet-dropdown-link>
 
-                  <!-- <jet-dropdown-link :href="route('offersMade')">
+                  <jet-dropdown-link :href="route('offersMade')">
                     View Reports
                   </jet-dropdown-link>
 
-                  <jet-dropdown-link :href="route('offersMade')">
+                  <jet-dropdown-link :href="route('viewModerators')">
                     View Moderators
-                  </jet-dropdown-link> -->
+                  </jet-dropdown-link>
                 </div>
 
                 <!-- Divider -->
@@ -523,7 +523,7 @@
             Modify Types
           </jet-responsive-nav-link>
 
-          <!-- <jet-responsive-nav-link
+          <jet-responsive-nav-link
             :href="route('offersMade')"
             :active="route().current('offersMade')"
           >
@@ -531,11 +531,11 @@
           </jet-responsive-nav-link>
 
           <jet-responsive-nav-link
-            :href="route('offersMade')"
-            :active="route().current('offersMade')"
+            :href="route('viewModerators')"
+            :active="route().current('viewModerators')"
           >
             View Moderators
-          </jet-responsive-nav-link> -->
+          </jet-responsive-nav-link>
 
           <!-- Authentication -->
           <form method="POST" @submit.prevent="logout">

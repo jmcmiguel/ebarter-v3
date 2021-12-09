@@ -92,6 +92,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Admin Routes
     Route::get('modifyTypes', [UserController::class, 'modifyTypes'])->name('modifyTypes');
+    Route::get('viewModerators', [UserController::class, 'viewModerators'])->name('viewModerators');
+    Route::get('viewReports', [ReportController::class, 'viewReports'])->name('viewReports');
  
     // Offer Images Controller
     Route::get('offerImages/{offerID}', [OfferImagesController::class, 'getOfferImage']);

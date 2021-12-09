@@ -289,6 +289,7 @@
       :showingOffersModal="showingOffersModal"
       :closeOffersModal="closeOffersModal"
       :post="showingOffersData"
+      :showLighbox="showLighbox"
     />
 
     <!-- Reject Offer Modal -->

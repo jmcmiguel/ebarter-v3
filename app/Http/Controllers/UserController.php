@@ -62,7 +62,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $posts = Post::where('user_id', $id)->orderBy('updated_at','desc')->paginate(12);
-
+        
         $categories = Category::orderBy('id', 'asc')->get();
         $qtyType = QuantityType::orderBy('id', 'asc')->get();
 
@@ -133,6 +133,19 @@ class UserController extends Controller
 
             return Inertia::render('ModifyTypes',  ['categories' => $categories, 'qtyTypes' => $qtyType] );
             
+        }else{
+            return abort(403);
+        }
+    }
+
+    /**
+     * Displays the list of moderators
+     * 
+     * @return Inertia
+     */
+    public function viewModerators(){
+        if(Auth::user()->access_level && Auth::user()->access_level == 1){
+            return Inertia::render('ViewModerators');
         }else{
             return abort(403);
         }
