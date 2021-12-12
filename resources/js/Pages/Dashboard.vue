@@ -51,6 +51,7 @@
             :showLighbox="showLighbox"
             :categories="categories"
             :qtyTypes="qtyTypes"
+            :enlarge="showEnlargeModal"
           />
         </div>
       </div>
@@ -98,6 +99,23 @@
         />
       </svg>
     </fab>
+
+    <!-- Enlarge Post Modal -->
+    <enlarge-post-modal
+      :showLighbox="showLighbox"
+      :post="showingEnlargeModalData"
+      :showing="showingEnlargeModal"
+      :close="closeEnlargeModal"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
+      :showRatings="showFeedbacks"
+      :showEditPostModal="showEditPostModal"
+      :showOffersModal="showOffersModal"
+      :showDelete="showDeletePostModal"
+      :makeOffer="showMakeOfferModal"
+      :showAddToCart="addToCart"
+      :showReport="showReportModal"
+    />
 
     <!-- Add Post Modal -->
     <add-post-modal
@@ -183,6 +201,7 @@ import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 import ShowFeedbacksModal from "@/Components/ShowFeedbacksModal";
 import ReportModal from "@/Components/ReportModal";
 import VueEasyLighbox from "vue-easy-lightbox";
+import EnlargePostModal from "@/Components/EnlargePostModal";
 
 export default {
   components: {
@@ -201,6 +220,7 @@ export default {
     ShowFeedbacksModal,
     ReportModal,
     VueEasyLighbox,
+    EnlargePostModal,
   },
 
   props: ["posts", "categories", "qtyTypes"],
@@ -223,6 +243,8 @@ export default {
       showingLightbox: false,
       lightboxIndex: 0,
       lightboxImgs: "",
+      showingEnlargeModal: false,
+      showingEnlargeModalData: null,
     };
   },
 
@@ -235,6 +257,15 @@ export default {
   },
 
   methods: {
+    showEnlargeModal(post) {
+      this.showingEnlargeModalData = post;
+      this.showingEnlargeModal = true;
+    },
+
+    closeEnlargeModal() {
+      this.showingEnlargeModal = false;
+    },
+
     showLighbox(index, imgs) {
       this.lightboxImgs = imgs.map((img) => ({
         title: "",
