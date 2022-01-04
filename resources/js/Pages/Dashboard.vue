@@ -163,6 +163,8 @@
       :closeOffersModal="closeOffersModal"
       :post="showingOffersData"
       :showLighbox="showLighbox"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Show Feedbacks Modal -->

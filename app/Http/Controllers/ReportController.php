@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Report;
 use App\Models\Post;
 use App\Models\ReportImage;
+use App\Models\Category;
+use App\Models\QuantityType;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ReportController extends Controller
 {
@@ -38,14 +41,29 @@ class ReportController extends Controller
 
         }
 
-        $post = Post::find($request->reported_post_id);
-        $post->delete();
+        if($request->reported_post_id != 0){
+            $post = Post::find($request->reported_post_id);
+            $post->delete();
+        }
 
         $request->session()->flash('flash.bannerId', uniqid());
-        $request->session()->flash('flash.banner', 'Reported succesfully! For the mean time, you wont see it anymore');
+        $request->session()->flash('flash.banner', 'Reported succesfully! Administrators will review this report.');
         $request->session()->flash('flash.bannerStyle', 'success');
 
         return redirect()->back()
                     ->with('message', 'Reported Successfully.');
+    }
+
+    public function viewReports(Request $request){
+        if(Auth::user()->access_level && Auth::user()->access_level === 1){
+
+            $categories = Category::orderBy('id', 'asc')->get();
+            $qtyType = QuantityType::orderBy('id', 'asc')->get();
+            
+            return Inertia::render('ViewReports',  ['categories' => $categories, 'qtyTypes' => $qtyType] );
+            
+        }else{
+            return abort(403);
+        }
     }
 }

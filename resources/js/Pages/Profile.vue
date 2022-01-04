@@ -65,6 +65,7 @@
                 <div class="py-6 px-3 mt-32 sm:mt-0">
                   <button
                     v-if="$page.props.authUser.id != this.id"
+                    @click="showReportModal(0, this.id)"
                     class="
                       bg-red-500
                       active:bg-red-600
@@ -310,6 +311,8 @@
       :closeOffersModal="closeOffersModal"
       :post="showingOffersData"
       :showLighbox="showLighbox"
+      :categories="categories"
+      :qtyTypes="qtyTypes"
     />
 
     <!-- Reject Offer Modal -->

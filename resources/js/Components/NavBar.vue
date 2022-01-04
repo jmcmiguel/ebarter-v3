@@ -319,7 +319,7 @@
                     Modify Types
                   </jet-dropdown-link>
 
-                  <jet-dropdown-link :href="route('offersMade')">
+                  <jet-dropdown-link :href="route('viewReports')">
                     View Reports
                   </jet-dropdown-link>
 

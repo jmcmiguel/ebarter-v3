@@ -18,6 +18,8 @@
               :offer="postOffer"
               :showRejectOfferModal="showRejectOfferModal"
               :showLighbox="showLighbox"
+              :categories="categories"
+              :qtyTypes="qtyTypes"
             />
           </div>
         </div>
@@ -82,7 +84,14 @@ export default {
     LottieAnimation,
   },
 
-  props: ["showingOffersModal", "closeOffersModal", "post", "showLighbox"],
+  props: [
+    "showingOffersModal",
+    "closeOffersModal",
+    "post",
+    "showLighbox",
+    "categories",
+    "qtyTypes",
+  ],
 
   data() {
     return {
