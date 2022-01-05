@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function() {
     //Report Image Controller Routes
     Route::post('reportImg/process', [ReportImageController::class, 'store']);
     Route::post('reportImg/revert', [ReportImageController::class, 'revert']);
+    Route::get('reportImg/{reportID}', [ReportImageController::class, 'get']);
 
     // Post Image Controller Routes
     Route::post('postImg/process', [PostImageController::class, 'store']);

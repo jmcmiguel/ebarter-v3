@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ReportImage;
 
 class ReportImageController
  extends Controller
@@ -38,5 +39,15 @@ class ReportImageController
         \Storage::deleteDirectory('app/reportimgs/tmp/' . $filePath);
         return 'deleted' . storage_path('app/reportimgs/tmp/' . $filePath);
 
+    }
+
+    /**
+     * Get the images of a report 
+     * 
+     * @return JSON
+     */
+    public function get($reportID){
+        $reportImages = ReportImage::where('report_id', $reportID)->get();
+        return response()->json($reportImages);
     }
 }

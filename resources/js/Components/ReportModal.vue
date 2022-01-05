@@ -7,7 +7,9 @@
     </template>
 
     <template #content>
-      Please enter all the details required so we can process your report.
+      Please enter all the details required so we can process your report. It is
+      highly recommended to attach an image to make the report investigation
+      easier.
 
       <div class="mt-4 flex flex-col justify-center">
         <jet-label for="report_type" value="Report Type" />
