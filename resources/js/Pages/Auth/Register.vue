@@ -9,15 +9,41 @@
 
       <form @submit.prevent="submit">
         <div>
-          <jet-label for="name" value="Name" />
+          <jet-label for="fname" value="First Name" />
           <jet-input
-            id="name"
+            id="fname"
             type="text"
             class="mt-1 block w-full"
-            v-model="form.name"
+            v-model="form.fname"
             required
             autofocus
-            autocomplete="name"
+            autocomplete="fname"
+          />
+        </div>
+
+        <div>
+          <jet-label for="mname" value="Middle Name" />
+          <jet-input
+            id="mname"
+            type="text"
+            class="mt-1 block w-full"
+            v-model="form.mname"
+            required
+            autofocus
+            autocomplete="mname"
+          />
+        </div>
+
+        <div>
+          <jet-label for="lname" value="Last Name" />
+          <jet-input
+            id="lname"
+            type="text"
+            class="mt-1 block w-full"
+            v-model="form.lname"
+            required
+            autofocus
+            autocomplete="lname"
           />
         </div>
 
@@ -189,6 +215,9 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
+        mname: "",
+        lname: "",
+        fname: "",
         name: "",
         email: "",
         birthdate: "",
@@ -217,6 +246,13 @@ export default {
 
   methods: {
     submit() {
+      this.form.name =
+        this.form.fname +
+        " " +
+        this.form.mname.charAt(0) +
+        ". " +
+        this.form.lname;
+
       this.form.post(this.route("register"), {
         onFinish: () => this.form.reset("password", "password_confirmation"),
       });
