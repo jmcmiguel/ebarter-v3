@@ -18,6 +18,8 @@
           :convoID="offer.convo_id"
           :date="getDate(offer.created_at)"
           :status="offer.status"
+          :categories="categories"
+          :qtyTypes="qtyTypes"
         />
       </div>
 
@@ -51,7 +53,7 @@ import DateHelpers from "@utils/date-helpers";
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 
 export default {
-  props: ["offers"],
+  props: ["offers", "categories", "qtyTypes"],
 
   components: {
     AppLayout,

@@ -102,6 +102,9 @@ class UserController extends Controller
      */
     public function getTransactionHistory (Request $request){
 
+        $categories = Category::orderBy('id', 'asc')->get();
+        $qtyType = QuantityType::orderBy('id', 'asc')->get();
+
         $posts = Post::where('user_id', Auth::user()->id)
                 ->orderBy('updated_at', 'desc')
                 ->get();
@@ -117,7 +120,10 @@ class UserController extends Controller
                 ? Offer::where('id', '<', 0)->paginate(12)
                 : $offerss->customPaginate(12)->withQueryString();
 
-        return Inertia::render('TransactionHistory', ['offers' => $offers]);
+        return Inertia::render('TransactionHistory', 
+            ['offers' => $offers,
+            'categories' => $categories,
+            'qtyTypes' => $qtyType]);
     }
 
     /**
