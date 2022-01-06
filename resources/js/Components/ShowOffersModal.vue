@@ -133,7 +133,9 @@ export default {
     },
 
     async getPostOffers() {
-      this.postOffers = await OfferServices.getPostOffers(this.post.id);
+      if (this.post && this.post.id) {
+        this.postOffers = await OfferServices.getPostOffers(this.post.id);
+      }
     },
   },
 

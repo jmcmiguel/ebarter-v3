@@ -172,6 +172,14 @@
       :show="showingFeedbacksModal"
       :close="closeFeedbacksModal"
       :feedbacks="feedbacks"
+      @show-edit-feedback-modal="showEditFeedbackModal"
+    />
+
+    <!-- Edit Feedback Modal -->
+    <edit-feedback-modal
+      :showing="showingEditFeedbackModal"
+      :close="closeEditFeedbackModal"
+      :feedback="showingEditFeedbackModalData"
     />
 
     <!-- Post Images Lightbox -->
@@ -204,6 +212,7 @@ import ShowFeedbacksModal from "@/Components/ShowFeedbacksModal";
 import ReportModal from "@/Components/ReportModal";
 import VueEasyLighbox from "vue-easy-lightbox";
 import EnlargePostModal from "@/Components/EnlargePostModal";
+import EditFeedbackModal from "@/Components/EditFeedbackModal";
 
 export default {
   components: {
@@ -223,6 +232,7 @@ export default {
     ReportModal,
     VueEasyLighbox,
     EnlargePostModal,
+    EditFeedbackModal,
   },
 
   props: ["posts", "categories", "qtyTypes"],
@@ -247,6 +257,8 @@ export default {
       lightboxImgs: "",
       showingEnlargeModal: false,
       showingEnlargeModalData: null,
+      showingEditFeedbackModal: false,
+      showingEditFeedbackModalData: null,
     };
   },
 
@@ -259,6 +271,16 @@ export default {
   },
 
   methods: {
+    showEditFeedbackModal(feedback) {
+      this.closeFeedbacksModal();
+      this.showingEditFeedbackModalData = feedback;
+      this.showingEditFeedbackModal = true;
+    },
+
+    closeEditFeedbackModal() {
+      this.showingEditFeedbackModal = false;
+    },
+
     showEnlargeModal(post) {
       this.showingEnlargeModalData = post;
       this.showingEnlargeModal = true;

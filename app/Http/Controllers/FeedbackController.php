@@ -123,9 +123,20 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'rating' => ['required', 'numeric', 'gt:0'],
+        ])->validate();
+
+        Feedback::where('id',$request['feedback']['id'])->update(['amount' => $request->rating, 'description' => $request->feedbackMessage]);
+
+        $request->session()->flash('flash.bannerId', uniqid());
+        $request->session()->flash('flash.banner', 'Feedback Updated!');
+        $request->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->back()
+                    ->with('message', 'Feedback Updated Succesfully.');
     }
 
     /**

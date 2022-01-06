@@ -106,6 +106,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Feedback Controller
     Route::resource('feedback', FeedbackController::class);
+    Route::put('feedback/edit', [FeedbackController::class, 'update']);
     Route::get('getFeedback/{postID}', [FeedbackController::class, 'getFeedback']);
     Route::get('getUserFeedbacks/{userID}', [FeedbackController::class, 'getUserFeedbacks']);
     Route::get('getAllFeedback/{userID}', [FeedbackController::class, 'getAllFeedback']);
