@@ -269,5 +269,16 @@ class OfferController extends Controller
         return response()->json($offer[0]);
 
     }
+
+    /**
+     * Gets the count of Offers
+     * 
+     * @return Integer
+     */
+    public function getOfferCount($postID){
+        $count = Offer::where('post_id',  $postID)->get()->count();
+
+        return $count;
+    }
     
 }

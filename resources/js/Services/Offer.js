@@ -54,10 +54,21 @@ const getOfferOfAuthUser = async (postID, otherUserID) => {
     }
 };
 
+const getOfferCount = async (postID) => {
+    try {
+        const request = axios.get(`/getOfferCount/${postID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export default {
     checkIfOfferAlreadyExists,
     getPostOffers,
     acceptOffer,
     getOffer,
     getOfferOfAuthUser,
+    getOfferCount,
 };

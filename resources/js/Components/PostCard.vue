@@ -256,6 +256,7 @@
           <dropup align="right" width="48" popupPosition="right-0">
             <template #trigger>
               <button
+                @click="getOfferCounts()"
                 class="
                   relative
                   z-10
@@ -310,6 +311,23 @@
                   as="button"
                 >
                   View Offers
+                  <span
+                    v-if="offersCount"
+                    class="
+                      text-xs
+                      badge
+                      mb-3
+                      bg-red-600
+                      rounded-full
+                      px-2
+                      py-1
+                      text-center
+                      object-right-top
+                      text-white text-sm
+                      mr-1
+                    "
+                    >{{ offersCount }}</span
+                  >
                 </jet-dropdown-link>
               </div>
 
@@ -416,6 +434,7 @@ export default {
       feedback: [],
       index: 0,
       visible: false,
+      offersCount: 0,
     };
   },
 
@@ -557,6 +576,10 @@ export default {
       );
     },
 
+    async getOfferCounts() {
+      this.offersCount = await OfferServices.getOfferCount(this.id);
+    },
+
     async getPostImages() {
       const postImages = await PostImageServices.get(this.id);
 
@@ -588,6 +611,8 @@ export default {
     this.getPostImages();
 
     this.getFeedback();
+
+    this.getOfferCounts();
   },
 };
 </script>
