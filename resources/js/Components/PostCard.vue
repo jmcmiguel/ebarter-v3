@@ -256,7 +256,6 @@
           <dropup align="right" width="48" popupPosition="right-0">
             <template #trigger>
               <button
-                @click="getOfferCounts()"
                 class="
                   relative
                   z-10
@@ -286,6 +285,27 @@
                   />
                 </svg>
               </button>
+
+              <span
+                v-if="offersCount"
+                class="
+                  absolute
+                  text-xs
+                  badge
+                  bg-red-600
+                  rounded-full
+                  px-2
+                  py-1
+                  text-center
+                  object-right-top
+                  text-white text-sm
+                  ml-6
+                  mb-6
+                  -mt-3
+                  z-10
+                "
+                >{{ offersCount }}</span
+              >
             </template>
 
             <template #content>
@@ -311,23 +331,6 @@
                   as="button"
                 >
                   View Offers
-                  <span
-                    v-if="offersCount"
-                    class="
-                      text-xs
-                      badge
-                      mb-3
-                      bg-red-600
-                      rounded-full
-                      px-2
-                      py-1
-                      text-center
-                      object-right-top
-                      text-white text-sm
-                      mr-1
-                    "
-                    >{{ offersCount }}</span
-                  >
                 </jet-dropdown-link>
               </div>
 
@@ -612,7 +615,9 @@ export default {
 
     this.getFeedback();
 
-    this.getOfferCounts();
+    this.polling = setInterval(() => {
+      this.getOfferCounts();
+    }, 1000);
   },
 };
 </script>
