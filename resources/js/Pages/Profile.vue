@@ -53,10 +53,7 @@
                     style="max-width: 150px; max-height: 150px"
                   />
                   <svg
-                    v-if="
-                      $page.props.authUser.access_level == 2 ||
-                      $page.props.authUser.access_level == 3
-                    "
+                    v-if="isAdmin()"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     class="
@@ -469,6 +466,16 @@ export default {
   },
 
   methods: {
+    isAdmin() {
+      if (this.user && this.user.access_level) {
+        if (this.user.access_level == 1 || this.user.access_level == 2) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+
     showEditFeedbackModal(feedback) {
       this.closeFeedbacksModal();
       this.showingEditFeedbackModalData = feedback;

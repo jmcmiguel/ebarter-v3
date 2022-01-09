@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function getUser($id){
         $user = User::find($id);
-        $filtered = $user->only(['name','city', 'profile_photo_path', 'id', 'contact_number', 'email','bio']);
+        $filtered = $user->only(['name','city', 'profile_photo_path', 'id', 'contact_number', 'email','bio', 'access_level']);
         return response()->json($filtered);
     }
 
