@@ -53,6 +53,10 @@
                     style="max-width: 150px; max-height: 150px"
                   />
                   <svg
+                    v-if="
+                      $page.props.authUser.access_level == 2 ||
+                      $page.props.authUser.access_level == 3
+                    "
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     class="
