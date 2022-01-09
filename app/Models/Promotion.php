@@ -9,12 +9,12 @@ class Promotion extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'promoted_to', 'promoted_by',
+        'user_id', 'promoted_to', 'promoted_by',
     ];
 }

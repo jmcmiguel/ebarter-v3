@@ -10,6 +10,7 @@ use App\Models\Conversation;
 use App\Models\Barter;
 use App\Models\Category;
 use App\Models\QuantityType;
+use App\Models\Promotion;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -176,7 +177,74 @@ class UserController extends Controller
      */
     public function viewModerators(){
         if(Auth::user()->access_level && Auth::user()->access_level == 1){
-            return Inertia::render('ViewModerators');
+
+            $moderators = User::where('access_level', 2)->get();
+
+            $promotions = Promotion::latest()->get();
+
+            return Inertia::render('ViewModerators',['moderators' => $moderators, 'promotions' => $promotions]);
+        }else{
+            return abort(403);
+        }
+    }
+
+    /**
+     * Promote or Demote a user
+     * 
+     * @return Redirect
+     */
+    public function setPromotion(Request $request){
+        if(Auth::user()->access_level && Auth::user()->access_level == 1){
+            Validator::make($request->all(), [
+                'user_id' => ['required', 'numeric'],
+                'promoted_to' => ['required', 'numeric'],
+            ])->validate();
+            
+            // Insert promotion record to database
+            Promotion::create([
+                'user_id' => $request->user_id,
+                'promoted_to' => $request->promoted_to,
+                'promoted_by' => Auth::user()->id,
+            ]);
+            
+
+            // If user is demoted, clear access level
+            // Otherwise, set access level
+            if($request->promoted_to > 2){
+                User::where('id', $request->user_id)->update([
+                    'access_level' => null
+                ]);
+            }else if($request->promoted_to <= 2){
+                User::where('id', $request->user_id)->update([
+                    'access_level' => $request->promoted_to,
+                ]);
+            }
+
+            $request->session()->flash('flash.bannerId', uniqid());
+            $request->session()->flash('flash.banner', 'Added Moderator!');
+            $request->session()->flash('flash.bannerStyle', 'success');
+    
+            return redirect()->back()
+                        ->with('message', 'Added Moderator Succesfully.');
+            
+
+        }else{
+            return abort(403);
+        }
+    }
+
+    /**
+     * Get a user's promotion
+     * 
+     * @return JSON
+     */
+    public function getPromotion(Request $request, $id){
+        if(Auth::user()->access_level && Auth::user()->access_level == 1){
+            $promoter = Promotion::where('user_id', $id)
+            ->latest()
+            ->first();
+
+            return response()->json($promoter);
         }else{
             return abort(403);
         }

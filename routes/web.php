@@ -91,6 +91,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('user/{id}', [UserController::class, 'getUser']);
     Route::get('currentUser', [UserController::class, 'getCurrentUser']);
     Route::get('name/{id}', [UserController::class, 'getName']);
+    Route::post('promotion', [UserController::class, 'setPromotion']);
+    Route::get('promotion/{id}', [UserController::class, 'getPromotion']);
 
     // Admin Routes
     Route::get('modifyTypes', [UserController::class, 'modifyTypes'])->name('modifyTypes');

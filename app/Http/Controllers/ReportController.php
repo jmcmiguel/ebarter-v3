@@ -53,7 +53,7 @@ class ReportController extends Controller
     }
 
     public function viewReports(Request $request){
-        if(Auth::user()->access_level && Auth::user()->access_level === 1){
+        if(Auth::user()->access_level && Auth::user()->access_level === 1 || Auth::user()->access_level === 2){
 
             $reports = Report::orderBy('id', 'desc')->get();
 

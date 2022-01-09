@@ -310,20 +310,35 @@
                 <div class="border-t border-gray-100"></div>
 
                 <!-- Admin Management -->
-                <div v-if="$page.props.user.access_level === 1">
-                  <div class="block px-4 py-2 text-xs text-gray-400">
+                <div>
+                  <div
+                    v-if="$page.props.user.access_level === 1"
+                    class="block px-4 py-2 text-xs text-gray-400"
+                  >
                     Admin Management
                   </div>
 
-                  <jet-dropdown-link :href="route('modifyTypes')">
+                  <jet-dropdown-link
+                    v-if="$page.props.user.access_level === 1"
+                    :href="route('modifyTypes')"
+                  >
                     Modify Types
                   </jet-dropdown-link>
 
-                  <jet-dropdown-link :href="route('viewReports')">
+                  <jet-dropdown-link
+                    v-if="
+                      $page.props.user.access_level === 1 ||
+                      $page.props.user.access_level === 2
+                    "
+                    :href="route('viewReports')"
+                  >
                     View Reports
                   </jet-dropdown-link>
 
-                  <jet-dropdown-link :href="route('viewModerators')">
+                  <jet-dropdown-link
+                    v-if="$page.props.user.access_level === 1"
+                    :href="route('viewModerators')"
+                  >
                     View Moderators
                   </jet-dropdown-link>
                 </div>
