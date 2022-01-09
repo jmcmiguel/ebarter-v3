@@ -90,7 +90,7 @@ export default {
     getProfilePhoto(user) {
       if (user) {
         if (user.profile_photo_path) {
-          return "/storage/" + photo;
+          return "/storage/" + user.profile_photo_path;
         } else {
           return `https://ui-avatars.com/api/?name=${user.name}&color=059669&background=ECFDF5`;
         }
