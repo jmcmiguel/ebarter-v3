@@ -102,6 +102,9 @@ class UserController extends Controller
      */
     public function getTransactionHistory (Request $request){
 
+        // Check existence of search params
+        $transactionType = isset($request->query()['category']) ? $request->query()['category'] : null;
+
         $categories = Category::orderBy('id', 'asc')->get();
         $qtyType = QuantityType::orderBy('id', 'asc')->get();
 
@@ -119,6 +122,28 @@ class UserController extends Controller
         $offers = $offerss->isEmpty() 
                 ? Offer::where('id', '<', 0)->paginate(12)
                 : $offerss->customPaginate(12)->withQueryString();
+
+        if($offers && $transactionType){
+
+            $type;
+
+            if($transactionType == 'success'){
+                $type = 'sold';
+            }else if($transactionType == 'negotiating'){
+                $type = 'negotiating';
+            }else if($transactionType == 'rejected'){
+                $type = 'rejected';
+            }else if($transactionType == 'pending'){
+                $type = null;
+            }else if($transactionType == 'deleted'){
+                $type = 'post deleted';
+            }
+
+            $offers = $offers->filter(function ($offer, $key) use($type){
+                return $offer->status == $type;
+            })->customPaginate(12)->withQueryString();
+
+        }
 
         return Inertia::render('TransactionHistory', 
             ['offers' => $offers,
