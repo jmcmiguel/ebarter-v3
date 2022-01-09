@@ -32,4 +32,20 @@ const getName = async (userID) => {
     }
 };
 
-export default { getUser, getAuthUser, getEncryptedUserId, getName };
+const getPromotion = async (userID) => {
+    try {
+        const request = axios.get(`/promotion/${userID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export default {
+    getUser,
+    getAuthUser,
+    getEncryptedUserId,
+    getName,
+    getPromotion,
+};
