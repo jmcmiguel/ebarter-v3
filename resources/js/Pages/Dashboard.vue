@@ -214,6 +214,7 @@ import VueEasyLighbox from "vue-easy-lightbox";
 import EnlargePostModal from "@/Components/EnlargePostModal";
 import EditFeedbackModal from "@/Components/EditFeedbackModal";
 import OfferServices from "@services/Offer";
+import MessageServices from "@services/Message";
 
 export default {
   components: {
@@ -261,6 +262,7 @@ export default {
       showingEditFeedbackModal: false,
       showingEditFeedbackModalData: null,
       receivedOffers: null,
+      newMessages: null,
     };
   },
 
@@ -270,6 +272,7 @@ export default {
     // Get Offers every 3 second
     this.polling = setInterval(() => {
       this.getReceivedOffers();
+      this.getNewMessages();
     }, 5000);
   },
 
@@ -279,8 +282,32 @@ export default {
   },
 
   methods: {
+    async getNewMessages() {
+      // If New Messages is empty, fetch messages
+      if (!this.newMessages) {
+        this.newMessages = await MessageServices.getMessagesOfUser();
+      }
+
+      // Else if messages is not empty check for new messages
+      // if there is new messages, send notification
+      else if (this.newMessages) {
+        const retrievedMessages = await MessageServices.getMessagesOfUser();
+
+        if (
+          retrievedMessages &&
+          retrievedMessages.length > this.newMessages.length
+        ) {
+          const latestMessage = retrievedMessages[retrievedMessages.length - 1];
+
+          this.notifyMe("New Message ", `${latestMessage.content}`);
+
+          this.newMessages = latestMessage;
+        }
+      }
+    },
+
     async getReceivedOffers() {
-      // If Received Offers is empty fetch received offers
+      // If Received Offers is empty, fetch received offers
       if (!this.receivedOffers) {
         this.receivedOffers = await OfferServices.getOfferToUser(
           this.$page.props.authUser.id

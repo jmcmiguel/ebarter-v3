@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('messages/{convoID}', [MessageController::class, 'getMessages']);
     Route::get('lastMessage/{convoID}', [MessageController::class, 'getLastMessage']);
     Route::post('msgImg/process', [MessageController::class, 'storeImage']);   
+    Route::get('getMessagesOfUser', [MessageController::class, 'getMessagesOfUser']);
     
     // Conversation Controller Routes
     Route::get('conversation/{convoID}', [ConversationController::class, 'getConversation']);

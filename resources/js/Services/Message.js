@@ -12,4 +12,10 @@ const getLastMessage = async (convoID) => {
     return response.data;
 };
 
-export default { getMessages, getLastMessage };
+const getMessagesOfUser = async () => {
+    const request = axios.get(`/getMessagesOfUser`);
+    const response = await request;
+    return response.data;
+};
+
+export default { getMessages, getLastMessage, getMessagesOfUser };

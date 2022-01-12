@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Conversation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Events\NewChatMessage;
 
 class MessageController extends Controller
@@ -146,5 +148,25 @@ class MessageController extends Controller
         broadcast(new NewChatMessage($newMessage));
         
         return '';
+    }
+
+    /**
+     * Get Messages of User
+     * 
+     * @return JSON
+     */
+    public function getMessagesOfUser(){
+
+        $conversations = Conversation::where('sender_user_id', Auth::user()->id)
+                                ->orWhere('receiver_user_id', Auth::user()->id)
+                                ->get();
+        
+        $conversations->transform(function ($conversation, $key) {
+            return $conversation->id;
+        });
+        
+        $messages = Message::whereIn('convo_id', $conversations)->get();
+        
+        return $messages;
     }
 }
