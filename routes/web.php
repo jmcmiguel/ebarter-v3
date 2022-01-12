@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('getOffer/{offerID}', [OfferController::class, 'get']);
     Route::get('getOfferOfAuthUser/{postID}/{otherUserID}', [OfferController::class, 'getOfferOfAuthUser']);
     Route::get('getOfferCount/{postID}', [OfferController::class, 'getOfferCount']);
+    Route::get('getOfferToUser/{userID}', [OfferController::class, 'getOfferToUser']);
 
     // Message Controller Routes
     Route::resource('message', MessageController::class);

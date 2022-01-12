@@ -620,5 +620,9 @@ export default {
       this.getOfferCounts();
     }, 1000);
   },
+
+  unmounted(){
+    clearInterval(this.polling);
+  }
 };
 </script>

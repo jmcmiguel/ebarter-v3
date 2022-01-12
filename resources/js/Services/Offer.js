@@ -64,6 +64,16 @@ const getOfferCount = async (postID) => {
     }
 };
 
+const getOfferToUser = async (userID) => {
+    try {
+        const request = axios.get(`/getOfferToUser/${userID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export default {
     checkIfOfferAlreadyExists,
     getPostOffers,
@@ -71,4 +81,5 @@ export default {
     getOffer,
     getOfferOfAuthUser,
     getOfferCount,
+    getOfferToUser,
 };

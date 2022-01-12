@@ -280,5 +280,23 @@ class OfferController extends Controller
 
         return $count;
     }
+
+    /**
+     * Get offers targeted to a user
+     * 
+     * @return JSON
+     */
+    public function getOfferToUser($userID){
+
+        $posts = Post::where('user_id', Auth::user()->id)->get();
+        
+        $posts->transform(function ($post, $key) {
+            return $post->id;
+        });
+
+        $offers = Offer::whereIn('post_id', $posts)->get();
+
+        return response()->json($offers);
+    }
     
 }

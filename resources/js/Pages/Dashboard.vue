@@ -213,6 +213,7 @@ import ReportModal from "@/Components/ReportModal";
 import VueEasyLighbox from "vue-easy-lightbox";
 import EnlargePostModal from "@/Components/EnlargePostModal";
 import EditFeedbackModal from "@/Components/EditFeedbackModal";
+import OfferServices from "@services/Offer";
 
 export default {
   components: {
@@ -259,18 +260,77 @@ export default {
       showingEnlargeModalData: null,
       showingEditFeedbackModal: false,
       showingEditFeedbackModalData: null,
+      receivedOffers: null,
     };
   },
 
   created() {
     window.addEventListener("scroll", this.hideFabOnBottom);
+
+    // Get Offers every 3 second
+    this.polling = setInterval(() => {
+      this.getReceivedOffers();
+    }, 5000);
   },
 
   unmounted() {
     window.removeEventListener("scroll", this.hideFabOnBottom);
+    clearInterval(this.polling);
   },
 
   methods: {
+    async getReceivedOffers() {
+      // If Received Offers is empty fetch received offers
+      if (!this.receivedOffers) {
+        this.receivedOffers = await OfferServices.getOfferToUser(
+          this.$page.props.authUser.id
+        );
+      }
+
+      // Else if Received Offers is not empty check for new offers
+      // if there is new offers, send notification
+      else if (this.receivedOffers) {
+        const newOffers = await OfferServices.getOfferToUser(
+          this.$page.props.authUser.id
+        );
+
+        if (newOffers && newOffers.length > this.receivedOffers.length) {
+          const latestOffer = newOffers[newOffers.length - 1];
+
+          this.notifyMe("New Offer ", `Product Name: ${latestOffer.prod_name}`);
+
+          this.receivedOffers = newOffers;
+        }
+      }
+    },
+
+    notifyMe(title, desc) {
+      // check if the browser supports notifications
+      if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+      }
+
+      // check whether notification permissions have already been granted
+      else if (Notification.permission === "granted") {
+        var notification = new Notification(title, {
+          body: desc,
+          icon: "/img/logo1.webp",
+        });
+      }
+
+      // Otherwise, ask the user for permission
+      else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(function (permission) {
+          if (permission === "granted") {
+            var notification = new Notification(title, {
+              body: desc,
+              icon: "/img/logo1.webp",
+            });
+          }
+        });
+      }
+    },
+
     showEditFeedbackModal(feedback) {
       this.closeFeedbacksModal();
       this.showingEditFeedbackModalData = feedback;
