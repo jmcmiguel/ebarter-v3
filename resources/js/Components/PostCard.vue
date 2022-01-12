@@ -288,7 +288,7 @@
               </button>
 
               <span
-                v-if="offersCount && authUser.id == id"
+                v-if="offersCount && authUser.id == user.id"
                 class="
                   absolute
                   text-xs
