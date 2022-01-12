@@ -288,7 +288,7 @@
               </button>
 
               <span
-                v-if="offersCount"
+                v-if="offersCount && authUser.id == id"
                 class="
                   absolute
                   text-xs
@@ -621,8 +621,8 @@ export default {
     }, 1000);
   },
 
-  unmounted(){
+  unmounted() {
     clearInterval(this.polling);
-  }
+  },
 };
 </script>
