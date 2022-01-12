@@ -273,7 +273,7 @@ export default {
     this.polling = setInterval(() => {
       this.getReceivedOffers();
       this.getNewMessages();
-    }, 5000);
+    }, 3000);
   },
 
   unmounted() {
@@ -301,7 +301,7 @@ export default {
 
           this.notifyMe("New Message ", `${latestMessage.content}`);
 
-          this.newMessages = latestMessage;
+          this.newMessages = retrievedMessages;
         }
       }
     },
