@@ -230,7 +230,8 @@
 
     <template #footer>
       <jet-secondary-button @click="close"> Cancel </jet-secondary-button>
-      <jet-button class="ml-2"> Report </jet-button>
+      <jet-button class="ml-2"> Absolve </jet-button>
+      <danger-button class="ml-2"> Ban </danger-button>
     </template>
   </jet-dialog-modal>
 </template>
@@ -238,6 +239,7 @@
 <script>
 import JetDialogModal from "@/Jetstream/DialogModal";
 import JetButton from "@/Jetstream/Button";
+import DangerButton from "@/Jetstream/DangerButton";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
@@ -255,6 +257,7 @@ export default {
     VueperSlides,
     VueperSlide,
     PostCard,
+    DangerButton,
   },
 
   props: ["showing", "close", "data"],

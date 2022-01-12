@@ -131,12 +131,13 @@
           >Expiree</span
         >
 
-        <h2 class="mt-2 mb-2 text-xl font-bold">{{ title }}</h2>
+        <h2 class="mt-2 mb-2 text-xl font-bold" v-snip:css="1">{{ title }}</h2>
 
-        <p class="text-sm">{{ description }}</p>
+        <p class="text-sm" v-snip:css="1">{{ description }}</p>
 
         <div class="mt-3 flex items-center">
           <span class="text-sm font-semibold">Preferred Item: </span>&nbsp;<span
+            v-snip:css="1"
             class="font-bold"
           >
             {{ preferredItem }}
