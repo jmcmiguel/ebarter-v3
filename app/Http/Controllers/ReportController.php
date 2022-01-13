@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Report;
 use App\Models\Post;
 use App\Models\ReportImage;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -58,6 +59,67 @@ class ReportController extends Controller
             $reports = Report::orderBy('id', 'desc')->get();
 
             return Inertia::render('ViewReports',  ['reports' => $reports] );
+            
+        }else{
+            return abort(403);
+        }
+    }
+
+    /**
+     * Absolve a report
+     * 
+     * @return JSON
+     */
+    public function absolve(Request $request){
+        if(Auth::user()->access_level && Auth::user()->access_level === 1 || Auth::user()->access_level === 2){
+            $report = Report::where('id', $request->report['id'])
+                            ->update([
+                                'action_taken' => 'Absolved',
+                                'is_resolved' => true,
+                                'mod_assigned' => Auth::user()->id,
+                            ]);
+
+            $request->session()->flash('flash.bannerId', uniqid());
+            $request->session()->flash('flash.banner', 'User has been absolved.');
+            $request->session()->flash('flash.bannerStyle', 'success');
+    
+            return redirect()->back()
+                        ->with('message', 'Report Resolved.');
+        }else{
+            return abort(403);
+        }
+    }
+    
+    /**
+     * Ban a report
+     * 
+     * @return JSON
+     */
+    public function ban(Request $request){
+        if(Auth::user()->access_level && Auth::user()->access_level === 1 || Auth::user()->access_level === 2){
+
+            $report = Report::where('id', $request->report['id'])
+                            ->update([
+                                'action_taken' => 'Banned',
+                                'is_resolved' => true,
+                                'mod_assigned' => Auth::user()->id,
+                            ]);
+            
+            //If a post is reported, delete post
+            if($request->report['reported_post_id']){
+                Post::where('id', $request->report['reported_post_id'])->delete();
+            }else if($request->report['reported_user_id']){
+                User::where('id', $request->report['reported_user_id'])->update([
+                    'password' => 'qwerty' //to disable a user
+                ]);
+            }
+
+            $request->session()->flash('flash.bannerId', uniqid());
+            $request->session()->flash('flash.banner', 'User has been reprimanded');
+            $request->session()->flash('flash.bannerStyle', 'success');
+    
+            return redirect()->back()
+                        ->with('message', 'Report Resolved.');
             
         }else{
             return abort(403);

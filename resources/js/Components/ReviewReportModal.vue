@@ -93,7 +93,7 @@
             >{{ getReportCategory(reportData.report_type) }}</span
           >
 
-          <span
+          <!-- <span
             class="
               inline-block
               px-2
@@ -108,7 +108,7 @@
               tracking-wide
               text-xs
             "
-            >{{ getOffenseLevel(reportData) }}</span
+            >{{ getOffenseLevel(reportData) }}</span -->
           >
 
           <!-- Report Description -->
@@ -188,6 +188,19 @@
             </span>
           </div>
 
+          <!-- Action Taken -->
+          <div class="mt-1 flex items-center">
+            <span class="text-sm font-semibold">Action Taken: </span>&nbsp;<span
+              class="font-semibold"
+            >
+              {{
+                reportData && reportData.action_taken
+                  ? reportData.action_taken
+                  : "N/A"
+              }}
+            </span>
+          </div>
+
           <!-- Reported Post -->
           <div
             v-if="reportedPost && reportedPost.id"
@@ -230,8 +243,12 @@
 
     <template #footer>
       <jet-secondary-button @click="close"> Cancel </jet-secondary-button>
-      <jet-button class="ml-2"> Absolve </jet-button>
-      <danger-button class="ml-2"> Ban </danger-button>
+      <jet-button class="ml-2" v-if="!reportData.is_resolved" @click="absolve">
+        Absolve
+      </jet-button>
+      <danger-button class="ml-2" v-if="!reportData.is_resolved" @click="ban">
+        Ban
+      </danger-button>
     </template>
   </jet-dialog-modal>
 </template>
@@ -269,6 +286,9 @@ export default {
       reportImages: null,
       reporter: null,
       reportedPost: null,
+      form: this.$inertia.form({
+        report: null,
+      }),
     };
   },
 
@@ -309,6 +329,32 @@ export default {
   },
 
   methods: {
+    ban() {
+      this.form.report = this.reportData;
+
+      this.form.post("/report/ban", {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.form.reset();
+          this.close();
+        },
+        onFinish: () => this.form.reset(),
+      });
+    },
+
+    absolve() {
+      this.form.report = this.reportData;
+
+      this.form.post("/report/absolve", {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.form.reset();
+          this.close();
+        },
+        onFinish: () => this.form.reset(),
+      });
+    },
+
     getTimeAgo(date) {
       return DateHelpers.getTimeAgo(date);
     },

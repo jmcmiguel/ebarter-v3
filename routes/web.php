@@ -63,6 +63,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Report Controller Routes
     Route::post('report/store', [ReportController::class, 'store']);
+    Route::post('report/absolve', [ReportController::class, 'absolve']);
+    Route::post('report/ban', [ReportController::class, 'ban']);
     
     // Cart Controller Routes
     Route::resource('cart', CartController::class);
