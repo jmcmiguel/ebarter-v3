@@ -109,11 +109,13 @@ class ReportController extends Controller
             if($request->report['reported_post_id']){
                 Post::where('id', $request->report['reported_post_id'])->delete();
             }else if($request->report['reported_user_id']){
+                $reportedUser = User::find($request->report['reported_user_id']);
+
                 User::where('id', $request->report['reported_user_id'])->update([
-                    'password' => 'qwerty' //to disable a user
+                    'password' => 'qwerty', //to disable a user
+                    'email' => 'banned_' + $reportedUser->email,
                 ]);
 
-                $reportedUser = User::find($request->report['reported_user_id']);
                 app(MailController::class)->sendEmail($reportedUser->email);
             }
 
