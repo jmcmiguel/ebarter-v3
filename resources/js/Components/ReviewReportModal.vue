@@ -109,7 +109,6 @@
               text-xs
             "
             >{{ getOffenseLevel(reportData) }}</span -->
-          >
 
           <!-- Report Description -->
           <p class="text-sm mt-3">{{ reportData.description }}</p>

@@ -102,6 +102,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('modifyTypes', [UserController::class, 'modifyTypes'])->name('modifyTypes');
     Route::get('viewModerators', [UserController::class, 'viewModerators'])->name('viewModerators');
     Route::get('viewReports', [ReportController::class, 'viewReports'])->name('viewReports');
+    Route::get('send-email/{email}', [MailController::class, 'sendEmail']);
  
     // Offer Images Controller
     Route::get('offerImages/{offerID}', [OfferImagesController::class, 'getOfferImage']);

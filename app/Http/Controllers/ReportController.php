@@ -112,11 +112,15 @@ class ReportController extends Controller
                 User::where('id', $request->report['reported_user_id'])->update([
                     'password' => 'qwerty' //to disable a user
                 ]);
+
+                $reportedUser = User::find($request->report['reported_user_id']);
+                app(MailController::class)->sendEmail($reportedUser->email);
             }
 
             $request->session()->flash('flash.bannerId', uniqid());
             $request->session()->flash('flash.banner', 'User has been reprimanded');
             $request->session()->flash('flash.bannerStyle', 'success');
+
     
             return redirect()->back()
                         ->with('message', 'Report Resolved.');
