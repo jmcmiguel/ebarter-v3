@@ -245,11 +245,41 @@
       <jet-button class="ml-2" v-if="!reportData.is_resolved" @click="absolve">
         Absolve
       </jet-button>
-      <danger-button class="ml-2" v-if="!reportData.is_resolved" @click="ban">
+      <danger-button
+        class="ml-2"
+        v-if="!reportData.is_resolved"
+        @click="showConfirmBan"
+      >
         Ban
       </danger-button>
     </template>
   </jet-dialog-modal>
+
+  <!-- Cancel Offer Modal -->
+  <confirmation-modal :show="showingConfirmBan" class="z-50">
+    <template #title>
+      <h2>Ban User</h2>
+    </template>
+
+    <template #content>
+      <p>Are you sure you want to ban this user?</p>
+    </template>
+
+    <template #footer>
+      <jet-secondary-button @click="closeConfirmBan">
+        Cancel
+      </jet-secondary-button>
+
+      <danger-button
+        class="ml-2"
+        @click="ban()"
+        :class="{ 'opacity-25': form.processing }"
+        :disabled="form.processing"
+      >
+        Ban
+      </danger-button>
+    </template>
+  </confirmation-modal>
 </template>
 
 <script>
@@ -264,6 +294,7 @@ import UserServices from "@/Services/User";
 import PostServices from "@/Services/Post";
 import DateHelpers from "@utils/date-helpers";
 import PostCard from "@/Components/PostCard";
+import ConfirmationModal from "@/Jetstream/ConfirmationModal";
 
 export default {
   components: {
@@ -274,6 +305,7 @@ export default {
     VueperSlide,
     PostCard,
     DangerButton,
+    ConfirmationModal,
   },
 
   props: ["showing", "close", "data"],
@@ -282,6 +314,7 @@ export default {
 
   data() {
     return {
+      showingConfirmBan: false,
       reportImages: null,
       reporter: null,
       reportedPost: null,
@@ -328,6 +361,14 @@ export default {
   },
 
   methods: {
+    showConfirmBan() {
+      this.showingConfirmBan = true;
+    },
+
+    closeConfirmBan() {
+      this.showingConfirmBan = false;
+    },
+
     ban() {
       this.form.report = this.reportData;
 
@@ -337,7 +378,10 @@ export default {
           this.form.reset();
           this.close();
         },
-        onFinish: () => this.form.reset(),
+        onFinish: () => {
+          this.form.reset();
+          this.closeConfirmBan();
+        },
       });
     },
 
