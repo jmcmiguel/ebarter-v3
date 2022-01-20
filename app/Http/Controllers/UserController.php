@@ -269,4 +269,13 @@ class UserController extends Controller
             return abort(403);
         }
     }
+
+    /**
+     * Give appeal for reported users
+     * 
+     * @return JSON
+     */
+    public function appeal(Request $request){
+        return Inertia::render('Appeal');
+    }
 }

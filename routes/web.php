@@ -37,6 +37,8 @@ Route::group([], function() {
             'canRegister' => Route::has('register'),
         ]);
     })->name('welcome');
+
+    Route::get('appeal', [UserController::class, 'appeal']);
 });
 
 Route::group(['middleware' => 'auth'], function() {

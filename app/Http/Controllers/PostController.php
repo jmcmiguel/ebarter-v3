@@ -88,7 +88,6 @@ class PostController extends Controller
             'date_produced' => ['required','date','before_or_equal:today'], // only accept dates before or today
             'date_expired' => ['required','date','after_or_equal:date_produced'],
             'pref_prod' => ['required', 'string'],
-            'est_price' => ['required', 'numeric'],
         ])->validate();
 
         $newPost = Post::create([
@@ -104,7 +103,7 @@ class PostController extends Controller
             'category' => $request->category,
             'views' => 0,
             'preferred_prod' => $request->pref_prod,
-            'est_price' => $request->est_price,
+            'est_price' => 0,
         ]);
 
         // check if images are empty
