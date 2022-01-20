@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
+use App\Models\Category;
+use App\Models\QuantityType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -98,8 +100,13 @@ class ConversationController extends Controller
         ->latest()
         ->get();
 
+        $categories = Category::orderBy('id', 'asc')->get();
+        $qtyType = QuantityType::orderBy('id', 'asc')->get();
+
         return Inertia::render('Messages', [
         'conversations' => $conversations,
+        'categories' => $categories,
+        'qtyType' => $qtyType,
         ]);
     }
     

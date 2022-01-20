@@ -109,7 +109,12 @@
       </ul>
     </div>
 
-    <chat-box v-if="convo" :convo="convo" />
+    <chat-box
+      v-if="convo"
+      :convo="convo"
+      :categories="categories"
+      :qtyType="qtyType"
+    />
 
     <div v-else class="col-span-2 bg-white w-full">
       <div class="flex justify-center mt-24">
@@ -156,7 +161,7 @@ import Input from "@/Jetstream/Input";
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 
 export default {
-  props: ["conversations"],
+  props: ["conversations", "categories", "qtyType"],
 
   components: {
     Conversation,

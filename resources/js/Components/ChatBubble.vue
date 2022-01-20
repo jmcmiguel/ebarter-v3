@@ -122,10 +122,10 @@
               <div class="w-4/6">
                 <p class="text-gray-800 text-lg font-medium mb-2">My post</p>
                 <p class="text-gray-400 text-xs">
-                  {{ this.post ? this.post.prod_name : "" }}
+                  {{ this.post ? getCategory(this.post.category) : "" }}
                 </p>
                 <p class="text-green-500 text-xl font-medium">
-                  ₱{{ this.post ? numberWithCommas(this.post.est_price) : "" }}
+                  {{ this.post ? this.post.prod_name : "" }}
                 </p>
               </div>
             </div>
@@ -151,12 +151,10 @@
               <div class="w-4/6">
                 <p class="text-gray-800 text-lg font-medium mb-2">Your Offer</p>
                 <p class="text-gray-400 text-xs">
-                  {{ this.offer ? this.offer.prod_name : "" }}
+                  {{ this.offer ? getCategory(this.offer.category) : "" }}
                 </p>
                 <p class="text-green-500 text-xl font-medium">
-                  ₱{{
-                    this.offer ? numberWithCommas(this.offer.est_price) : ""
-                  }}
+                  {{ this.offer ? this.offer.prod_name : "" }}
                 </p>
               </div>
             </div>
@@ -213,7 +211,7 @@ import OfferImageServices from "@services/OfferImage";
 import UserServices from "@services/User";
 
 export default {
-  props: ["message", "otherUserPhoto"],
+  props: ["message", "otherUserPhoto", "categories", "qtyType"],
 
   data() {
     return {
@@ -229,6 +227,19 @@ export default {
   },
 
   methods: {
+    getCategory(category) {
+      if (category && this.categories) {
+        let results = this.categories.filter(
+          (categ) => categ.value === category
+        );
+
+        if (results.length) return results[0].name;
+        else return "Unknown";
+      } else {
+        return "Unknown";
+      }
+    },
+
     async isPostExists(postID) {
       this.postExists = await PostServices.exists(postID);
     },

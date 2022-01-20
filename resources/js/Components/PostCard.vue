@@ -198,13 +198,6 @@
 
         <span class="flex items-center mb-1">
           <span class="far fa-address-card fa-fw text-gray-900 mr-2"
-            >Estimated Price:
-          </span>
-          {{ numberWithCommas(price) }} pesos
-        </span>
-
-        <span class="flex items-center mb-1">
-          <span class="far fa-address-card fa-fw text-gray-900 mr-2"
             >Location:
           </span>
           {{ user.city }}

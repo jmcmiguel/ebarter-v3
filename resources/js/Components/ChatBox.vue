@@ -88,6 +88,8 @@
               :key="message.id"
               :message="message"
               :otherUserPhoto="convo.photo"
+              :categories="categories"
+              :qtyType="qtyType"
             />
           </li>
         </ul>
@@ -188,7 +190,7 @@ const FilePond = vueFilePond(
 );
 
 export default {
-  props: ["convo"],
+  props: ["convo", "categories", "qtyType"],
 
   components: {
     ChatBubble,

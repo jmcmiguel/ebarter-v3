@@ -179,10 +179,6 @@
           Date Expiree: {{ formatDate(offer.date_expiree) }}
         </p>
 
-        <p class="mt-2 text-sm text-gray-600">
-          Estimated Price: {{ numberWithCommas(offer.est_price) }} pesos
-        </p>
-
         <p class="mt-2 text-sm text-gray-600">Location: {{ user.city }}</p>
       </div>
 
