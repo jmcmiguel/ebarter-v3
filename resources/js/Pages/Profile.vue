@@ -129,6 +129,20 @@
                     >
                     <span class="text-sm text-gray-500">Posts</span>
                   </div>
+                  <div class="mr-4 p-3 text-center">
+                    <span
+                      class="
+                        text-xl
+                        font-bold
+                        block
+                        uppercase
+                        tracking-wide
+                        text-gray-700
+                      "
+                      >{{ offers.length }}</span
+                    >
+                    <span class="text-sm text-gray-500">Trades</span>
+                  </div>
                   <div class="lg:mr-4 p-3 text-center">
                     <span
                       @click="openFeedbacksModal()"
@@ -421,7 +435,7 @@ export default {
     EditFeedbackModal,
   },
 
-  props: ["posts", "id", "categories", "qtyTypes"],
+  props: ["posts", "id", "categories", "qtyTypes", "offers"],
 
   data() {
     return {

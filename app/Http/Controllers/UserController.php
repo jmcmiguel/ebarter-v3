@@ -67,11 +67,31 @@ class UserController extends Controller
         $categories = Category::orderBy('id', 'asc')->get();
         $qtyType = QuantityType::orderBy('id', 'asc')->get();
 
+        // get trades count
+        // Check existence of search params
+        $posts2 = Post::where('user_id', $id)
+                ->orderBy('updated_at', 'desc')
+                ->get();
+        
+        $off = Offer::orderBy('updated_at', 'desc')
+                ->get();
+        
+        $offerss = $off->filter(function ($offer, $key) use($posts2, $id) {
+            return $offer->user_id == $id || $posts2->contains('id', $offer->post_id);
+        });
+        
+        $offers = $offerss->isEmpty() 
+                ? []
+                : $offerss->filter(function ($offer, $key){
+                    return $offer->status == 'sold';
+                });
+
         return Inertia::render('Profile', [
             'posts' => $posts,
             'id' => $id,
             'categories' => $categories,
-            'qtyTypes' => $qtyType
+            'qtyTypes' => $qtyType,
+            'offers' => $offers,
         ]);
     }
 
