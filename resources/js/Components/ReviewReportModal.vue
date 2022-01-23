@@ -256,7 +256,7 @@
         v-if="!reportData.is_resolved"
         @click="showConfirmBan"
       >
-        Ban
+        {{ reportData.reported_post_id ? "Delete" : "Ban" }}
       </danger-button>
     </template>
   </jet-dialog-modal>
