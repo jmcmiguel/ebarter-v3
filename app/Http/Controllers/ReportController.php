@@ -190,7 +190,7 @@ class ReportController extends Controller
      * 
      */
     public function getOffenseLevel($userID){
-        $reports = Report::where('reported_user_id', $userID)->get();
+        $reports = Report::where('reported_user_id', $userID)->orderBy('id', 'asc')->get();
         return response()->json($reports);
     }
 }
