@@ -25,7 +25,7 @@
                   leading-normal
                 "
               >
-                <th class="py-3 px-6 text-center" colspan="5">
+                <th class="py-3 px-6 text-center" colspan="6">
                   List of User Reports
                 </th>
               </tr>
@@ -42,6 +42,7 @@
                 <th class="py-3 px-6 text-left">Name</th>
                 <th class="py-3 px-6 text-left">Type</th>
                 <th class="py-3 px-6 text-left">Assigned</th>
+                <th class="py-3 px-6 text-left">Action</th>
                 <th class="py-3 px-6 text-left">Status</th>
               </tr>
             </thead>

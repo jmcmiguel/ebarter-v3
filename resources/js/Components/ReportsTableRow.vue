@@ -63,6 +63,17 @@
         }}</span>
       </div>
     </td>
+
+    <!-- Action Taken -->
+    <td class="py-3 px-6 text-left">
+      <span
+        class="py-1 px-3 rounded-full text-xs"
+        :class="getActionTakenClass(report.action_taken)"
+        >{{ report.action_taken ? report.action_taken : "N/A" }}</span
+      >
+    </td>
+
+    <!-- Report Status -->
     <td class="py-3 px-6 text-left">
       <span
         class="py-1 px-3 rounded-full text-xs"
@@ -105,6 +116,27 @@ export default {
     getStatusClass(status) {
       if (status) return "text-green-600 bg-green-200";
       else return "text-red-600 bg-red-200";
+    },
+
+    getActionTakenClass(action) {
+      if (action) {
+        switch (action) {
+          case "Banned":
+            return "text-red-600 bg-red-200";
+
+          case "Warned":
+            return "text-yellow-600 bg-yellow-200";
+
+          case "Absolved":
+            return "text-green-600 bg-green-200";
+
+          default:
+            return "text-gray-600 bg-gray-200";
+            break;
+        }
+      } else {
+        return "text-gray-600 bg-gray-200";
+      }
     },
 
     getReportCategory(type) {
