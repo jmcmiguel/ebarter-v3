@@ -192,11 +192,7 @@
             <span class="text-sm font-semibold">Action Taken: </span>&nbsp;<span
               class="font-semibold"
             >
-              {{
-                reportData && reportData.action_taken
-                  ? reportData.action_taken
-                  : "N/A"
-              }}
+              {{ getActionTaken(reportData) }}
             </span>
           </div>
 
@@ -363,6 +359,18 @@ export default {
   },
 
   methods: {
+    getActionTaken(report) {
+      if (report && report.action_taken) {
+        if (report.reported_post_id && report.action_taken == "Banned") {
+          return "Post Deleted";
+        } else {
+          return report.action_taken;
+        }
+      } else {
+        return "N/A";
+      }
+    },
+
     nth(d) {
       if (d > 3 && d < 21) return "th";
       switch (d % 10) {

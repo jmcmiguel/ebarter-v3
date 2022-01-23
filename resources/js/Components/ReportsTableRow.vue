@@ -69,7 +69,7 @@
       <span
         class="py-1 px-3 rounded-full text-xs"
         :class="getActionTakenClass(report.action_taken)"
-        >{{ report.action_taken ? report.action_taken : "N/A" }}</span
+        >{{ getActionTaken(report) }}</span
       >
     </td>
 
@@ -108,6 +108,18 @@ export default {
   },
 
   methods: {
+    getActionTaken(report) {
+      if (report && report.action_taken) {
+        if (report.reported_post_id && report.action_taken == "Banned") {
+          return "Post Deleted";
+        } else {
+          return report.action_taken;
+        }
+      } else {
+        return "N/A";
+      }
+    },
+
     getReportStatus(status) {
       if (status) return "Resolved";
       else return "Unresolved";
