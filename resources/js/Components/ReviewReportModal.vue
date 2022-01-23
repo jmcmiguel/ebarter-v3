@@ -93,7 +93,7 @@
             >{{ getReportCategory(reportData.report_type) }}</span
           >
 
-          <!-- <span
+          <span
             class="
               inline-block
               px-2
@@ -108,7 +108,8 @@
               tracking-wide
               text-xs
             "
-            >{{ getOffenseLevel(reportData) }}</span -->
+            >{{ getOffenseLevelEquivalent() }}</span
+          >
 
           <!-- Report Description -->
           <p class="text-sm mt-3">{{ reportData.description }}</p>
@@ -117,8 +118,7 @@
           <div class="mt-5 flex item-center text-gray-600">
             <span class="text-sm font-semibold">
               {{ getTimeAgo(reportData.created_at) }}
-              <span v-if="isReportEdited">• Edited</span></span
-            >
+            </span>
           </div>
 
           <!-- Reported User -->
@@ -241,10 +241,20 @@
     </template>
 
     <template #footer>
+      <!-- Cancel Button -->
       <jet-secondary-button @click="close"> Cancel </jet-secondary-button>
+
+      <!-- Absolve Button -->
       <jet-button class="ml-2" v-if="!reportData.is_resolved" @click="absolve">
         Absolve
       </jet-button>
+
+      <!-- Warning Button -->
+      <warning-button class="ml-2" v-if="!reportData.is_resolved" @click="warn">
+        Warn
+      </warning-button>
+
+      <!-- Ban Button -->
       <danger-button
         class="ml-2"
         v-if="!reportData.is_resolved"
@@ -255,7 +265,7 @@
     </template>
   </jet-dialog-modal>
 
-  <!-- Cancel Offer Modal -->
+  <!-- Ban User Modal -->
   <confirmation-modal :show="showingConfirmBan" class="z-50">
     <template #title>
       <h2>Ban User</h2>
@@ -286,6 +296,7 @@
 import JetDialogModal from "@/Jetstream/DialogModal";
 import JetButton from "@/Jetstream/Button";
 import DangerButton from "@/Jetstream/DangerButton";
+import WarningButton from "@/Jetstream/WarningButton";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
@@ -306,6 +317,7 @@ export default {
     PostCard,
     DangerButton,
     ConfirmationModal,
+    WarningButton,
   },
 
   props: ["showing", "close", "data"],
@@ -318,6 +330,7 @@ export default {
       reportImages: null,
       reporter: null,
       reportedPost: null,
+      offenseLevel: null,
       form: this.$inertia.form({
         report: null,
       }),
@@ -325,17 +338,6 @@ export default {
   },
 
   computed: {
-    isReportEdited() {
-      if (
-        this.data.report &&
-        this.data.report.created_at !== this.data.report.updated_at
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-
     modData() {
       if (this.data.user.modData) {
         return this.data.user.modData;
@@ -361,12 +363,48 @@ export default {
   },
 
   methods: {
+    nth(d) {
+      if (d > 3 && d < 21) return "th";
+      switch (d % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    },
+
+    getOffenseLevelEquivalent() {
+      if (this.offenseLevel) {
+        const index =
+          this.offenseLevel.map((e) => e.id).indexOf(this.reportData.id) + 1;
+
+        return `${index}${this.nth(index)} Offense`;
+      }
+    },
+
     showConfirmBan() {
       this.showingConfirmBan = true;
     },
 
     closeConfirmBan() {
       this.showingConfirmBan = false;
+    },
+
+    warn() {
+      this.form.report = this.reportData;
+
+      this.form.post("/report/warn", {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.form.reset();
+          this.close();
+        },
+        onFinish: () => this.form.reset(),
+      });
     },
 
     ban() {
@@ -457,14 +495,12 @@ export default {
       }
     },
 
-    getOffenseLevel(reportData) {
-      return "Level 1";
-    },
-
     async getPost(postID) {
       this.reportedPost = await PostServices.getPost(postID);
+    },
 
-      console.log("post", this.reportedPost);
+    async getOffenseLevel(userID) {
+      this.offenseLevel = await UserServices.getOffenseLevel(userID);
     },
   },
 
@@ -475,6 +511,8 @@ export default {
       this.getReporter(this.reportData.user_id);
 
       this.getPost(this.reportData.reported_post_id);
+
+      this.getOffenseLevel(this.reportData.reported_user_id);
     }
   },
 };

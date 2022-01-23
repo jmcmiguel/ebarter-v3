@@ -67,6 +67,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('report/store', [ReportController::class, 'store']);
     Route::post('report/absolve', [ReportController::class, 'absolve']);
     Route::post('report/ban', [ReportController::class, 'ban']);
+    Route::post('report/warn', [ReportController::class, 'warn']);
+    Route::get('offenseLevel/{userID}', [ReportController::class, 'getOffenseLevel']);
     
     // Cart Controller Routes
     Route::resource('cart', CartController::class);
@@ -105,6 +107,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('viewModerators', [UserController::class, 'viewModerators'])->name('viewModerators');
     Route::get('viewReports', [ReportController::class, 'viewReports'])->name('viewReports');
     Route::get('send-email/{email}', [MailController::class, 'sendEmail']);
+    Route::get('send-warning-email/{email}', [MailController::class, 'sendWarningEmail']);
  
     // Offer Images Controller
     Route::get('offerImages/{offerID}', [OfferImagesController::class, 'getOfferImage']);

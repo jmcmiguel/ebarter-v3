@@ -42,10 +42,21 @@ const getPromotion = async (userID) => {
     }
 };
 
+const getOffenseLevel = async (userID) => {
+    try {
+        const request = axios.get(`/offenseLevel/${userID}`);
+        const response = await request;
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export default {
     getUser,
     getAuthUser,
     getEncryptedUserId,
     getName,
     getPromotion,
+    getOffenseLevel,
 };

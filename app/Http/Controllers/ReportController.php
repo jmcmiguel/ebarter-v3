@@ -131,4 +131,66 @@ class ReportController extends Controller
             return abort(403);
         }
     }
+
+    /**
+     * Send a warning
+     * 
+     * @return JSON
+     */
+    public function warn(Request $request){
+        if(Auth::user()->access_level && Auth::user()->access_level === 1 || Auth::user()->access_level === 2){
+
+            $report = Report::where('id', $request->report['id'])
+                            ->update([
+                                'action_taken' => 'Warned',
+                                'is_resolved' => true,
+                                'mod_assigned' => Auth::user()->id,
+                            ]);
+            
+            // Send warning by email
+            $reportedUser = User::find($request->report['reported_user_id']);
+            $category = $this->getReportCategory($request->report['report_type']);
+            app(MailController::class)->sendWarningEmail($reportedUser->email, $category);
+
+            $request->session()->flash('flash.bannerId', uniqid());
+            $request->session()->flash('flash.banner', 'User has been warned by email');
+            $request->session()->flash('flash.bannerStyle', 'success');
+
+            return redirect()->back()
+                        ->with('message', 'Report Resolved.');
+            
+        }else{
+            return abort(403);
+        }
+    }
+
+    /**
+     * Get Report Category Type
+     * 
+     */
+    public function getReportCategory($type) {
+        switch ($type) {
+          case "categ-1":
+            return "Offensive Language";
+          case "categ-2":
+            return "Harassment";
+          case "categ-3":
+            return "Sexually Explicit Contents";
+          case "categ-4":
+            return "Fraud";
+          case "categ-5":
+            return "Inappropriate Contents";
+          default:
+            return "Unknown";
+        }
+      }
+
+    /**
+     * Get how many times a user has been reported
+     * 
+     */
+    public function getOffenseLevel($userID){
+        $reports = Report::where('reported_user_id', $userID)->get();
+        return response()->json($reports);
+    }
 }
