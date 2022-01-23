@@ -66,20 +66,6 @@
       </div>
 
       <div class="mt-4 flex flex-col justify-center">
-        <jet-label for="est_price" value="Estimated Price" />
-        <jet-input
-          type="number"
-          class="mt-1 block w-full"
-          placeholder="Type estimated product price"
-          id="est_price"
-          ref="est_price"
-          v-model="form.est_price"
-          required
-        />
-        <jet-input-error :message="form.errors.est_price" class="mt-2" />
-      </div>
-
-      <div class="mt-4 flex flex-col justify-center">
         <jet-label for="date_produced" value="Date Produced" />
         <jet-input
           type="date"

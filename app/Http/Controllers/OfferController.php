@@ -51,7 +51,6 @@ class OfferController extends Controller
             'category' => ['required', 'string'],
             'date_produced' => ['required','date','before_or_equal:today'], // only accept dates before or today
             'date_expired' => ['required','date','after_or_equal:date_produced'],
-            'est_price' => ['required', 'numeric'],
             'post_id' => ['required', 'exists:posts,id']
         ])->validate();
 
@@ -64,7 +63,7 @@ class OfferController extends Controller
             'date_produced' => $request->date_produced,
             'date_expiree' => $request->date_expired,
             'category' => $request->category,
-            'est_price' => $request->est_price,
+            'est_price' => 0,
         ]);
 
         // check if images are empty
@@ -102,7 +101,6 @@ class OfferController extends Controller
             'category' => ['required', 'string'],
             'date_produced' => ['required','date','before_or_equal:today'], // only accept dates before or today
             'date_expired' => ['required','date','after_or_equal:date_produced'],
-            'est_price' => ['required', 'numeric'],
             'post_id' => ['required', 'exists:posts,id']
         ])->validate();
 
@@ -114,7 +112,7 @@ class OfferController extends Controller
             'category' => $request->category,
             'date_produced' => $request->date_produced, 
             'date_expiree' => $request->date_expired,
-            'est_price' => $request->est_price,
+            'est_price' => 0,
             'post_id' => $request->post_id
         ]);
 
