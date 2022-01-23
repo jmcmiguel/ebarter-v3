@@ -139,7 +139,7 @@
                         tracking-wide
                         text-gray-700
                       "
-                      >{{ offers.length }}</span
+                      >{{ offers }}</span
                     >
                     <span class="text-sm text-gray-500">Trades</span>
                   </div>

@@ -81,10 +81,10 @@ class UserController extends Controller
         });
         
         $offers = $offerss->isEmpty() 
-                ? []
+                ? 0
                 : $offerss->filter(function ($offer, $key){
                     return $offer->status == 'sold';
-                });
+                })->count();
 
         return Inertia::render('Profile', [
             'posts' => $posts,
