@@ -62,6 +62,10 @@ class UserController extends Controller
     public function getProfile($id){
         $user = User::findOrFail($id);
 
+        if(str_contains($user->email, 'banned_')){
+            return Inertia::render('BannedProfile');
+        }
+
         $posts = Post::where('user_id', $id)->orderBy('updated_at','desc')->paginate(12);
         
         $categories = Category::orderBy('id', 'asc')->get();

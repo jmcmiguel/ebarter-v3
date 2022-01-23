@@ -113,7 +113,7 @@ class ReportController extends Controller
 
                 User::where('id', $request->report['reported_user_id'])->update([
                     'password' => 'qwerty', //to disable a user
-                    'email' => 'banned_' + $reportedUser->email,
+                    'email' => 'banned_' . $reportedUser->email,
                 ]);
 
                 app(MailController::class)->sendEmail($reportedUser->email);
